@@ -12,13 +12,15 @@ import { BooksComponent } from './books/books.component';
 import { HeaderComponent } from './header/header.component';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatTableModule} from "@angular/material/table";
+import { CoursesComponent } from './courses/courses.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     BooksComponent,
-    HeaderComponent
+    HeaderComponent,
+    CoursesComponent
   ],
   imports: [
     BrowserModule,
