@@ -1,3 +1,40 @@
+<mat-toolbar>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Книги и курсы">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>book</mat-icon>
+      <span>Добавить книгу</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>video_library</mat-icon>
+      <span>Добавить курс</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>add_to_photos</mat-icon>
+      <span>Добавить файл</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>local_library</mat-icon>
+      <span>Добавить издателя</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>bookmark</mat-icon>
+      <span>Добавить тэг</span>
+    </button>
+  </mat-menu>
+
+  <span>Книги и курсы</span>
+  <span class="horizontal-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>
+
 <mat-tab-group mat-align-tabs="start">
   <mat-tab label="Книги">
     <app-books></app-books>
