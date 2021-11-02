@@ -17,6 +17,10 @@ import { BookComponent } from './book/book.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
+import { PublishersComponent } from './publishers/publishers.component';
+import { TagsComponent } from './tags/tags.component';
+import { FilesComponent } from './files/files.component';
+import { AuthorsComponent } from './authors/authors.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import {MatMenuModule} from "@angular/material/menu";
     BooksComponent,
     HeaderComponent,
     CoursesComponent,
-    BookComponent
+    BookComponent,
+    PublishersComponent,
+    TagsComponent,
+    FilesComponent,
+    AuthorsComponent
   ],
   imports: [
     BrowserModule,

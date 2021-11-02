@@ -7,8 +7,7 @@ import {State} from "../model/state";
   providedIn: 'root'
 })
 export class CoursesService {
-
-  ELEMENT_DATA: CourseItem[] = [
+  private ELEMENT_DATA: CourseItem[] = [
     {
       id: 0,
       title: 'ASDF',
@@ -62,7 +61,7 @@ export class CoursesService {
       ]
     }
   ];
-  displayedColumns: string[] = ['title', 'duration', 'publisher', 'rate', 'state', 'year'];
+  private displayedColumns: string[] = ['title', 'duration', 'publisher', 'rate', 'state', 'year'];
 
   constructor() { }
 

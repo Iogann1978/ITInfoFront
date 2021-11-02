@@ -8,7 +8,7 @@ import {State} from "../model/state";
 })
 export class BooksService {
 
-  ELEMENT_DATA: BookItem[] = [
+  private ELEMENT_DATA: BookItem[] = [
     {
       id: 0,
       title: 'ASDF',
@@ -76,7 +76,7 @@ export class BooksService {
       ]
     }
   ];
-  displayedColumns: string[] = ['title', 'isbn', 'publisher', 'pages', 'rate', 'state', 'year'];
+  private displayedColumns: string[] = ['title', 'isbn', 'publisher', 'pages', 'rate', 'state', 'year'];
 
   constructor() { }
 
