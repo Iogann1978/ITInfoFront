@@ -10,13 +10,13 @@ import {PublishersService} from "./publishers.service";
 })
 export class PublishersComponent implements OnInit {
   displayedColumns: string[];
-  dataSource: Publisher[];
+  dataSource: Publisher[] = [];
 
   constructor(private publishersService : PublishersService) {
-    this.dataSource = publishersService.getPublishers();
     this.displayedColumns = publishersService.getDisplayedColumns();
   }
 
   ngOnInit(): void {
+    this.publishersService.getPublishers().subscribe(data => this.dataSource = data);
   }
 }

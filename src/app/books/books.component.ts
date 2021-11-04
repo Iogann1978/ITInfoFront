@@ -10,13 +10,14 @@ import {BookItem} from "../model/book-item";
 })
 export class BooksComponent implements OnInit {
   displayedColumns: string[];
-  dataSource: BookItem[];
+  dataSource: BookItem[] = [];
 
   constructor(private bookService: BooksService) {
-    this.dataSource = this.bookService.getBookItems();
     this.displayedColumns = this.bookService.getDisplayedColumns();
   }
 
   ngOnInit(): void {
+    this.bookService.getBookItems()
+      .subscribe((data:BookItem[]) => this.dataSource = data);
   }
 }

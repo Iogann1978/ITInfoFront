@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import {Publisher} from "../model/publisher";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublishersService {
-  private ELEMENT_DATA: Publisher[] = [
-    {id: 1, name: 'O`Reily'},
-    {id: 2, name: 'Pack'}
-  ];
   private displayedColumns: string[] = ['name'];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getPublishers(): Publisher[] {
-    return this.ELEMENT_DATA;
+  getPublishers(): Observable<Publisher[]> {
+    return this.http.get<Publisher[]>('./assets/publishers.json');
   }
 
   getDisplayedColumns(): string[] {

@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
-import {Publisher} from "../model/publisher";
 import {Tag} from "../model/tag";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagsService {
-  private ELEMENT_DATA: Tag[] = [
-    {id: 1, tag: 'Java'},
-    {id: 2, tag: 'JavaScript'}
-  ];
   private displayedColumns: string[] = ['tag'];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getTags(): Tag[] {
-    return this.ELEMENT_DATA;
+  getTags(): Observable<Tag[]> {
+    return this.http.get<Tag[]>('./assets/tags.json');
   }
 
   getDisplayedColumns(): string[] {

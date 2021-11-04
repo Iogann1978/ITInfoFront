@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import {Author} from "../model/author";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorsService {
-  private ELEMENT_DATA: Author[] = [
-    {id: 1, name: 'Joshua'},
-    {id: 2, name: 'Felix'}
-  ];
   private displayedColumns: string[] = ['name'];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAuthors(): Author[] {
-    return this.ELEMENT_DATA;
+  getAuthors(): Observable<Author[]> {
+    return this.http.get<Author[]>('./assets/authors.json');
   }
 
   getDisplayedColumns(): string[] {

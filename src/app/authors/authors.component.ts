@@ -10,13 +10,13 @@ import {Author} from "../model/author";
 })
 export class AuthorsComponent implements OnInit {
   displayedColumns: string[];
-  dataSource: Author[];
+  dataSource: Author[] = [];
 
   constructor(private authorsService: AuthorsService) {
-    this.dataSource = authorsService.getAuthors();
     this.displayedColumns = authorsService.getDisplayedColumns();
   }
 
   ngOnInit(): void {
+    this.authorsService.getAuthors().subscribe(data => this.dataSource = data);
   }
 }

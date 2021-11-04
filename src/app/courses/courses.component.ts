@@ -10,13 +10,13 @@ import {CoursesService} from "./courses.service";
 })
 export class CoursesComponent implements OnInit {
   displayedColumns: string[];
-  dataSource: CourseItem[];
+  dataSource: CourseItem[] = [];
 
     constructor(private coursesService: CoursesService) {
-      this.dataSource = this.coursesService.getCourseItems();
       this.displayedColumns = this.coursesService.getDisplayedColumns();
     }
 
   ngOnInit(): void {
+      this.coursesService.getCourseItems().subscribe(data => this.dataSource = data);
   }
 }

@@ -10,13 +10,13 @@ import {Tag} from "../model/tag";
 })
 export class TagsComponent implements OnInit {
   displayedColumns: string[];
-  dataSource: Tag[];
+  dataSource: Tag[] = [];
 
   constructor(private tagsService: TagsService) {
-    this.dataSource = tagsService.getTags();
     this.displayedColumns = tagsService.getDisplayedColumns();
   }
 
   ngOnInit(): void {
+    this.tagsService.getTags().subscribe(data => this.dataSource = data);
   }
 }

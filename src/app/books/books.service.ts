@@ -1,87 +1,19 @@
 import { Injectable } from '@angular/core';
 import {BookItem} from "../model/book-item";
-import {Rate} from "../model/rate";
-import {State} from "../model/state";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BooksService {
-
-  private ELEMENT_DATA: BookItem[] = [
-    {
-      id: 0,
-      title: 'ASDF',
-      isbn: '',
-      publisher: {
-        id: 0,
-        name: ''
-      },
-      pages: 0,
-      rate: Rate.GOOD,
-      state: State.STUDIED,
-      year: 2020,
-      descript: {
-        id: 0
-      },
-      file: {
-        id: 0,
-        filename: '',
-        size: 0
-      },
-      authors: [
-        {
-          id: 0,
-          name: ''
-        }
-      ],
-      tags: [
-        {
-          id: 0,
-          tag: ''
-        }
-      ]
-    },
-    {
-      id: 0,
-      title: 'ASDF',
-      isbn: '',
-      publisher: {
-        id: 0,
-        name: ''
-      },
-      pages: 0,
-      rate: Rate.GOOD,
-      state: State.STUDIED,
-      year: 2020,
-      descript: {
-        id: 0
-      },
-      file: {
-        id: 0,
-        filename: '',
-        size: 0
-      },
-      authors: [
-        {
-          id: 0,
-          name: ''
-        }
-      ],
-      tags: [
-        {
-          id: 0,
-          tag: ''
-        }
-      ]
-    }
-  ];
   private displayedColumns: string[] = ['title', 'isbn', 'publisher', 'pages', 'rate', 'state', 'year'];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getBookItems(): BookItem[] {
-    return this.ELEMENT_DATA;
+  getBookItems(): Observable<BookItem[]> {
+    this.http.get<BookItem[]>('./assets/books.json').subscribe(data => console.log(data));
+    return this.http.get<BookItem[]>('./assets/books.json');
   }
 
   getDisplayedColumns(): string[] {

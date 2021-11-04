@@ -10,14 +10,13 @@ import {FilesService} from "./files.service";
 })
 export class FilesComponent implements OnInit {
   displayedColumns: string[];
-  dataSource: InfoFile[];
+  dataSource: InfoFile[] = [];
 
   constructor(private filesService: FilesService) {
-    this.dataSource = filesService.getFiles();
     this.displayedColumns = filesService.getDisplayedColumns();
   }
 
   ngOnInit(): void {
+    this.filesService.getFiles().subscribe(data => this.dataSource = data);
   }
-
 }

@@ -21,6 +21,7 @@ import { PublishersComponent } from './publishers/publishers.component';
 import { TagsComponent } from './tags/tags.component';
 import { FilesComponent } from './files/files.component';
 import { AuthorsComponent } from './authors/authors.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AuthorsComponent } from './authors/authors.component';
     MatTableModule,
     MatToolbarModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
