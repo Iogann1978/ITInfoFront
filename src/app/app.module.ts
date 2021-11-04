@@ -22,6 +22,10 @@ import { TagsComponent } from './tags/tags.component';
 import { FilesComponent } from './files/files.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './footer/footer.component';
+import {FormsModule} from "@angular/forms";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { ContentComponent } from './content/content.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,9 @@ import { HttpClientModule } from '@angular/common/http';
     PublishersComponent,
     TagsComponent,
     FilesComponent,
-    AuthorsComponent
+    AuthorsComponent,
+    FooterComponent,
+    ContentComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +53,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
