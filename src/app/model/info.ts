@@ -4,6 +4,7 @@ import {Publisher} from "./publisher";
 import {InfoFile} from "./info-file";
 import {Descript} from "./descript";
 import {Tag} from "./tag";
+import {Content} from "./content";
 
 export interface Info {
   id: number;
@@ -13,6 +14,7 @@ export interface Info {
   state: State;
   publisher: Publisher;
   file: InfoFile;
-  descript: Descript;
+  content?: Content;
+  descript?: Descript;
   tags: Tag[];
 }

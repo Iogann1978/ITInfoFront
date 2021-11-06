@@ -26,6 +26,8 @@ import { FooterComponent } from './footer/footer.component';
 import {FormsModule} from "@angular/forms";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { ContentComponent } from './content/content.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { ContentComponent } from './content/content.component';
     MatMenuModule,
     HttpClientModule,
     FormsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
