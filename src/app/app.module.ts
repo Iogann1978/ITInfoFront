@@ -23,11 +23,13 @@ import { FilesComponent } from './files/files.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { ContentComponent } from './content/content.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from "@angular/material/select";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
@@ -59,7 +61,10 @@ import {MatSelectModule} from "@angular/material/select";
     FormsModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatChipsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
