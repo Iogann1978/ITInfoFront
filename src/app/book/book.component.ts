@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MatChipInputEvent} from "@angular/material/chips";
+import {BookService} from "./book.service";
 
 @Component({
   selector: 'app-book',
@@ -22,19 +23,23 @@ export class BookComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
   filteredTags: Observable<string[]>;
-  tags: string[] = ['Java'];
-  allTags: string[] = ['Java', 'HTML', 'JavaScript', 'Openshift', 'C++'];
+  tags: string[];
+  allTags: string[];
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
-  constructor() {
+  constructor(private bookService: BookService) {
     this.rateKeys=Object.keys(Rate).filter(f => isNaN(Number(f)));
     this.stateKeys=Object.keys(State).filter(f => isNaN(Number(f)));
 
-    this.filteredTags = this.tagCtrl.valueChanges.pipe(
-      startWith(null),
-      map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
-    );
+    bookService.getTags().subscribe(data => {
+      this.allTags = data;
+      this.filteredTags = this.tagCtrl.valueChanges.pipe(
+        startWith(null),
+        map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
+      );
+    });
+    bookService.getBookTags(1).subscribe(data => this.tags = data);
   }
 
   add(event: MatChipInputEvent): void {

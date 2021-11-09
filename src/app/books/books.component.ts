@@ -12,12 +12,12 @@ export class BooksComponent implements OnInit {
   displayedColumns: string[];
   dataSource: BookItem[] = [];
 
-  constructor(private bookService: BooksService) {
-    this.displayedColumns = this.bookService.getDisplayedColumns();
+  constructor(private booksService: BooksService) {
+    this.displayedColumns = this.booksService.getDisplayedColumns();
   }
 
   ngOnInit(): void {
-    this.bookService.getBookItems()
+    this.booksService.getBookItems()
       .subscribe((data:BookItem[]) => this.dataSource = data);
   }
 }
