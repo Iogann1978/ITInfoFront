@@ -39,7 +39,7 @@ export class BookComponent implements OnInit {
         map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
       );
     });
-    bookService.getBookTags(1).subscribe(data => this.tags = data);
+    bookService.getBookTags1(1).subscribe(data => this.tags = data);
   }
 
   add(event: MatChipInputEvent): void {
