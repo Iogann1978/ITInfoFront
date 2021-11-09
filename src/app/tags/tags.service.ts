@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class TagsService {
-  private displayedColumns: string[] = ['tag'];
+  private displayedColumns: string[] = ['tag', 'actions'];
 
   constructor(private http: HttpClient) { }
 

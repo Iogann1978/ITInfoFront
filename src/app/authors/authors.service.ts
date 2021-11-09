@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class AuthorsService {
-  private displayedColumns: string[] = ['name'];
+  private displayedColumns: string[] = ['name', 'actions'];
 
   constructor(private http: HttpClient) { }
 

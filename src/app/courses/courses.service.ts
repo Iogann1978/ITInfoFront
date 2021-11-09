@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class CoursesService {
-  private displayedColumns: string[] = ['title', 'duration', 'publisher', 'rate', 'state', 'year'];
+  private displayedColumns: string[] = ['title', 'duration', 'publisher', 'rate', 'state', 'year', 'actions'];
 
   constructor(private http: HttpClient) { }
 

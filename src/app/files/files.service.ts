@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class FilesService {
-  private displayedColumns: string[] = ['filename', 'size'];
+  private displayedColumns: string[] = ['filename', 'size', 'actions'];
 
   constructor(private http: HttpClient) { }
 
