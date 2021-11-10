@@ -8,6 +8,7 @@ import {map, startWith} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {BookService} from "./book.service";
+import {InfoFile} from "../model/info-file";
 
 @Component({
   selector: 'app-book',
@@ -25,6 +26,9 @@ export class BookComponent implements OnInit {
   filteredTags: Observable<string[]>;
   tags: string[];
   allTags: string[];
+  bookFile: InfoFile;
+  contentFile: InfoFile;
+  descriptFile: InfoFile;
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
@@ -40,6 +44,9 @@ export class BookComponent implements OnInit {
       );
     });
     bookService.getBookTags1(1).subscribe(data => this.tags = data);
+    this.bookFile = {id: 0, filename: '', size: 0};
+    this.contentFile = {id: 0, filename: '', size: 0};
+    this.descriptFile = {id: 0, filename: '', size: 0};
   }
 
   add(event: MatChipInputEvent): void {
@@ -74,6 +81,21 @@ export class BookComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.allTags.filter(tag => tag.toLowerCase().includes(filterValue));
+  }
+
+  selectBookFile(event) {
+    this.bookFile.filename = event.target.files[0].name;
+    this.bookFile.size = event.target.files[0].size;
+  }
+
+  selectContentFile(event) {
+    this.contentFile.filename = event.target.files[0].name;
+    this.contentFile.size = event.target.files[0].size;
+  }
+
+  selectDescriptFile(event) {
+    this.descriptFile.filename = event.target.files[0].name;
+    this.descriptFile.size = event.target.files[0].size;
   }
 
   ngOnInit(): void {
