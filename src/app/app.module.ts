@@ -30,6 +30,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from "@angular/material/select";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -46,26 +47,27 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     FooterComponent,
     ContentComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatInputModule,
-    MatTabsModule,
-    MatTableModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-    HttpClientModule,
-    FormsModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatChipsModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        MatInputModule,
+        MatTabsModule,
+        MatTableModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatMenuModule,
+        HttpClientModule,
+        FormsModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatChipsModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        MatGridListModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,145 +1,142 @@
-<mat-card>
+<mat-card class="book-card">
   <mat-card-header>
     <mat-card-title>Книга</mat-card-title>
     <mat-card-subtitle>Редактирование</mat-card-subtitle>
   </mat-card-header>
+
   <mat-card-content>
     <form class="book-form">
-      <table class="book-full-width" cellspacing="0">
-        <tr>
-          <td>
-            <mat-form-field class="book-full-width" appearance="fill">
-              <mat-label>ISBN</mat-label>
-              <input type="number" matInput placeholder="ISBN" value="">
-            </mat-form-field>
-          </td>
-          <td>
-            <button mat-button>Искать в Google</button>
-          </td>
-        </tr>
-      </table>
+      <mat-grid-list cols="12" rowHeight="70px">
+        <mat-grid-tile [colspan]="10" [rowspan]="1">
+          <mat-form-field class="book-full-width" appearance="fill">
+            <mat-label>ISBN</mat-label>
+            <input type="number" matInput placeholder="ISBN" value="">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <button mat-icon-button color="primary" aria-label="Искать в Google">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-grid-tile>
 
-      <mat-form-field class="book-full-width" appearance="fill">
-        <mat-label>Название</mat-label>
-        <input matInput placeholder="title" value="">
-      </mat-form-field>
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
+          <mat-form-field class="book-full-width" appearance="fill">
+            <mat-label>Название</mat-label>
+            <input matInput placeholder="title" value="">
+          </mat-form-field>
+        </mat-grid-tile>
 
-      <mat-form-field class="book-full-width" appearance="fill">
-        <mat-label>Издательство</mat-label>
-        <input matInput placeholder="publisher" value="">
-      </mat-form-field>
+        <mat-grid-tile [colspan]="8" [rowspan]="1">
+          <mat-form-field class="book-full-width" appearance="fill">
+            <mat-label>Издательство</mat-label>
+            <input matInput placeholder="publisher" value="">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <mat-form-field class="book-full-width" appearance="fill">
+            <mat-label>Год</mat-label>
+            <input type="number" matInput placeholder="year" value="">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <mat-form-field class="book-full-width" appearance="fill">
+            <mat-label>Количество страниц</mat-label>
+            <input type="number" matInput placeholder="pages" value="">
+          </mat-form-field>
+        </mat-grid-tile>
 
-      <table class="book-full-width" cellspacing="0">
-        <tr>
-          <td>
-            <mat-form-field class="book-full-width" appearance="fill">
-              <mat-label>Год</mat-label>
-              <input type="number" matInput placeholder="year" value="">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field class="book-full-width" appearance="fill">
-              <mat-label>Количество страниц</mat-label>
-              <input type="number" matInput placeholder="pages" value="">
-            </mat-form-field>
-          </td>
-        </tr>
-      </table>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          <mat-form-field class="book-full-width" appearance="fill">
+            <mat-label>Оценка</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let rate of rateKeys">{{rate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          <mat-form-field class="book-full-width" appearance="fill">
+            <mat-label>Состояние</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let state of stateKeys">{{state}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
 
-      <table class="book-full-width" cellspacing="0">
-        <tr>
-          <td>
-            <mat-form-field class="book-full-width" appearance="fill">
-              <mat-label>Оценка</mat-label>
-              <mat-select>
-                <mat-option *ngFor="let rate of rateKeys">{{rate}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field class="book-full-width" appearance="fill">
-              <mat-label>Состояние</mat-label>
-              <mat-select>
-                <mat-option *ngFor="let state of stateKeys">{{state}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </td>
-        </tr>
-      </table>
-
-      <table class="book-full-width" cellspacing="0">
-        <tr>
-          <td>
-            <mat-form-field class="book-full-width">
-              <mat-label>Файл книги</mat-label>
-              <input matInput disabled value="{{bookFile.filename}}">
-              <button mat-icon-button matSuffix (click)="bookFileInput.click()">
-                <mat-icon>file_upload</mat-icon>
-              </button>
-              <input hidden (change)="selectBookFile($event)" #bookFileInput type="file" id="bookFile">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field class="book-full-width">
-              <mat-label>Файл содержания</mat-label>
-              <input matInput disabled value="{{contentFile.filename}}">
-              <button mat-icon-button matSuffix (click)="contentFileInput.click()">
-                <mat-icon>attach_file</mat-icon>
-              </button>
-              <input hidden (change)="selectContentFile($event)" #contentFileInput type="file" id="contentFile">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field class="book-full-width">
-              <mat-label>Файл описания</mat-label>
-              <input matInput disabled value="{{descriptFile.filename}}">
-              <button mat-icon-button matSuffix (click)="descriptFileInput.click()">
-                <mat-icon>attach_file</mat-icon>
-              </button>
-              <input hidden (change)="selectDescriptFile($event)" #descriptFileInput type="file" id="descriptFile">
-            </mat-form-field>
-          </td>
-        </tr>
-      </table>
-
-      <mat-form-field class="book-full-width" appearance="fill">
-        <mat-label>Авторы</mat-label>
-        <input matInput placeholder="authors" value="">
-      </mat-form-field>
-
-      <mat-form-field class="tags-chip-list" appearance="fill">
-        <mat-label>Тэги</mat-label>
-        <mat-chip-list #chipList aria-label="Выбор тэгов">
-          <mat-chip
-            *ngFor="let tag of tags"
-            [selectable]="selectable"
-            [removable]="removable"
-            (removed)="remove(tag)">
-            {{tag}}
-            <button matChipRemove *ngIf="removable">
-              <mat-icon>cancel</mat-icon>
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="book-full-width">
+            <mat-label>Файл книги</mat-label>
+            <input matInput disabled value="{{bookFile.filename}}">
+            <button mat-icon-button matSuffix (click)="bookFileInput.click()">
+              <mat-icon>file_upload</mat-icon>
             </button>
-          </mat-chip>
-          <input
-            placeholder="Добавить тэг..."
-            #tagInput
-            [formControl]="tagCtrl"
-            [matAutocomplete]="auto"
-            [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="add($event)">
-        </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-            {{tag}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+            <input hidden (change)="selectBookFile($event)" #bookFileInput type="file" id="bookFile">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="book-full-width">
+            <mat-label>Файл содержания</mat-label>
+            <input matInput disabled value="{{contentFile.filename}}">
+            <button mat-icon-button matSuffix (click)="contentFileInput.click()">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+            <input hidden (change)="selectContentFile($event)" #contentFileInput type="file" id="contentFile">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="book-full-width">
+            <mat-label>Файл описания</mat-label>
+            <input matInput disabled value="{{descriptFile.filename}}">
+            <button mat-icon-button matSuffix (click)="descriptFileInput.click()">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+            <input hidden (change)="selectDescriptFile($event)" #descriptFileInput type="file" id="descriptFile">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
+          <mat-form-field class="book-full-width" appearance="fill">
+            <mat-label>Авторы</mat-label>
+            <input matInput placeholder="authors" value="">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
+          <mat-form-field class="book-full-width" appearance="fill">
+            <mat-label>Тэги</mat-label>
+            <mat-chip-list #chipList aria-label="Выбор тэгов">
+              <mat-chip
+                *ngFor="let tag of tags"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(tag)">
+                {{tag}}
+                <button matChipRemove *ngIf="removable">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <input
+                placeholder="Добавить тэг..."
+                #tagInput
+                [formControl]="tagCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                {{tag}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
 
     </form>
   </mat-card-content>
+
   <mat-card-actions align="end">
-    <button mat-button>Сохранить</button>
-    <button mat-button>Отменить</button>
+    <button mat-raised-button color="primary">Сохранить</button>
+    <button mat-raised-button color="warn">Отменить</button>
   </mat-card-actions>
 </mat-card>
