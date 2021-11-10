@@ -7,16 +7,14 @@
   <mat-card-content>
     <form class="book-form">
       <mat-grid-list cols="12" rowHeight="70px">
-        <mat-grid-tile [colspan]="10" [rowspan]="1">
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>ISBN</mat-label>
             <input type="number" matInput placeholder="ISBN" value="">
+            <button mat-icon-button matSuffix color="primary" aria-label="Искать в Google">
+              <mat-icon>search</mat-icon>
+            </button>
           </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-          <button mat-icon-button color="primary" aria-label="Искать в Google">
-            <mat-icon>search</mat-icon>
-          </button>
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="12" [rowspan]="1">

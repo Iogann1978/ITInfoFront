@@ -31,6 +31,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatGridListModule} from "@angular/material/grid-list";
+import { FindComponent } from './find/find.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
     FilesComponent,
     AuthorsComponent,
     FooterComponent,
-    ContentComponent
+    ContentComponent,
+    FindComponent
   ],
     imports: [
         BrowserModule,
