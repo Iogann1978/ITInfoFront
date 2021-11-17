@@ -1,38 +1,54 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Rate} from "../model/rate";
 import {State} from "../model/state";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormControl} from "@angular/forms";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {BookService} from "./book.service";
 import {InfoFile} from "../model/info-file";
+import {BookItem} from "../model/book-item";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.css']
 })
-export class BookComponent implements OnInit {
+export class BookComponent implements OnInit, OnDestroy {
   rateKeys: string[];
   stateKeys: string[];
 
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  tagCtrl = new FormControl();
   filteredTags: Observable<string[]>;
   tags: string[];
   allTags: string[];
   bookFile: InfoFile;
   contentFile: InfoFile;
   descriptFile: InfoFile;
+  book: BookItem;
+
+  paramMap: Subscription;
+  tagCtrl = new FormControl();
+  isbnCtrl = new FormControl();
+  titleCtrl = new FormControl();
+  publisherCtrl = new FormControl();
+  yearCtrl = new FormControl();
+  pagesCtrl = new FormControl();
+  bookFileCtrl = new FormControl();
+  contentFileCtrl = new FormControl();
+  descriptFileCtrl = new FormControl();
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
-  constructor(private bookService: BookService) {
+  constructor(
+    private bookService: BookService,
+    private activatedRoute: ActivatedRoute
+  ) {
     this.rateKeys=Object.keys(Rate).filter(f => isNaN(Number(f)));
     this.stateKeys=Object.keys(State).filter(f => isNaN(Number(f)));
 
@@ -43,7 +59,12 @@ export class BookComponent implements OnInit {
         map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
       );
     });
-    bookService.getBookTags1(1).subscribe(data => this.tags = data);
+    this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
+      let id = +params.get('id');
+      console.log("book id: " + id);
+      this.bookService.getBook(id).subscribe(bookItem => this.book = bookItem);
+      this.bookService.getBookTags(id).subscribe(data => this.tags = data);
+    });
     this.bookFile = {id: 0, filename: '', size: 0};
     this.contentFile = {id: 0, filename: '', size: 0};
     this.descriptFile = {id: 0, filename: '', size: 0};
@@ -84,8 +105,8 @@ export class BookComponent implements OnInit {
   }
 
   selectBookFile(event) {
-    this.bookFile.filename = event.target.files[0].name;
-    this.bookFile.size = event.target.files[0].size;
+    this.book.file.filename = event.target.files[0].name;
+    this.book.file.size = event.target.files[0].size;
   }
 
   selectContentFile(event) {
@@ -99,6 +120,10 @@ export class BookComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.paramMap.unsubscribe();
   }
 
 }

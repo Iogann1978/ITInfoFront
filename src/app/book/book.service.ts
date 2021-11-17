@@ -20,7 +20,7 @@ export class BookService {
       );
   }
 
-  getBookTags1(bookId: number): Observable<string[]> {
+  getBookTags(bookId: number): Observable<string[]> {
     let params = new HttpParams();
     params.append('id', bookId);
     return this.http.get<BookItem>('./assets/book.json', {params: params})
@@ -28,5 +28,11 @@ export class BookService {
         map((book: BookItem) => book.tags),
         map((data: Tag[]) => data.map((tag: Tag) => tag.tag))
       );
+  }
+
+  getBook(bookId: number): Observable<BookItem> {
+    let params = new HttpParams();
+    params.append('id', bookId);
+    return this.http.get<BookItem>('./assets/book.json', {params: params});
   }
 }

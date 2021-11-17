@@ -38,7 +38,7 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Действия</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-button>{{element.id}}</button>
+      <button mat-button (click)="btnClick(element.id)">Просмотреть книгу</button>
     </td>
   </ng-container>
 

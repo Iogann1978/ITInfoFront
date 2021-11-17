@@ -1,12 +1,12 @@
 {
   "id": 0,
   "title": "ASDF",
-  "isbn": "",
+  "isbn": "12546765",
   "publisher": {
     "id": 0,
-    "name": ""
+    "name": "Manning"
   },
-  "pages": 0,
+  "pages": 235,
   "rate": "Rate.GOOD",
   "state": "State.STUDIED",
   "year": 2020,
@@ -15,7 +15,7 @@
   },
   "file": {
     "id": 0,
-    "filename": "",
+    "filename": "asrft.txt",
     "size": 0
   },
   "authors": [
