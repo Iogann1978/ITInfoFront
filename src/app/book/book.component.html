@@ -5,12 +5,12 @@
   </mat-card-header>
 
   <mat-card-content>
-    <form class="book-form">
+    <form class="book-form" [formGroup]="bookFormGroup">
       <mat-grid-list cols="12" rowHeight="70px">
         <mat-grid-tile [colspan]="12" [rowspan]="1">
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>ISBN</mat-label>
-            <input type="number" matInput placeholder="ISBN" [formControl]="isbnCtrl" [(ngModel)]="book.isbn">
+            <input type="number" matInput placeholder="ISBN" formControlName="isbnCtrl">
             <button mat-icon-button matSuffix color="primary" aria-label="Искать в Google">
               <mat-icon>search</mat-icon>
             </button>
@@ -20,34 +20,34 @@
         <mat-grid-tile [colspan]="12" [rowspan]="1">
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>Название</mat-label>
-            <input matInput placeholder="title" [formControl]="titleCtrl" [(ngModel)]="book.title">
+            <input matInput placeholder="title" formControlName="titleCtrl">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="8" [rowspan]="1">
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>Издательство</mat-label>
-            <input matInput placeholder="publisher" [formControl]="publisherCtrl" [(ngModel)]="book.publisher.name">
+            <input matInput placeholder="publisher" formControlName="publisherCtrl">
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="2" [rowspan]="1">
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>Год</mat-label>
-            <input type="number" matInput placeholder="year" [formControl]="yearCtrl" [(ngModel)]="book.year">
+            <input type="number" matInput placeholder="year" formControlName="yearCtrl">
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="2" [rowspan]="1">
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>Количество страниц</mat-label>
-            <input type="number" matInput placeholder="pages" [formControl]="pagesCtrl" [(ngModel)]="book.pages">
+            <input type="number" matInput placeholder="pages" formControlName="pagesCtrl">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="6" [rowspan]="1">
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>Оценка</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let rate of rateKeys">{{rate}}</mat-option>
+            <mat-select [(value)]="rateSelected">
+              <mat-option *ngFor="let rate of rateKeys" value="{{rate}}">{{rate}}</mat-option>
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
@@ -55,7 +55,7 @@
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>Состояние</mat-label>
             <mat-select>
-              <mat-option *ngFor="let state of stateKeys">{{state}}</mat-option>
+              <mat-option *ngFor="let state of stateKeys" [value]="book.state">{{state}}</mat-option>
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
@@ -63,7 +63,7 @@
         <mat-grid-tile [colspan]="4" [rowspan]="1">
           <mat-form-field class="book-full-width">
             <mat-label>Файл книги</mat-label>
-            <input matInput [formControl]="bookFileCtrl" [(ngModel)]="book.file.filename">
+            <input matInput formControlName="bookFileCtrl">
             <button mat-icon-button matSuffix (click)="bookFileInput.click()">
               <mat-icon>file_upload</mat-icon>
             </button>
@@ -73,7 +73,7 @@
         <mat-grid-tile [colspan]="4" [rowspan]="1">
           <mat-form-field class="book-full-width">
             <mat-label>Файл содержания</mat-label>
-            <input matInput [formControl]="contentFileCtrl" [(ngModel)]="contentFile.filename">
+            <input matInput formControlName="contentFileCtrl">
             <button mat-icon-button matSuffix (click)="contentFileInput.click()">
               <mat-icon>attach_file</mat-icon>
             </button>
@@ -83,7 +83,7 @@
         <mat-grid-tile [colspan]="4" [rowspan]="1">
           <mat-form-field class="book-full-width">
             <mat-label>Файл описания</mat-label>
-            <input matInput [formControl]="descriptFileCtrl" [(ngModel)]="descriptFile.filename">
+            <input matInput formControlName="descriptFileCtrl">
             <button mat-icon-button matSuffix (click)="descriptFileInput.click()">
               <mat-icon>attach_file</mat-icon>
             </button>
@@ -115,7 +115,7 @@
               <input
                 placeholder="Добавить тэг..."
                 #tagInput
-                [formControl]="tagCtrl"
+                formControlName="tagCtrl"
                 [matAutocomplete]="auto"
                 [matChipInputFor]="chipList"
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"

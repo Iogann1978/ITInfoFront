@@ -26,7 +26,6 @@ export class BooksComponent implements OnInit {
   }
 
   btnClick(id: number) {
-    console.log('bookId: ' + id);
     this.router.navigateByUrl('/book/' + id);
   }
 }

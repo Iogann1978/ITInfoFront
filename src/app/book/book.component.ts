@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {Rate} from "../model/rate";
 import {State} from "../model/state";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import {FormControl} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable, Subscription} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
@@ -31,18 +31,11 @@ export class BookComponent implements OnInit, OnDestroy {
   contentFile: InfoFile;
   descriptFile: InfoFile;
   book: BookItem;
+  rateSelected: string;
 
   paramMap: Subscription;
-  tagCtrl = new FormControl();
-  isbnCtrl = new FormControl();
-  titleCtrl = new FormControl();
-  publisherCtrl = new FormControl();
-  yearCtrl = new FormControl();
-  pagesCtrl = new FormControl();
-  bookFileCtrl = new FormControl();
-  contentFileCtrl = new FormControl();
-  descriptFileCtrl = new FormControl();
 
+  bookFormGroup: FormGroup;
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
   constructor(
@@ -54,16 +47,10 @@ export class BookComponent implements OnInit, OnDestroy {
 
     bookService.getTags().subscribe(data => {
       this.allTags = data;
-      this.filteredTags = this.tagCtrl.valueChanges.pipe(
+      this.filteredTags = this.bookFormGroup.get('tagCtrl').valueChanges.pipe(
         startWith(null),
         map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
       );
-    });
-    this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
-      let id = +params.get('id');
-      console.log("book id: " + id);
-      this.bookService.getBook(id).subscribe(bookItem => this.book = bookItem);
-      this.bookService.getBookTags(id).subscribe(data => this.tags = data);
     });
     this.bookFile = {id: 0, filename: '', size: 0};
     this.contentFile = {id: 0, filename: '', size: 0};
@@ -73,7 +60,6 @@ export class BookComponent implements OnInit, OnDestroy {
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
-    // Add our fruit
     if (value) {
       this.tags.push(value);
     }
@@ -81,7 +67,7 @@ export class BookComponent implements OnInit, OnDestroy {
     // Clear the input value
     event.chipInput!.clear();
 
-    this.tagCtrl.setValue(null);
+    this.bookFormGroup.get('tagCtrl').setValue(null);
   }
 
   remove(tag: string): void {
@@ -95,7 +81,7 @@ export class BookComponent implements OnInit, OnDestroy {
   selected(event: MatAutocompleteSelectedEvent): void {
     this.tags.push(event.option.viewValue);
     this.tagInput.nativeElement.value = '';
-    this.tagCtrl.setValue(null);
+    this.bookFormGroup.get('tagCtrl').setValue(null);
   }
 
   private _filter(value: string): string[] {
@@ -120,6 +106,25 @@ export class BookComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
+      let id = +params.get('id');
+      this.bookService.getBook(id).subscribe(bookItem => {
+        this.book = bookItem;
+        this.rateSelected = 'GOOD';
+        this.bookFormGroup = new FormGroup({
+          'tagCtrl': new FormControl(null),
+          'isbnCtrl': new FormControl(this.book.isbn),
+          'titleCtrl': new FormControl(this.book.title, Validators.required),
+          'publisherCtrl': new FormControl(this.book.publisher.name),
+          'yearCtrl': new FormControl(this.book.year),
+          'pagesCtrl': new FormControl(this.book.pages),
+          'bookFileCtrl': new FormControl(this.book.file.filename),
+          'contentFileCtrl': new FormControl(null),
+          'descriptFileCtrl': new FormControl(null)
+        });
+      });
+      this.bookService.getBookTags(id).subscribe(data => this.tags = data);
+    });
   }
 
   ngOnDestroy(): void {
