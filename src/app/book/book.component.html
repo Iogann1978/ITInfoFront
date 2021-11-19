@@ -46,16 +46,16 @@
         <mat-grid-tile [colspan]="6" [rowspan]="1">
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>Оценка</mat-label>
-            <mat-select [(value)]="rateSelected">
-              <mat-option *ngFor="let rate of rateKeys" value="{{rate}}">{{rate}}</mat-option>
+            <mat-select formControlName="rateCtrl">
+              <mat-option *ngFor="let ind of rateKeys" [value]="ind">{{rateValues[ind]}}</mat-option>
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="6" [rowspan]="1">
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>Состояние</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let state of stateKeys" [value]="book.state">{{state}}</mat-option>
+            <mat-select formControlName="stateCtrl">
+              <mat-option *ngFor="let ind of stateKeys" [value]="ind">{{stateValues[ind]}}</mat-option>
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
@@ -94,7 +94,7 @@
         <mat-grid-tile [colspan]="12" [rowspan]="1">
           <mat-form-field class="book-full-width" appearance="fill">
             <mat-label>Авторы</mat-label>
-            <input matInput placeholder="authors" value="">
+            <input matInput placeholder="authors" formControlName="authorsCtrl">
           </mat-form-field>
         </mat-grid-tile>
 

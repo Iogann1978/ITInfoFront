@@ -18,8 +18,10 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit, OnDestroy {
-  rateKeys: string[];
-  stateKeys: string[];
+  rateKeys;
+  rateValues: string[];
+  stateKeys;
+  stateValues: string[];
 
   selectable = true;
   removable = true;
@@ -31,7 +33,6 @@ export class BookComponent implements OnInit, OnDestroy {
   contentFile: InfoFile;
   descriptFile: InfoFile;
   book: BookItem;
-  rateSelected: string;
 
   paramMap: Subscription;
 
@@ -42,8 +43,10 @@ export class BookComponent implements OnInit, OnDestroy {
     private bookService: BookService,
     private activatedRoute: ActivatedRoute
   ) {
-    this.rateKeys=Object.keys(Rate).filter(f => isNaN(Number(f)));
-    this.stateKeys=Object.keys(State).filter(f => isNaN(Number(f)));
+    this.rateKeys = Object.keys(Rate).filter(f => !isNaN(Number(f)));
+    this.rateValues = Object.keys(Rate).filter(f => !isNaN(Number(f))).map(f => Rate[f]);
+    this.stateKeys = Object.keys(State).filter(f => !isNaN(Number(f)));
+    this.stateValues = Object.keys(State).filter(f => !isNaN(Number(f))).map(f => State[f]);
 
     bookService.getTags().subscribe(data => {
       this.allTags = data;
@@ -55,6 +58,20 @@ export class BookComponent implements OnInit, OnDestroy {
     this.bookFile = {id: 0, filename: '', size: 0};
     this.contentFile = {id: 0, filename: '', size: 0};
     this.descriptFile = {id: 0, filename: '', size: 0};
+    this.bookFormGroup = new FormGroup({
+      'tagCtrl': new FormControl(null),
+      'isbnCtrl': new FormControl(null),
+      'titleCtrl': new FormControl(null, Validators.required),
+      'publisherCtrl': new FormControl(null),
+      'yearCtrl': new FormControl(null),
+      'pagesCtrl': new FormControl(null),
+      'bookFileCtrl': new FormControl(null),
+      'contentFileCtrl': new FormControl(null),
+      'descriptFileCtrl': new FormControl(null),
+      'rateCtrl': new FormControl(null),
+      'stateCtrl': new FormControl(null),
+      'authorsCtrl': new FormControl(null)
+    });
   }
 
   add(event: MatChipInputEvent): void {
@@ -110,18 +127,15 @@ export class BookComponent implements OnInit, OnDestroy {
       let id = +params.get('id');
       this.bookService.getBook(id).subscribe(bookItem => {
         this.book = bookItem;
-        this.rateSelected = 'GOOD';
-        this.bookFormGroup = new FormGroup({
-          'tagCtrl': new FormControl(null),
-          'isbnCtrl': new FormControl(this.book.isbn),
-          'titleCtrl': new FormControl(this.book.title, Validators.required),
-          'publisherCtrl': new FormControl(this.book.publisher.name),
-          'yearCtrl': new FormControl(this.book.year),
-          'pagesCtrl': new FormControl(this.book.pages),
-          'bookFileCtrl': new FormControl(this.book.file.filename),
-          'contentFileCtrl': new FormControl(null),
-          'descriptFileCtrl': new FormControl(null)
-        });
+        this.bookFormGroup.get('isbnCtrl').setValue(this.book.isbn);
+        this.bookFormGroup.get('titleCtrl').setValue(this.book.title);
+        this.bookFormGroup.get('publisherCtrl').setValue(this.book.publisher.name);
+        this.bookFormGroup.get('yearCtrl').setValue(this.book.year);
+        this.bookFormGroup.get('pagesCtrl').setValue(this.book.pages);
+        this.bookFormGroup.get('bookFileCtrl').setValue(this.book.file.filename);
+        this.bookFormGroup.get('rateCtrl').setValue(Rate[this.book.rate].toString());
+        this.bookFormGroup.get('stateCtrl').setValue(State[this.book.state].toString());
+        this.bookFormGroup.get('authorsCtrl').setValue(this.book.authors.map(a => a.name).join(', '));
       });
       this.bookService.getBookTags(id).subscribe(data => this.tags = data);
     });
