@@ -8,8 +8,8 @@
       "name": ""
     },
     "pages": 0,
-    "rate": "Rate.GOOD",
-    "state": "State.STUDIED",
+    "rate": "BAD",
+    "state": "LEFT",
     "year": 2020,
     "descript": {
       "id": 0
@@ -34,16 +34,16 @@
   },
   {
     "id": 1,
-    "title": "ASDF",
+    "title": "HGGJGFS",
     "isbn": "",
     "publisher": {
       "id": 0,
       "name": ""
     },
     "pages": 0,
-    "rate": "Rate.GOOD",
-    "state": "State.STUDIED",
-    "year": 2020,
+    "rate": "GOOD",
+    "state": "STUDIED",
+    "year": 2021,
     "descript": {
       "id": 0
     },

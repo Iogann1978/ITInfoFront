@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BooksService} from "./books.service";
 import {BookItem} from "../model/book-item";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-books',
@@ -14,8 +13,7 @@ export class BooksComponent implements OnInit {
   dataSource: BookItem[] = [];
 
   constructor(
-    private booksService: BooksService,
-    private router: Router
+    private booksService: BooksService
   ) {
     this.displayedColumns = this.booksService.getDisplayedColumns();
   }
@@ -23,9 +21,5 @@ export class BooksComponent implements OnInit {
   ngOnInit(): void {
     this.booksService.getBookItems()
       .subscribe((data:BookItem[]) => this.dataSource = data);
-  }
-
-  btnClick(id: number) {
-    this.router.navigate(['/book/', id]);
   }
 }

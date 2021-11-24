@@ -122,7 +122,7 @@
                 (matChipInputTokenEnd)="add($event)">
             </mat-chip-list>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-              <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+              <mat-option *ngFor="let tag of filteredTags | async" [value]="tag" [disabled]="disableTag(tag)">
                 {{tag}}
               </mat-option>
             </mat-autocomplete>
@@ -135,6 +135,6 @@
 
   <mat-card-actions align="end">
     <button mat-raised-button color="primary">Сохранить</button>
-    <button mat-raised-button color="warn">Отменить</button>
+    <button mat-raised-button color="warn" [routerLink]="['/home']">Отменить</button>
   </mat-card-actions>
 </mat-card>

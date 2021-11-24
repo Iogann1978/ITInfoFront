@@ -32,6 +32,7 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { FindComponent } from './find/find.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { FindComponent } from './find/find.component';
     AuthorsComponent,
     FooterComponent,
     ContentComponent,
-    FindComponent
+    FindComponent,
+    HomeComponent
   ],
     imports: [
         BrowserModule,

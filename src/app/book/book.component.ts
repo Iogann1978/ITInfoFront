@@ -4,13 +4,13 @@ import {State} from "../model/state";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable, Subscription} from "rxjs";
-import {map, startWith} from "rxjs/operators";
+import {map, startWith, tap} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {BookService} from "./book.service";
 import {InfoFile} from "../model/info-file";
 import {BookItem} from "../model/book-item";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-book',
@@ -27,7 +27,7 @@ export class BookComponent implements OnInit, OnDestroy {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredTags: Observable<string[]>;
-  tags: string[];
+  tags: string[] = [];
   allTags: string[];
   bookFile: InfoFile;
   contentFile: InfoFile;
@@ -52,7 +52,7 @@ export class BookComponent implements OnInit, OnDestroy {
       this.allTags = data;
       this.filteredTags = this.bookFormGroup.get('tagCtrl').valueChanges.pipe(
         startWith(null),
-        map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
+        map((tag: string | null) => (tag ? this.filterTag(tag) : this.allTags.slice()))
       );
     });
     this.bookFile = {id: 0, filename: '', size: 0};
@@ -76,20 +76,17 @@ export class BookComponent implements OnInit, OnDestroy {
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-
     if (value) {
       this.tags.push(value);
     }
-
     // Clear the input value
     event.chipInput!.clear();
-
     this.bookFormGroup.get('tagCtrl').setValue(null);
+    this.allTags = this.allTags.filter(tag => tag === value);
   }
 
   remove(tag: string): void {
     const index = this.tags.indexOf(tag);
-
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
@@ -101,9 +98,8 @@ export class BookComponent implements OnInit, OnDestroy {
     this.bookFormGroup.get('tagCtrl').setValue(null);
   }
 
-  private _filter(value: string): string[] {
+  private filterTag(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.allTags.filter(tag => tag.toLowerCase().includes(filterValue));
   }
 
@@ -120,6 +116,10 @@ export class BookComponent implements OnInit, OnDestroy {
   selectDescriptFile(event) {
     this.descriptFile.filename = event.target.files[0].name;
     this.descriptFile.size = event.target.files[0].size;
+  }
+
+  disableTag(tag: string): boolean {
+    return this.tags.includes(tag);
   }
 
   ngOnInit(): void {
