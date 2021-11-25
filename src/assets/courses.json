@@ -7,8 +7,8 @@
       "id": 0,
       "name": ""
     },
-    "rate": "Rate.GOOD",
-    "state": "State.STUDIED",
+    "rate": "GOOD",
+    "state": "STUDIED",
     "year": 2020,
     "descript": {
       "id": 0
@@ -33,8 +33,8 @@
       "id": 0,
       "name": ""
     },
-    "rate": "Rate.GOOD",
-    "state": "State.STUDIED",
+    "rate": "GOOD",
+    "state": "STUDIED",
     "year": 2020,
     "descript": {
       "id": 0

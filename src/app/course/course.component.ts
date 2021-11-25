@@ -1,23 +1,23 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatChipInputEvent} from "@angular/material/chips";
+import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
+import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {Observable, Subscription} from "rxjs";
+import {InfoFile} from "../model/info-file";
+import {CourseItem} from "../model/course-item";
 import {Rate} from "../model/rate";
 import {State} from "../model/state";
-import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Observable, Subscription} from "rxjs";
-import {map, startWith, tap} from "rxjs/operators";
-import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
-import {MatChipInputEvent} from "@angular/material/chips";
-import {BookService} from "./book.service";
-import {InfoFile} from "../model/info-file";
-import {BookItem} from "../model/book-item";
+import {map, startWith} from "rxjs/operators";
 import {ActivatedRoute} from "@angular/router";
+import {CourseService} from "./course.service";
 
 @Component({
-  selector: 'app-book',
-  templateUrl: './book.component.html',
-  styleUrls: ['./book.component.css']
+  selector: 'app-course',
+  templateUrl: './course.component.html',
+  styleUrls: ['./course.component.css']
 })
-export class BookComponent implements OnInit, OnDestroy {
+export class CourseComponent  implements OnInit, OnDestroy {
   rateKeys;
   rateValues: string[];
   stateKeys;
@@ -29,18 +29,18 @@ export class BookComponent implements OnInit, OnDestroy {
   filteredTags: Observable<string[]>;
   tags: string[];
   allTags: string[];
-  bookFile: InfoFile;
+  coursePath: InfoFile;
   contentFile: InfoFile;
   descriptFile: InfoFile;
-  book: BookItem;
+  course: CourseItem;
 
   paramMap: Subscription;
 
-  bookFormGroup: FormGroup;
+  courseFormGroup: FormGroup;
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
   constructor(
-    private bookService: BookService,
+    private courseService: CourseService,
     private activatedRoute: ActivatedRoute
   ) {
     this.tags = [];
@@ -49,29 +49,27 @@ export class BookComponent implements OnInit, OnDestroy {
     this.stateKeys = Object.keys(State).filter(f => !isNaN(Number(f)));
     this.stateValues = Object.keys(State).filter(f => !isNaN(Number(f))).map(f => State[f]);
 
-    bookService.getTags().subscribe(data => {
+    courseService.getTags().subscribe(data => {
       this.allTags = data;
-      this.filteredTags = this.bookFormGroup.get('tagCtrl').valueChanges.pipe(
+      this.filteredTags = this.courseFormGroup.get('tagCtrl').valueChanges.pipe(
         startWith(null),
         map((tag: string | null) => (tag ? this.filterTag(tag) : this.allTags.slice()))
       );
     });
-    this.bookFile = {id: 0, filename: '', size: 0};
+    this.coursePath = {id: 0, filename: '', size: 0};
     this.contentFile = {id: 0, filename: '', size: 0};
     this.descriptFile = {id: 0, filename: '', size: 0};
-    this.bookFormGroup = new FormGroup({
+    this.courseFormGroup = new FormGroup({
       'tagCtrl': new FormControl(null),
-      'isbnCtrl': new FormControl(null),
       'titleCtrl': new FormControl(null, Validators.required),
       'publisherCtrl': new FormControl(null),
       'yearCtrl': new FormControl(null),
-      'pagesCtrl': new FormControl(null),
-      'bookFileCtrl': new FormControl(null),
+      'durationCtrl': new FormControl(null),
+      'coursePathCtrl': new FormControl(null),
       'contentFileCtrl': new FormControl(null),
       'descriptFileCtrl': new FormControl(null),
       'rateCtrl': new FormControl(null),
-      'stateCtrl': new FormControl(null),
-      'authorsCtrl': new FormControl(null)
+      'stateCtrl': new FormControl(null)
     });
   }
 
@@ -82,7 +80,7 @@ export class BookComponent implements OnInit, OnDestroy {
     }
     // Clear the input value
     event.chipInput!.clear();
-    this.bookFormGroup.get('tagCtrl').setValue(null);
+    this.courseFormGroup.get('tagCtrl').setValue(null);
     this.allTags = this.allTags.filter(tag => tag === value);
   }
 
@@ -96,7 +94,7 @@ export class BookComponent implements OnInit, OnDestroy {
   selected(event: MatAutocompleteSelectedEvent): void {
     this.tags.push(event.option.viewValue);
     this.tagInput.nativeElement.value = '';
-    this.bookFormGroup.get('tagCtrl').setValue(null);
+    this.courseFormGroup.get('tagCtrl').setValue(null);
   }
 
   private filterTag(value: string): string[] {
@@ -104,9 +102,9 @@ export class BookComponent implements OnInit, OnDestroy {
     return this.allTags.filter(tag => tag.toLowerCase().includes(filterValue));
   }
 
-  selectBookFile(event) {
-    this.book.file.filename = event.target.files[0].name;
-    this.book.file.size = event.target.files[0].size;
+  selectCoursePath(event) {
+    this.course.file.filename = event.target.files[0].name;
+    this.course.file.size = event.target.files[0].size;
   }
 
   selectContentFile(event) {
@@ -126,19 +124,17 @@ export class BookComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
       let id = +params.get('id');
-      this.bookService.getBook(id).subscribe(bookItem => {
-        this.book = bookItem;
-        this.bookFormGroup.get('isbnCtrl').setValue(this.book.isbn);
-        this.bookFormGroup.get('titleCtrl').setValue(this.book.title);
-        this.bookFormGroup.get('publisherCtrl').setValue(this.book.publisher.name);
-        this.bookFormGroup.get('yearCtrl').setValue(this.book.year);
-        this.bookFormGroup.get('pagesCtrl').setValue(this.book.pages);
-        this.bookFormGroup.get('bookFileCtrl').setValue(this.book.file.filename);
-        this.bookFormGroup.get('rateCtrl').setValue(Rate[this.book.rate].toString());
-        this.bookFormGroup.get('stateCtrl').setValue(State[this.book.state].toString());
-        this.bookFormGroup.get('authorsCtrl').setValue(this.book.authors.map(a => a.name).join(', '));
+      this.courseService.getCourse(id).subscribe(courseItem => {
+        this.course = courseItem;
+        this.courseFormGroup.get('titleCtrl').setValue(this.course.title);
+        this.courseFormGroup.get('publisherCtrl').setValue(this.course.publisher.name);
+        this.courseFormGroup.get('yearCtrl').setValue(this.course.year);
+        this.courseFormGroup.get('durationCtrl').setValue(this.course.duration);
+        this.courseFormGroup.get('coursePathCtrl').setValue(this.course.file.filename);
+        this.courseFormGroup.get('rateCtrl').setValue(Rate[this.course.rate].toString());
+        this.courseFormGroup.get('stateCtrl').setValue(State[this.course.state].toString());
       });
-      this.bookService.getBookTags(id).subscribe(data => this.tags = data);
+      this.courseService.getCourseTags(id).subscribe(data => this.tags = data);
     });
   }
 

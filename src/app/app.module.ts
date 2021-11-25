@@ -33,6 +33,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { FindComponent } from './find/find.component';
 import { HomeComponent } from './home/home.component';
+import { CourseComponent } from './course/course.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { HomeComponent } from './home/home.component';
     FooterComponent,
     ContentComponent,
     FindComponent,
-    HomeComponent
+    HomeComponent,
+    CourseComponent
   ],
     imports: [
         BrowserModule,

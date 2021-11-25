@@ -33,7 +33,9 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Действия</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-button>{{element.id}}</button>
+      <button mat-button [routerLink]="['/course', element.id]">Курс</button>
+      <button mat-button>Содержание</button>
+      <button mat-button>Описание</button>
     </td>
   </ng-container>
 
