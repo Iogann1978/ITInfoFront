@@ -1,7 +1,7 @@
 [
-  {"id": 1, "tag": "Java"},
-  {"id": 2, "tag": "JavaScript"},
-  {"id": 3, "tag": "C++"},
-  {"id": 4, "tag": "SQL"},
-  {"id": 5, "tag": "OpenShift"}
+  {"id": 0, "tag": "Java"},
+  {"id": 1, "tag": "JavaScript"},
+  {"id": 2, "tag": "C++"},
+  {"id": 3, "tag": "SQL"},
+  {"id": 4, "tag": "OpenShift"}
 ]

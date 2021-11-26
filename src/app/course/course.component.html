@@ -15,10 +15,18 @@
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="8" [rowspan]="1">
+        <!--mat-grid-tile [colspan]="8" [rowspan]="1">
           <mat-form-field class="course-full-width" appearance="fill">
             <mat-label>Издательство</mat-label>
             <input matInput placeholder="publisher" formControlName="publisherCtrl">
+          </mat-form-field>
+        </mat-grid-tile-->
+        <mat-grid-tile [colspan]="8" [rowspan]="1">
+          <mat-form-field class="course-full-width" appearance="fill">
+            <mat-label>Издательство</mat-label>
+            <mat-select formControlName="publisherCtrl">
+              <mat-option *ngFor="let pub of publishers" [value]="pub.id">{{pub.name}}</mat-option>
+            </mat-select>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="2" [rowspan]="1">
@@ -118,7 +126,14 @@
   </mat-card-content>
 
   <mat-card-actions align="end">
-    <button mat-raised-button color="primary">Сохранить</button>
-    <button mat-raised-button color="warn" [routerLink]="['/home']">Отменить</button>
+    <button mat-fab color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-fab color="accent">
+      <mat-icon>save</mat-icon>
+    </button>
+    <button mat-fab color="primary" [routerLink]="['/home']">
+      <mat-icon>home</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>

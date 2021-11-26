@@ -11,6 +11,8 @@ import {State} from "../model/state";
 import {map, startWith} from "rxjs/operators";
 import {ActivatedRoute} from "@angular/router";
 import {CourseService} from "./course.service";
+import {Publisher} from "../model/publisher";
+import {PublishersService} from "../publishers/publishers.service";
 
 @Component({
   selector: 'app-course',
@@ -22,6 +24,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
   rateValues: string[];
   stateKeys;
   stateValues: string[];
+  publishers: Publisher[];
 
   selectable = true;
   removable = true;
@@ -41,6 +44,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
 
   constructor(
     private courseService: CourseService,
+    private publishersService: PublishersService,
     private activatedRoute: ActivatedRoute
   ) {
     this.tags = [];
@@ -71,6 +75,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
       'rateCtrl': new FormControl(null),
       'stateCtrl': new FormControl(null)
     });
+    this.publishersService.getPublishers().subscribe(data => this.publishers = data);
   }
 
   add(event: MatChipInputEvent): void {
@@ -127,7 +132,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
       this.courseService.getCourse(id).subscribe(courseItem => {
         this.course = courseItem;
         this.courseFormGroup.get('titleCtrl').setValue(this.course.title);
-        this.courseFormGroup.get('publisherCtrl').setValue(this.course.publisher.name);
+        this.courseFormGroup.get('publisherCtrl').setValue(this.course.publisher.id);
         this.courseFormGroup.get('yearCtrl').setValue(this.course.year);
         this.courseFormGroup.get('durationCtrl').setValue(this.course.duration);
         this.courseFormGroup.get('coursePathCtrl').setValue(this.course.file.filename);

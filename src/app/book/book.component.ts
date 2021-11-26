@@ -4,13 +4,15 @@ import {State} from "../model/state";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable, Subscription} from "rxjs";
-import {map, startWith, tap} from "rxjs/operators";
+import {map, startWith} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {BookService} from "./book.service";
 import {InfoFile} from "../model/info-file";
 import {BookItem} from "../model/book-item";
 import {ActivatedRoute} from "@angular/router";
+import {Publisher} from "../model/publisher";
+import {PublishersService} from "../publishers/publishers.service";
 
 @Component({
   selector: 'app-book',
@@ -22,6 +24,7 @@ export class BookComponent implements OnInit, OnDestroy {
   rateValues: string[];
   stateKeys;
   stateValues: string[];
+  publishers: Publisher[];
 
   selectable = true;
   removable = true;
@@ -41,6 +44,7 @@ export class BookComponent implements OnInit, OnDestroy {
 
   constructor(
     private bookService: BookService,
+    private publishersService: PublishersService,
     private activatedRoute: ActivatedRoute
   ) {
     this.tags = [];
@@ -73,6 +77,7 @@ export class BookComponent implements OnInit, OnDestroy {
       'stateCtrl': new FormControl(null),
       'authorsCtrl': new FormControl(null)
     });
+    this.publishersService.getPublishers().subscribe(data => this.publishers = data);
   }
 
   add(event: MatChipInputEvent): void {
@@ -130,7 +135,7 @@ export class BookComponent implements OnInit, OnDestroy {
         this.book = bookItem;
         this.bookFormGroup.get('isbnCtrl').setValue(this.book.isbn);
         this.bookFormGroup.get('titleCtrl').setValue(this.book.title);
-        this.bookFormGroup.get('publisherCtrl').setValue(this.book.publisher.name);
+        this.bookFormGroup.get('publisherCtrl').setValue(this.book.publisher.id);
         this.bookFormGroup.get('yearCtrl').setValue(this.book.year);
         this.bookFormGroup.get('pagesCtrl').setValue(this.book.pages);
         this.bookFormGroup.get('bookFileCtrl').setValue(this.book.file.filename);

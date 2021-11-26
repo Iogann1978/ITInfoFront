@@ -2,12 +2,12 @@
   {
     "id": 0,
     "title": "ASDF",
-    "isbn": "",
+    "isbn": "435678",
     "publisher": {
       "id": 0,
-      "name": ""
+      "name": "O`Reily"
     },
-    "pages": 0,
+    "pages": 10,
     "rate": "BAD",
     "state": "LEFT",
     "year": 2020,
@@ -16,31 +16,35 @@
     },
     "file": {
       "id": 0,
-      "filename": "",
+      "filename": "asdf.txt",
       "size": 0
     },
     "authors": [
       {
         "id": 0,
-        "name": ""
+        "name": "Joshua"
+      },
+      {
+        "id": 1,
+        "name": "Felix"
       }
     ],
     "tags": [
       {
         "id": 0,
-        "tag": ""
+        "tag": "Java"
       }
     ]
   },
   {
     "id": 1,
     "title": "HGGJGFS",
-    "isbn": "",
+    "isbn": "56774",
     "publisher": {
-      "id": 0,
-      "name": ""
+      "id": 1,
+      "name": "Pack"
     },
-    "pages": 0,
+    "pages": 20,
     "rate": "GOOD",
     "state": "STUDIED",
     "year": 2021,
@@ -48,20 +52,20 @@
       "id": 0
     },
     "file": {
-      "id": 0,
-      "filename": "",
+      "id": 1,
+      "filename": "hgfrd.pdf",
       "size": 0
     },
     "authors": [
       {
-        "id": 0,
-        "name": ""
+        "id": 3,
+        "name": "Tyson"
       }
     ],
     "tags": [
       {
-        "id": 0,
-        "tag": ""
+        "id": 1,
+        "tag": "JavaScript"
       }
     ]
   }
