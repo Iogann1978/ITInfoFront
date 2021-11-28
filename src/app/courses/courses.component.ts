@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CourseItem} from "../model/course-item";
 import {CoursesService} from "./courses.service";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-courses',
@@ -10,13 +12,20 @@ import {CoursesService} from "./courses.service";
 })
 export class CoursesComponent implements OnInit {
   displayedColumns: string[];
-  dataSource: CourseItem[] = [];
+  dataSource: MatTableDataSource<CourseItem> = new MatTableDataSource<CourseItem>();
 
-    constructor(private coursesService: CoursesService) {
-      this.displayedColumns = this.coursesService.getDisplayedColumns();
-    }
+
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  @ViewChild('coursesPaginator') coursesPaginator: MatPaginator;
+
+  constructor(private coursesService: CoursesService) {
+    this.displayedColumns = this.coursesService.getDisplayedColumns();
+    this.coursesService.getCourseItems().subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.coursesPaginator;
+    });
+  }
 
   ngOnInit(): void {
-      this.coursesService.getCourseItems().subscribe(data => this.dataSource = data);
   }
 }
