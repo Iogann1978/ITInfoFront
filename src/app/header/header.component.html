@@ -3,15 +3,15 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item [routerLink]="['/book', -1]">
       <mat-icon>book</mat-icon>
       <span>Добавить книгу</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item [routerLink]="['/course', -1]">
       <mat-icon>video_library</mat-icon>
       <span>Добавить курс</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item [routerLink]="['/publisher', -1]">
       <mat-icon>local_library</mat-icon>
       <span>Добавить издателя</span>
     </button>

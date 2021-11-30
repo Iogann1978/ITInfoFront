@@ -34,6 +34,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import { FindComponent } from './find/find.component';
 import { HomeComponent } from './home/home.component';
 import { CourseComponent } from './course/course.component';
+import { PublisherComponent } from './publisher/publisher.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { CourseComponent } from './course/course.component';
     ContentComponent,
     FindComponent,
     HomeComponent,
-    CourseComponent
+    CourseComponent,
+    PublisherComponent
   ],
     imports: [
         BrowserModule,
