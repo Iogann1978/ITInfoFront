@@ -6,7 +6,7 @@ import {Publisher} from "../model/publisher";
 import {Subscription} from "rxjs";
 
 @Component({
-  selector: 'app-publusher',
+  selector: 'app-publisher',
   templateUrl: './publisher.component.html',
   styleUrls: ['./publisher.component.css']
 })

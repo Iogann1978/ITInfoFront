@@ -5,13 +5,15 @@ import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
 import {CourseComponent} from "./course/course.component";
 import {PublisherComponent} from "./publisher/publisher.component";
+import {TagComponent} from "./tag/tag.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'book/:id', component: BookComponent},
   {path: 'course/:id', component: CourseComponent},
-  {path: 'publisher/:id', component: PublisherComponent}
+  {path: 'publisher/:id', component: PublisherComponent},
+  {path: 'tag/:id', component: TagComponent}
 ];
 
 @NgModule({

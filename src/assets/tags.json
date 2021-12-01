@@ -3,5 +3,6 @@
   {"id": 1, "tag": "JavaScript"},
   {"id": 2, "tag": "C++"},
   {"id": 3, "tag": "SQL"},
-  {"id": 4, "tag": "OpenShift"}
+  {"id": 4, "tag": "OpenShift"},
+  {"id": 5, "tag": "Kubernetes"}
 ]

@@ -1,0 +1,27 @@
+<mat-card class="tag-card">
+  <mat-card-header>
+    <mat-card-title>Тэг</mat-card-title>
+    <mat-card-subtitle>Редактирование</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form class="tag-form" [formGroup]="tagFormGroup">
+      <mat-form-field class="tag-full-width" appearance="fill">
+        <mat-label>Наименование</mat-label>
+        <input matInput placeholder="tag" formControlName="tagCtrl">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-fab color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-fab color="accent">
+      <mat-icon>save</mat-icon>
+    </button>
+    <button mat-fab color="primary" [routerLink]="['/home']">
+      <mat-icon>home</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
