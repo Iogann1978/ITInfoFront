@@ -72,8 +72,8 @@ export class CourseComponent  implements OnInit, OnDestroy {
       'coursePathCtrl': new FormControl(null),
       'contentFileCtrl': new FormControl(null),
       'descriptFileCtrl': new FormControl(null),
-      'rateCtrl': new FormControl(null),
-      'stateCtrl': new FormControl(null)
+      'rateCtrl': new FormControl(null, Validators.required),
+      'stateCtrl': new FormControl(null, Validators.required)
     });
     this.publishersService.getPublishers().subscribe(data => this.publishers = data);
   }
@@ -110,16 +110,19 @@ export class CourseComponent  implements OnInit, OnDestroy {
   selectCoursePath(event) {
     this.course.file.filename = event.target.files[0].name;
     this.course.file.size = event.target.files[0].size;
+    this.courseFormGroup.get('coursePathCtrl').setValue(this.course.file.filename);
   }
 
   selectContentFile(event) {
     this.contentFile.filename = event.target.files[0].name;
     this.contentFile.size = event.target.files[0].size;
+    this.courseFormGroup.get('contentFileCtrl').setValue(this.contentFile.filename);
   }
 
   selectDescriptFile(event) {
     this.descriptFile.filename = event.target.files[0].name;
     this.descriptFile.size = event.target.files[0].size;
+    this.courseFormGroup.get('descriptFileCtrl').setValue(this.descriptFile.filename);
   }
 
   disableTag(tag: string): boolean {
@@ -145,6 +148,10 @@ export class CourseComponent  implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.paramMap.unsubscribe();
+  }
+
+  onSubmit(): void {
+    console.log('course: ' + this.course);
   }
 
 }

@@ -37,4 +37,8 @@ export class PublisherComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.paramMap.unsubscribe();
   }
+
+  onSubmit(): void {
+    console.log("publisher: " + this.publisher);
+  }
 }

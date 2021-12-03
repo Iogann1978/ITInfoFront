@@ -38,4 +38,7 @@ export class TagComponent implements OnInit, OnDestroy {
     this.paramMap.unsubscribe();
   }
 
+  onSubmit(): void {
+    console.log("tag: " + this.tag);
+  }
 }

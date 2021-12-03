@@ -73,8 +73,8 @@ export class BookComponent implements OnInit, OnDestroy {
       'bookFileCtrl': new FormControl(null),
       'contentFileCtrl': new FormControl(null),
       'descriptFileCtrl': new FormControl(null),
-      'rateCtrl': new FormControl(null),
-      'stateCtrl': new FormControl(null),
+      'rateCtrl': new FormControl(null, Validators.required),
+      'stateCtrl': new FormControl(null, Validators.required),
       'authorsCtrl': new FormControl(null)
     });
     this.publishersService.getPublishers().subscribe(data => this.publishers = data);
@@ -112,16 +112,19 @@ export class BookComponent implements OnInit, OnDestroy {
   selectBookFile(event) {
     this.book.file.filename = event.target.files[0].name;
     this.book.file.size = event.target.files[0].size;
+    this.bookFormGroup.get('bookFileCtrl').setValue(this.book.file.filename);
   }
 
   selectContentFile(event) {
     this.contentFile.filename = event.target.files[0].name;
     this.contentFile.size = event.target.files[0].size;
+    this.bookFormGroup.get('contentFileCtrl').setValue(this.contentFile.filename);
   }
 
   selectDescriptFile(event) {
     this.descriptFile.filename = event.target.files[0].name;
     this.descriptFile.size = event.target.files[0].size;
+    this.bookFormGroup.get('descriptFileCtrl').setValue(this.descriptFile.filename);
   }
 
   disableTag(tag: string): boolean {
@@ -149,6 +152,10 @@ export class BookComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.paramMap.unsubscribe();
+  }
+
+  onSubmit(): void {
+    console.log('book: ' + this.book);
   }
 
 }
