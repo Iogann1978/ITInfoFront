@@ -36,6 +36,8 @@ import { HomeComponent } from './home/home.component';
 import { CourseComponent } from './course/course.component';
 import { PublisherComponent } from './publisher/publisher.component';
 import { TagComponent } from './tag/tag.component';
+import { AuthorComponent } from './author/author.component';
+import { FileComponent } from './file/file.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { TagComponent } from './tag/tag.component';
     HomeComponent,
     CourseComponent,
     PublisherComponent,
-    TagComponent
+    TagComponent,
+    AuthorComponent,
+    FileComponent
   ],
     imports: [
         BrowserModule,

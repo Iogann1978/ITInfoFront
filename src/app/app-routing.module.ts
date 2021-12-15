@@ -7,6 +7,8 @@ import {CourseComponent} from "./course/course.component";
 import {PublisherComponent} from "./publisher/publisher.component";
 import {TagComponent} from "./tag/tag.component";
 import {FindComponent} from "./find/find.component";
+import {AuthorComponent} from "./author/author.component";
+import {FileComponent} from "./file/file.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path: 'course/:id', component: CourseComponent},
   {path: 'publisher/:id', component: PublisherComponent},
   {path: 'tag/:id', component: TagComponent},
+  {path: 'author/:id', component: AuthorComponent},
+  {path: 'file/:id', component: FileComponent},
   {path: 'find', component: FindComponent}
 ];
 
