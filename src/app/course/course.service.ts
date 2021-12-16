@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {map} from "rxjs/operators";
 import {Tag} from "../model/tag";
 import {HttpClient, HttpParams} from "@angular/common/http";
@@ -21,18 +21,26 @@ export class CourseService {
   }
 
   getCourseTags(courseId: number): Observable<string[]> {
-    let params = new HttpParams();
-    params.append('id', courseId);
-    return this.http.get<CourseItem>('./assets/course.json', {params: params})
-      .pipe(
-        map((course: CourseItem) => course.tags),
-        map((data: Tag[]) => data.map((tag: Tag) => tag.tag))
-      );
+    if (courseId < 0) {
+      return null;
+    } else {
+      let params = new HttpParams();
+      params.append('id', courseId);
+      return this.http.get<CourseItem>('./assets/course.json', {params: params})
+        .pipe(
+          map((course: CourseItem) => course.tags),
+          map((data: Tag[]) => data.map((tag: Tag) => tag.tag))
+        );
+    }
   }
 
   getCourse(courseId: number): Observable<CourseItem> {
-    let params = new HttpParams();
-    params.append('id', courseId);
-    return this.http.get<CourseItem>('./assets/course.json', {params: params});
+    if (courseId < 0) {
+      return of({id: null, title: null, rate: null, file: null, year: null, tags: null, publisher: null, state: null, duration: null});
+    } else {
+      let params = new HttpParams();
+      params.append('id', courseId);
+      return this.http.get<CourseItem>('./assets/course.json', {params: params});
+    }
   }
 }
