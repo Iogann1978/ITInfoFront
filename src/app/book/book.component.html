@@ -11,7 +11,7 @@
             <mat-form-field class="book-full-width" appearance="fill">
               <mat-label>ISBN</mat-label>
               <input type="number" matInput placeholder="ISBN" formControlName="isbnCtrl">
-              <button mat-icon-button matSuffix color="primary" aria-label="Искать в Google">
+              <button mat-icon-button matSuffix color="primary" aria-label="Искать в Google" (click)="getGoogle()" [disabled]="book?.id!=null">
                 <mat-icon>search</mat-icon>
               </button>
             </mat-form-field>

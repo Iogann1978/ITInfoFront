@@ -5,13 +5,17 @@ import {Tag} from "../model/tag";
 import {map} from "rxjs/operators";
 import {BookItem} from "../model/book-item";
 import {TagsService} from "../tags/tags.service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
+  apiEndpoint: string = '';
 
-  constructor(private http: HttpClient, private tagsService: TagsService) { }
+  constructor(private http: HttpClient, private tagsService: TagsService) {
+    this.apiEndpoint = environment.apiEndpoint;
+  }
 
   getTags(): Observable<string[]> {
     return this.tagsService.getTags()
@@ -43,4 +47,8 @@ export class BookService {
       return this.http.get<BookItem>('./assets/book.json', {params: params});
     }
   }
-}
+
+  getGoogle(isbn: string): Observable<BookItem> {
+    return this.http.get<BookItem>(this.apiEndpoint + isbn);
+  }
+ }
