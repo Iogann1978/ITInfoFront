@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: './assets/book.json'
+  apiGoogleEndpoint: './assets/book.json'
 };
 
 /*

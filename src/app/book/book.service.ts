@@ -11,10 +11,10 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class BookService {
-  apiEndpoint: string = '';
+  apiGoogleEndpoint: string = '';
 
   constructor(private http: HttpClient, private tagsService: TagsService) {
-    this.apiEndpoint = environment.apiEndpoint;
+    this.apiGoogleEndpoint = environment.apiGoogleEndpoint;
   }
 
   getTags(): Observable<string[]> {
@@ -49,6 +49,6 @@ export class BookService {
   }
 
   getGoogle(isbn: string): Observable<BookItem> {
-    return this.http.get<BookItem>(this.apiEndpoint + isbn);
+    return this.http.get<BookItem>(this.apiGoogleEndpoint + isbn);
   }
  }
