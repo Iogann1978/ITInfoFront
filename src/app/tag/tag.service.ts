@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {Tag} from "../model/tag";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagService {
+  apiTagEndpoint: string = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiTagEndpoint = environment.apiTagEndpoint;
+  }
 
   getTag(tagId: number): Observable<Tag> {
     if (tagId < 0) {
       return of({id: null, tag: null});
     } else {
-      let params = new HttpParams();
-      params.append('id', tagId);
-      return this.http.get<Tag>('./assets/tag.json', {params: params});
+      return this.http.get<Tag>(this.apiTagEndpoint + tagId);
     }
   }
 }

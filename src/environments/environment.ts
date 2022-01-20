@@ -4,7 +4,12 @@
 
 export const environment = {
   production: false,
-  apiGoogleEndpoint: './assets/book.json'
+  apiGoogleEndpoint: './assets/book.json',
+  apiBookEndpoint: './assets/books.json',
+  apiAuthorEndpoint: './assets/author.json',
+  apiCourseEndpoint: './assets/course.json',
+  apiPublisherEndpoint: './assets/publisher.json',
+  apiTagEndpoint: './assets/tag.json'
 };
 
 /*

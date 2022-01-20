@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Author} from "../model/author";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorService {
+  apiAuthorEndpoint: string = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiAuthorEndpoint = environment.apiAuthorEndpoint;
+  }
 
   getAuthor(authorId: number): Observable<Author> {
-    let params = new HttpParams();
-    params.append('id', authorId);
-    return this.http.get<Author>('./assets/author.json', {params: params});
+    return this.http.get<Author>(this.apiAuthorEndpoint + authorId);
   }
 }

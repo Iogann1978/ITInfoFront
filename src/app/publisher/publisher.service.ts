@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {Publisher} from "../model/publisher";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublisherService {
+  apiPublisherEndpoint: string = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiPublisherEndpoint = environment.apiPublisherEndpoint;
+  }
 
   getPublisher(publisherId: number): Observable<Publisher> {
     if (publisherId < 0) {
       return of({id: null, name: null});
     } else {
-      let params = new HttpParams();
-      params.append('id', publisherId);
-      return this.http.get<Publisher>('./assets/publisher.json', {params: params});
+      return this.http.get<Publisher>(this.apiPublisherEndpoint + publisherId);
     }
   }
 }
