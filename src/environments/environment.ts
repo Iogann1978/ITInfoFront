@@ -9,7 +9,9 @@ export const environment = {
   apiAuthorEndpoint: './assets/author.json',
   apiCourseEndpoint: './assets/course.json',
   apiPublisherEndpoint: './assets/publisher.json',
-  apiTagEndpoint: './assets/tag.json'
+  apiTagEndpoint: './assets/tag.json',
+  apiFileEndpoint: './assets/files.json',
+  apiDescriptEndpoint: './assets/descript.html',
 };
 
 /*

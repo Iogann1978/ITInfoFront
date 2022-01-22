@@ -5,5 +5,7 @@ export const environment = {
   apiAuthorEndpoint: '/api/author/',
   apiCourseEndpoint: '/api/course/',
   apiPublisherEndpoint: '/api/publisher/',
-  apiTagEndpoint: '/api/tag/'
+  apiTagEndpoint: '/api/tag/',
+  apiFileEndpoint: '/api/file/',
+  apiDescriptEdpoint: '/api/descript/'
 };

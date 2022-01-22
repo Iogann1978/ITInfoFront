@@ -14,7 +14,6 @@ export class CoursesComponent implements OnInit {
   displayedColumns: string[];
   dataSource: MatTableDataSource<CourseItem> = new MatTableDataSource<CourseItem>();
 
-
   pageSizeOptions: number[] = [5, 10, 25, 100];
   @ViewChild('coursesPaginator') coursesPaginator: MatPaginator;
 

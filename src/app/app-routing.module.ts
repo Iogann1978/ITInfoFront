@@ -9,6 +9,7 @@ import {TagComponent} from "./tag/tag.component";
 import {FindComponent} from "./find/find.component";
 import {AuthorComponent} from "./author/author.component";
 import {FileComponent} from "./file/file.component";
+import {DescriptComponent} from "./descript/descript.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'tag/:id', component: TagComponent},
   {path: 'author/:id', component: AuthorComponent},
   {path: 'file/:id', component: FileComponent},
-  {path: 'find', component: FindComponent}
+  {path: 'find', component: FindComponent},
+  {path: 'descript/:id', component: DescriptComponent}
 ];
 
 @NgModule({

@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {InfoFile} from "../model/info-file";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
+  apiFileEndpoint: string = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiFileEndpoint = environment.apiFileEndpoint;
+  }
 
   getFile(fileId: number): Observable<InfoFile> {
-    let params = new HttpParams();
-    params.append('id', fileId);
-    return this.http.get<InfoFile>('./assets/file.json', {params: params});
+    return this.http.get<InfoFile>(this.apiFileEndpoint + fileId);
   }
 }
