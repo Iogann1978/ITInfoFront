@@ -16,7 +16,6 @@ export class DescriptComponent implements OnInit, OnDestroy {
     private descriptService: DescriptService,
     private activatedRoute: ActivatedRoute
     ) {
-
   }
 
   ngOnInit(): void {

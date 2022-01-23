@@ -13,11 +13,11 @@ export class DescriptService {
     this.apiDescriptEndpoint = environment.apiDescriptEndpoint;
   }
 
-  getDescript(descriptId: number): Observable<string> {
-    if (descriptId < 0) {
+  getDescript(bookId: number): Observable<string> {
+    if (bookId < 0) {
       return of('');
     } else {
-      return this.http.get<string>(this.apiDescriptEndpoint + descriptId);
+      return this.http.get<string>(this.apiDescriptEndpoint + bookId);
     }
   }
 }
