@@ -17,7 +17,7 @@ export class DescriptService {
     if (bookId < 0) {
       return of('');
     } else {
-      return this.http.get<string>(this.apiDescriptEndpoint + bookId);
+      return this.http.get<string>(this.apiDescriptEndpoint.replace(':id',`${bookId}`));
     }
   }
 }

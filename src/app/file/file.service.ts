@@ -15,6 +15,6 @@ export class FileService {
   }
 
   getFile(fileId: number): Observable<InfoFile> {
-    return this.http.get<InfoFile>(this.apiFileEndpoint + fileId);
+    return this.http.get<InfoFile>(this.apiFileEndpoint.replace(':id', `${fileId}`));
   }
 }

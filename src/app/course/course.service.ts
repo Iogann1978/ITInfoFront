@@ -40,7 +40,7 @@ export class CourseService {
     if (courseId < 0) {
       return of({id: null, title: null, rate: null, file: null, year: null, tags: null, publisher: null, state: null, duration: null});
     } else {
-      return this.http.get<CourseItem>(this.apiCourseEndpoint + courseId);
+      return this.http.get<CourseItem>(this.apiCourseEndpoint.replace(':id', `${courseId}`));
     }
   }
 }

@@ -40,13 +40,13 @@ export class BookService {
 
   getBook(bookId: number): Observable<BookItem> {
     if (bookId < 0) {
-      return of({id: null, isbn: null, pages: null, authors: [], title: null, year: null, rate: null, state: null, publisher: null, file: null, tags: null});
+      return of({id: null, isbn: null, pages: null, authors: [], title: null, year: null, rate: null, state: null, publisher: {id: null, name: null}, file: {id: null, filename: null, size: null}, tags: [], content: {id: null, text: null}, descript: {id: null, text: null}});
     } else {
-      return this.http.get<BookItem>(this.apiBookEndpoint + bookId);
+      return this.http.get<BookItem>(this.apiBookEndpoint.replace(':id', `${bookId}`));
     }
   }
 
   getGoogle(isbn: string): Observable<BookItem> {
-    return this.http.get<BookItem>(this.apiGoogleEndpoint + isbn);
+    return this.http.get<BookItem>(this.apiGoogleEndpoint.replace(':isbn', `${isbn}`));
   }
  }

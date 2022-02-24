@@ -1,11 +1,11 @@
 export const environment = {
   production: true,
-  apiGoogleEndpoint: '/api/google/',
-  apiBookEndpoint: '/api/book/',
-  apiAuthorEndpoint: '/api/author/',
-  apiCourseEndpoint: '/api/course/',
-  apiPublisherEndpoint: '/api/publisher/',
-  apiTagEndpoint: '/api/tag/',
-  apiFileEndpoint: '/api/file/',
-  apiDescriptEdpoint: '/api/descript/'
+  apiGoogleEndpoint: '/api/google/:isbn',
+  apiBookEndpoint: '/api/book/:id',
+  apiAuthorEndpoint: '/api/author/:id',
+  apiCourseEndpoint: '/api/course/:id',
+  apiPublisherEndpoint: '/api/publisher/:id',
+  apiTagEndpoint: '/api/tag/:id',
+  apiFileEndpoint: '/api/file/:id',
+  apiDescriptEndpoint: '/api/descript/:id'
 };

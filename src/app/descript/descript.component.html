@@ -1,1 +1,23 @@
-<div [innerHTML]="descript"></div>
+<form class="book-form" [formGroup]="descriptFormGroup" (ngSubmit)="onSubmit()">
+  <mat-card class="book-card">
+    <mat-card-header>
+      <mat-card-title>Книга</mat-card-title>
+      <mat-card-subtitle>Описание</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-grid-tile [colspan]="4" [rowspan]="1">
+        <mat-form-field class="book-full-width">
+          <mat-label>Файл описания</mat-label>
+          <input matInput formControlName="descriptFileCtrl">
+          <button mat-icon-button matSuffix (click)="descriptFileInput.click()">
+            <mat-icon>attach_file</mat-icon>
+          </button>
+          <input hidden (change)="selectDescriptFile($event)" #descriptFileInput type="file" id="descriptFile">
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-card-content>
+  </mat-card>
+
+  <div [innerHTML]="descript"></div>
+</form>

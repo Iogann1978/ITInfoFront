@@ -13,6 +13,7 @@ import {BookItem} from "../model/book-item";
 import {ActivatedRoute} from "@angular/router";
 import {Publisher} from "../model/publisher";
 import {PublishersService} from "../publishers/publishers.service";
+import {stringify} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-book',
@@ -119,12 +120,20 @@ export class BookComponent implements OnInit, OnDestroy {
     this.contentFile.filename = event.target.files[0].name;
     this.contentFile.size = event.target.files[0].size;
     this.bookFormGroup.get('contentFileCtrl').setValue(this.contentFile.filename);
+    let file: File = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onload = () => this.book.content.text = <ArrayBuffer>reader.result;
   }
 
   selectDescriptFile(event) {
     this.descriptFile.filename = event.target.files[0].name;
     this.descriptFile.size = event.target.files[0].size;
     this.bookFormGroup.get('descriptFileCtrl').setValue(this.descriptFile.filename);
+    let file: File = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onload = () => this.book.descript.text = <ArrayBuffer>reader.result;
   }
 
   disableTag(tag: string): boolean {
@@ -155,7 +164,7 @@ export class BookComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log('book: ' + this.book);
+    console.log('book: ' + JSON.stringify(this.book));
   }
 
   getGoogle(): void {

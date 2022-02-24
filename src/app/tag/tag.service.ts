@@ -18,7 +18,7 @@ export class TagService {
     if (tagId < 0) {
       return of({id: null, tag: null});
     } else {
-      return this.http.get<Tag>(this.apiTagEndpoint + tagId);
+      return this.http.get<Tag>(this.apiTagEndpoint.replace(':id', `${tagId}`));
     }
   }
 }

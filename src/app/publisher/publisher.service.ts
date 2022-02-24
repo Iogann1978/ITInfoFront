@@ -18,7 +18,7 @@ export class PublisherService {
     if (publisherId < 0) {
       return of({id: null, name: null});
     } else {
-      return this.http.get<Publisher>(this.apiPublisherEndpoint + publisherId);
+      return this.http.get<Publisher>(this.apiPublisherEndpoint.replace(':id', `${publisherId}`));
     }
   }
 }
