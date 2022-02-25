@@ -9,14 +9,14 @@ import {environment} from "../../environments/environment";
 })
 export class FilesService {
   displayedColumns: string[] = ['filename', 'size', 'actions'];
-  apiFileEndpoint: string = '';
+  apiFilesEndpoint: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiFileEndpoint = environment.apiFileEndpoint;
+    this.apiFilesEndpoint = environment.apiFilesEndpoint;
   }
 
   getFiles(): Observable<InfoFile[]> {
-    return this.http.get<InfoFile[]>(this.apiFileEndpoint);
+    return this.http.get<InfoFile[]>(this.apiFilesEndpoint);
   }
 
   getDisplayedColumns(): string[] {

@@ -9,14 +9,14 @@ import {environment} from "../../environments/environment";
 })
 export class TagsService {
   displayedColumns: string[] = ['tag', 'actions'];
-  apiTagEndpoint: string = '';
+  apiTagsEndpoint: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiTagEndpoint = environment.apiTagEndpoint;
+    this.apiTagsEndpoint = environment.apiTagsEndpoint;
   }
 
   getTags(): Observable<Tag[]> {
-    return this.http.get<Tag[]>(this.apiTagEndpoint);
+    return this.http.get<Tag[]>(this.apiTagsEndpoint);
   }
 
   getDisplayedColumns(): string[] {

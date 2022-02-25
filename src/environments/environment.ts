@@ -5,12 +5,18 @@
 export const environment = {
   production: false,
   apiGoogleEndpoint: './assets/book.json',
-  apiBookEndpoint: './assets/books.json',
+  apiBookEndpoint: './assets/book.json',
+  apiBooksEndpoint: './assets/books.json',
   apiAuthorEndpoint: './assets/author.json',
+  apiAuthorsEndpoint: './assets/authors.json',
   apiCourseEndpoint: './assets/course.json',
+  apiCoursesEndpoint: './assets/courses.json',
   apiPublisherEndpoint: './assets/publisher.json',
+  apiPublishersEndpoint: './assets/publishers.json',
   apiTagEndpoint: './assets/tag.json',
-  apiFileEndpoint: './assets/files.json',
+  apiTagsEndpoint: './assets/tags.json',
+  apiFileEndpoint: './assets/file.json',
+  apiFilesEndpoint: './assets/files.json',
   apiDescriptEndpoint: './assets/descript.html'
 };
 

@@ -20,7 +20,7 @@ export class CoursesComponent implements OnInit {
   constructor(private coursesService: CoursesService) {
     this.displayedColumns = this.coursesService.getDisplayedColumns();
     this.coursesService.getCourseItems().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.data = data;
       this.dataSource.paginator = this.coursesPaginator;
     });
   }

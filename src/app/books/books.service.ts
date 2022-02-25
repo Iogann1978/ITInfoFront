@@ -8,16 +8,16 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class BooksService {
-  apiBookEndpoint: string = '';
+  apiBooksEndpoint: string = '';
 
   private displayedColumns: string[] = ['title', 'isbn', 'publisher', 'pages', 'rate', 'state', 'year', 'actions'];
 
   constructor(private http: HttpClient) {
-    this.apiBookEndpoint = environment.apiBookEndpoint;
+    this.apiBooksEndpoint = environment.apiBooksEndpoint;
   }
 
   getBookItems(): Observable<BookItem[]> {
-    return this.http.get<BookItem[]>(this.apiBookEndpoint);
+    return this.http.get<BookItem[]>(this.apiBooksEndpoint);
   }
 
   getDisplayedColumns(): string[] {
