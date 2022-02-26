@@ -3,7 +3,7 @@ import {DescriptService} from "./descript.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {InfoFile} from "../model/info-file";
-import {FormGroup} from "@angular/forms";
+import {Descript} from "../model/descript";
 
 @Component({
   selector: 'app-descript',
@@ -11,10 +11,9 @@ import {FormGroup} from "@angular/forms";
   styleUrls: ['./descript.component.css']
 })
 export class DescriptComponent implements OnInit, OnDestroy {
-  descript: string = '';
+  descript: Descript;
   paramMap: Subscription;
   descriptFile: InfoFile;
-  descriptFormGroup: FormGroup;
 
   constructor(
     private descriptService: DescriptService,
@@ -23,9 +22,12 @@ export class DescriptComponent implements OnInit, OnDestroy {
   }
 
   selectDescriptFile(event) {
-    this.descriptFile.filename = event.target.files[0].name;
-    this.descriptFile.size = event.target.files[0].size;
-    this.descriptFormGroup.get('descriptFileCtrl').setValue(this.descriptFile.filename);
+    const file: File = event.target.files[0];
+    if (file) {
+      this.descriptFile.filename = event.target.files[0].name;
+      this.descriptFile.size = event.target.files[0].size;
+      this.descriptService.postDescript(this.descript.id, file);
+    }
   }
 
   ngOnInit(): void {

@@ -17,7 +17,7 @@ export const environment = {
   apiTagsEndpoint: './assets/tags.json',
   apiFileEndpoint: './assets/file.json',
   apiFilesEndpoint: './assets/files.json',
-  apiDescriptEndpoint: './assets/descript.html'
+  apiDescriptEndpoint: './assets/descript.json'
 };
 
 /*
