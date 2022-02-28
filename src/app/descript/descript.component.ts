@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DescriptService} from "./descript.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {InfoFile} from "../model/info-file";
 import {Descript} from "../model/descript";
 
 @Component({
@@ -11,9 +10,8 @@ import {Descript} from "../model/descript";
   styleUrls: ['./descript.component.css']
 })
 export class DescriptComponent implements OnInit, OnDestroy {
-  descript: Descript;
+  descript: Descript = {id: -1, text: null};
   paramMap: Subscription;
-  descriptFile: InfoFile;
 
   constructor(
     private descriptService: DescriptService,
@@ -24,8 +22,6 @@ export class DescriptComponent implements OnInit, OnDestroy {
   selectDescriptFile(event) {
     const file: File = event.target.files[0];
     if (file) {
-      this.descriptFile.filename = event.target.files[0].name;
-      this.descriptFile.size = event.target.files[0].size;
       this.descriptService.postDescript(this.descript.id, file);
     }
   }
