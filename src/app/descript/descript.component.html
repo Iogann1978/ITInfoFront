@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-label>Файл описания</mat-label>
-  <input (change)="selectDescriptFile($event)" #descriptFileInput type="file" id="descriptFile">
+  <input hidden (change)="selectDescriptFile($event)" #descriptFileInput type="file" id="descriptFile">
   <button mat-icon-button matSuffix (click)="descriptFileInput.click()">
     <mat-icon>attach_file</mat-icon>
   </button>

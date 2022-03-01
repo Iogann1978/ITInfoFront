@@ -10,13 +10,14 @@ import {Descript} from "../model/descript";
   styleUrls: ['./descript.component.css']
 })
 export class DescriptComponent implements OnInit, OnDestroy {
-  descript: Descript = {id: -1, text: null};
+  descript: Descript;
   paramMap: Subscription;
 
   constructor(
     private descriptService: DescriptService,
     private activatedRoute: ActivatedRoute
     ) {
+    this.descript = {id: null, text: null};
   }
 
   selectDescriptFile(event) {
@@ -36,8 +37,4 @@ export class DescriptComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.paramMap.unsubscribe();
   }
-
-  onSubmit(): void {
-  }
-
 }

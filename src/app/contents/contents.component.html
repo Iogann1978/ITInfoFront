@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <mat-label>Файл содержания</mat-label>
+  <input hidden (change)="selectContentsFile($event)" #contentsFileInput type="file" id="contentsFile">
+  <button mat-icon-button matSuffix (click)="contentsFileInput.click()">
+    <mat-icon>attach_file</mat-icon>
+  </button>
+  <span class="descript-spacer"></span>
+  <button mat-fab color="primary" [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div [innerHTML]="contents.text"></div>

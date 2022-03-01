@@ -39,6 +39,7 @@ import { TagComponent } from './tag/tag.component';
 import { AuthorComponent } from './author/author.component';
 import { FileComponent } from './file/file.component';
 import { DescriptComponent } from './descript/descript.component';
+import { ContentsComponent } from './contents/contents.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { DescriptComponent } from './descript/descript.component';
     TagComponent,
     AuthorComponent,
     FileComponent,
-    DescriptComponent
+    DescriptComponent,
+    ContentsComponent
   ],
     imports: [
         BrowserModule,

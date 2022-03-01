@@ -2,30 +2,30 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable, of} from "rxjs";
-import {Descript} from "../model/descript";
+import {Content} from "../model/content";
 
 @Injectable({
   providedIn: 'root'
 })
-export class DescriptService {
-  apiDescriptEndpoint: string = '';
+export class ContentsService {
+  apiContentEndpoint: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiDescriptEndpoint = environment.apiDescriptEndpoint;
+    this.apiContentEndpoint = environment.apiContentEndpoint;
   }
 
-  getDescript(bookId: number): Observable<Descript> {
+  getContent(bookId: number): Observable<Content> {
     if (bookId < 0) {
       return of({id: null, text: null});
     } else {
-      return this.http.get<Descript>(this.apiDescriptEndpoint.replace(':id',`${bookId}`));
+      return this.http.get<Content>(this.apiContentEndpoint.replace(':id',`${bookId}`));
     }
   }
 
-  postDescript(id: number, file: File) {
+  postContent(id: number, file: File) {
     const formData = new FormData();
     formData.append("file", file);
-    const upload = this.http.post(this.apiDescriptEndpoint.replace(':id',`${id}`), formData);
+    const upload = this.http.post(this.apiContentEndpoint.replace(':id',`${id}`), formData);
     upload.subscribe();
   }
 }
