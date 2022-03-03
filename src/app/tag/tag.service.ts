@@ -9,9 +9,11 @@ import {environment} from "../../environments/environment";
 })
 export class TagService {
   apiTagEndpoint: string = '';
+  apiTagsEndpoint: string = '';
 
   constructor(private http: HttpClient) {
     this.apiTagEndpoint = environment.apiTagEndpoint;
+    this.apiTagsEndpoint = environment.apiTagsEndpoint;
   }
 
   getTag(tagId: number): Observable<Tag> {
@@ -20,5 +22,9 @@ export class TagService {
     } else {
       return this.http.get<Tag>(this.apiTagEndpoint.replace(':id', `${tagId}`));
     }
+  }
+
+  saveTag(tag: Tag): void {
+    this.http.post<Tag>(this.apiTagsEndpoint, tag).subscribe();
   }
 }

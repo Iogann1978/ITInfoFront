@@ -62,7 +62,7 @@
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-grid-tile [colspan]="12" [rowspan]="1">
             <mat-form-field class="book-full-width">
               <mat-label>Файл книги</mat-label>
               <input matInput formControlName="bookFileCtrl">
@@ -70,26 +70,6 @@
                 <mat-icon>file_upload</mat-icon>
               </button>
               <input hidden (change)="selectBookFile($event)" #bookFileInput type="file" id="bookFile">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="4" [rowspan]="1">
-            <mat-form-field class="book-full-width">
-              <mat-label>Файл содержания</mat-label>
-              <input matInput formControlName="contentFileCtrl">
-              <button mat-icon-button matSuffix (click)="contentFileInput.click()">
-                <mat-icon>attach_file</mat-icon>
-              </button>
-              <input hidden (change)="selectContentFile($event)" #contentFileInput type="file" id="contentFile">
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="4" [rowspan]="1">
-            <mat-form-field class="book-full-width">
-              <mat-label>Файл описания</mat-label>
-              <input matInput formControlName="descriptFileCtrl">
-              <button mat-icon-button matSuffix (click)="descriptFileInput.click()">
-                <mat-icon>attach_file</mat-icon>
-              </button>
-              <input hidden (change)="selectDescriptFile($event)" #descriptFileInput type="file" id="descriptFile">
             </mat-form-field>
           </mat-grid-tile>
 

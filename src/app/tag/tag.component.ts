@@ -22,6 +22,7 @@ export class TagComponent implements OnInit, OnDestroy {
     this.tagFormGroup = new FormGroup({
       'tagCtrl': new FormControl(null, Validators.required)
     });
+    this.tagFormGroup.get('tagCtrl').valueChanges.subscribe(tag => this.tag.tag = tag);
   }
 
   ngOnInit(): void {
@@ -39,6 +40,6 @@ export class TagComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log("tag: " + this.tag);
+    this.tagService.saveTag(this.tag);
   }
 }
