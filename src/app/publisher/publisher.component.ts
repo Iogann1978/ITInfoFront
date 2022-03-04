@@ -22,6 +22,7 @@ export class PublisherComponent implements OnInit, OnDestroy {
     this.publisherFormGroup = new FormGroup({
       'nameCtrl': new FormControl(null, Validators.required)
     });
+    this.publisherFormGroup.get('nameCtrl').valueChanges.subscribe(name => this.publisher.name = name);
   }
 
   ngOnInit(): void {

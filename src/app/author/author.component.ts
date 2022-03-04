@@ -22,6 +22,7 @@ export class AuthorComponent implements OnInit, OnDestroy {
     this.authorFormGroup = new FormGroup({
       'authorCtrl': new FormControl(null, Validators.required)
     });
+    this.authorFormGroup.get('authorCtrl').valueChanges.subscribe(author => this.author.name = author);
   }
 
   ngOnInit(): void {

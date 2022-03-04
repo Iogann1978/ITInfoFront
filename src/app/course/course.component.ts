@@ -70,8 +70,6 @@ export class CourseComponent  implements OnInit, OnDestroy {
       'yearCtrl': new FormControl(null),
       'durationCtrl': new FormControl(null),
       'coursePathCtrl': new FormControl(null),
-      'contentFileCtrl': new FormControl(null),
-      'descriptFileCtrl': new FormControl(null),
       'rateCtrl': new FormControl(null, Validators.required),
       'stateCtrl': new FormControl(null, Validators.required)
     });
@@ -111,18 +109,6 @@ export class CourseComponent  implements OnInit, OnDestroy {
     this.course.file.filename = event.target.files[0].name;
     this.course.file.size = event.target.files[0].size;
     this.courseFormGroup.get('coursePathCtrl').setValue(this.course.file.filename);
-  }
-
-  selectContentFile(event) {
-    this.contentFile.filename = event.target.files[0].name;
-    this.contentFile.size = event.target.files[0].size;
-    this.courseFormGroup.get('contentFileCtrl').setValue(this.contentFile.filename);
-  }
-
-  selectDescriptFile(event) {
-    this.descriptFile.filename = event.target.files[0].name;
-    this.descriptFile.size = event.target.files[0].size;
-    this.courseFormGroup.get('descriptFileCtrl').setValue(this.descriptFile.filename);
   }
 
   disableTag(tag: string): boolean {

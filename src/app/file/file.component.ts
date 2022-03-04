@@ -23,6 +23,8 @@ export class FileComponent implements OnInit, OnDestroy {
       'fileNameCtrl': new FormControl(null, Validators.required),
       'fileSizeCtrl': new FormControl(null, Validators.required)
     });
+    this.fileFormGroup.get('fileNameCtrl').valueChanges.subscribe(fileName => this.file.filename = fileName);
+    this.fileFormGroup.get('fileSizeCtrl').valueChanges.subscribe(fileSize => this.file.size = fileSize);
   }
 
   ngOnInit(): void {
