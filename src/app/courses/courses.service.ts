@@ -9,14 +9,14 @@ import {environment} from "../../environments/environment";
 })
 export class CoursesService {
   displayedColumns: string[] = ['title', 'duration', 'publisher', 'rate', 'state', 'year', 'actions'];
-  apiCoursesEndpoint: string = '';
+  apiCourseEndpoint: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiCoursesEndpoint = environment.apiCoursesEndpoint;
+    this.apiCourseEndpoint = environment.apiCourseEndpoint;
   }
 
   getCourseItems(): Observable<CourseItem[]> {
-    return this.http.get<CourseItem[]>(this.apiCoursesEndpoint);
+    return this.http.get<CourseItem[]>(this.apiCourseEndpoint);
   }
 
   getDisplayedColumns(): string[] {

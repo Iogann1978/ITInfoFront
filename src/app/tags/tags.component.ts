@@ -21,6 +21,10 @@ export class TagsComponent implements OnInit {
     this.displayedColumns = tagsService.getDisplayedColumns();
   }
 
+  delete(tagId: number) {
+    this.tagsService.deleteTag(tagId);
+  }
+
   ngOnInit(): void {
     this.tagsService.getTags().subscribe(data => {
       this.dataSource.data = data;

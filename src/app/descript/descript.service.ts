@@ -8,24 +8,24 @@ import {Descript} from "../model/descript";
   providedIn: 'root'
 })
 export class DescriptService {
-  apiDescriptEndpoint: string = '';
+  apiDescriptEndpointId: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiDescriptEndpoint = environment.apiDescriptEndpoint;
+    this.apiDescriptEndpointId = environment.apiDescriptEndpointId;
   }
 
   getDescript(bookId: number): Observable<Descript> {
     if (bookId < 0) {
       return of({id: null, text: null});
     } else {
-      return this.http.get<Descript>(this.apiDescriptEndpoint.replace(':id',`${bookId}`));
+      return this.http.get<Descript>(this.apiDescriptEndpointId.replace(':id',`${bookId}`));
     }
   }
 
   postDescript(id: number, file: File) {
     const formData = new FormData();
     formData.append("file", file);
-    const upload = this.http.post(this.apiDescriptEndpoint.replace(':id',`${id}`), formData);
+    const upload = this.http.post(this.apiDescriptEndpointId.replace(':id',`${id}`), formData);
     upload.subscribe();
   }
 }

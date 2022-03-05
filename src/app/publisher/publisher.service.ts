@@ -8,17 +8,17 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class PublisherService {
-  apiPublisherEndpoint: string = '';
+  apiPublisherEndpointId: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiPublisherEndpoint = environment.apiPublisherEndpoint;
+    this.apiPublisherEndpointId = environment.apiPublisherEndpointId;
   }
 
   getPublisher(publisherId: number): Observable<Publisher> {
     if (publisherId < 0) {
       return of({id: null, name: null});
     } else {
-      return this.http.get<Publisher>(this.apiPublisherEndpoint.replace(':id', `${publisherId}`));
+      return this.http.get<Publisher>(this.apiPublisherEndpointId.replace(':id', `${publisherId}`));
     }
   }
 }

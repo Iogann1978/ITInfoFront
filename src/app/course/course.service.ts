@@ -11,10 +11,10 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class CourseService {
-  apiCourseEndpoint: string = '';
+  apiCourseEndpointId: string = '';
 
   constructor(private http: HttpClient, private tagsService: TagsService) {
-    this.apiCourseEndpoint = environment.apiCourseEndpoint;
+    this.apiCourseEndpointId = environment.apiCourseEndpointId;
   }
 
   getTags(): Observable<string[]> {
@@ -28,7 +28,7 @@ export class CourseService {
     if (courseId < 0) {
       return null;
     } else {
-      return this.http.get<CourseItem>(this.apiCourseEndpoint + courseId)
+      return this.http.get<CourseItem>(this.apiCourseEndpointId.replace(':id', `${courseId}`))
         .pipe(
           map((course: CourseItem) => course.tags),
           map((data: Tag[]) => data.map((tag: Tag) => tag.tag))
@@ -40,7 +40,7 @@ export class CourseService {
     if (courseId < 0) {
       return of({id: null, title: null, rate: null, file: null, year: null, tags: null, publisher: null, state: null, duration: null});
     } else {
-      return this.http.get<CourseItem>(this.apiCourseEndpoint.replace(':id', `${courseId}`));
+      return this.http.get<CourseItem>(this.apiCourseEndpointId.replace(':id', `${courseId}`));
     }
   }
 }

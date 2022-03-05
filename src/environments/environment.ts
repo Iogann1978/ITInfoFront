@@ -5,20 +5,20 @@
 export const environment = {
   production: false,
   apiGoogleEndpoint: './assets/book.json',
-  apiBookEndpoint: './assets/book.json',
-  apiBooksEndpoint: './assets/books.json',
-  apiAuthorEndpoint: './assets/author.json',
-  apiAuthorsEndpoint: './assets/authors.json',
-  apiCourseEndpoint: './assets/course.json',
-  apiCoursesEndpoint: './assets/courses.json',
-  apiPublisherEndpoint: './assets/publisher.json',
-  apiPublishersEndpoint: './assets/publishers.json',
-  apiTagEndpoint: './assets/tag.json',
-  apiTagsEndpoint: './assets/tags.json',
-  apiFileEndpoint: './assets/file.json',
-  apiFilesEndpoint: './assets/files.json',
-  apiDescriptEndpoint: './assets/descript.json',
-  apiContentEndpoint: './assets/content.json'
+  apiBookEndpointId: './assets/book.json',
+  apiBookEndpoint: './assets/books.json',
+  apiAuthorEndpointId: './assets/author.json',
+  apiAuthorEndpoint: './assets/authors.json',
+  apiCourseEndpointId: './assets/course.json',
+  apiCourseEndpoint: './assets/courses.json',
+  apiPublisherEndpointId: './assets/publisher.json',
+  apiPublisherEndpoint: './assets/publishers.json',
+  apiTagEndpointId: './assets/tag.json',
+  apiTagEndpoint: './assets/tags.json',
+  apiFileEndpointId: './assets/file.json',
+  apiFileEndpoint: './assets/files.json',
+  apiDescriptEndpointId: './assets/descript.json',
+  apiContentEndpointId: './assets/content.json'
 };
 
 /*

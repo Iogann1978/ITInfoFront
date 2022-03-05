@@ -9,14 +9,14 @@ import {environment} from "../../environments/environment";
 })
 export class AuthorsService {
   displayedColumns: string[] = ['name', 'actions'];
-  apiAuthorsEndpoint: string = '';
+  apiAuthorEndpoint: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiAuthorsEndpoint = environment.apiAuthorsEndpoint;
+    this.apiAuthorEndpoint = environment.apiAuthorEndpoint;
   }
 
   getAuthors(): Observable<Author[]> {
-    return this.http.get<Author[]>(this.apiAuthorsEndpoint);
+    return this.http.get<Author[]>(this.apiAuthorEndpoint);
   }
 
   getDisplayedColumns(): string[] {

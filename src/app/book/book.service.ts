@@ -12,11 +12,11 @@ import {environment} from "../../environments/environment";
 })
 export class BookService {
   apiGoogleEndpoint: string = '';
-  apiBookEndpoint: string = '';
+  apiBookEndpointId: string = '';
 
   constructor(private http: HttpClient, private tagsService: TagsService) {
     this.apiGoogleEndpoint = environment.apiGoogleEndpoint;
-    this.apiBookEndpoint = environment.apiBookEndpoint;
+    this.apiBookEndpointId = environment.apiBookEndpointId;
   }
 
   getTags(): Observable<string[]> {
@@ -30,7 +30,7 @@ export class BookService {
     if (bookId < 0) {
       return null;
     } else {
-      return this.http.get<BookItem>(this.apiBookEndpoint + bookId)
+      return this.http.get<BookItem>(this.apiBookEndpointId.replace(':id', `${bookId}`))
         .pipe(
           map((book: BookItem) => book.tags),
           map((data: Tag[]) => data.map((tag: Tag) => tag.tag))
@@ -42,7 +42,7 @@ export class BookService {
     if (bookId < 0) {
       return of({id: null, isbn: null, pages: null, authors: [], title: null, year: null, rate: null, state: null, publisher: {id: null, name: null}, file: {id: null, filename: null, size: null}, tags: [], content: {id: null, text: null}, descript: {id: null, text: null}});
     } else {
-      return this.http.get<BookItem>(this.apiBookEndpoint.replace(':id', `${bookId}`));
+      return this.http.get<BookItem>(this.apiBookEndpointId.replace(':id', `${bookId}`));
     }
   }
 

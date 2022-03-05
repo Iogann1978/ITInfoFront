@@ -9,14 +9,14 @@ import {environment} from "../../environments/environment";
 })
 export class PublishersService {
   private displayedColumns: string[] = ['name', 'actions'];
-  apiPublishersEndpoint: string = '';
+  apiPublisherEndpoint: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiPublishersEndpoint = environment.apiPublishersEndpoint;
+    this.apiPublisherEndpoint = environment.apiPublisherEndpoint;
   }
 
   getPublishers(): Observable<Publisher[]> {
-    return this.http.get<Publisher[]>(this.apiPublishersEndpoint);
+    return this.http.get<Publisher[]>(this.apiPublisherEndpoint);
   }
 
   getDisplayedColumns(): string[] {

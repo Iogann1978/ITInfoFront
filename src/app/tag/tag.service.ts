@@ -8,23 +8,23 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class TagService {
+  apiTagEndpointId: string = '';
   apiTagEndpoint: string = '';
-  apiTagsEndpoint: string = '';
 
   constructor(private http: HttpClient) {
+    this.apiTagEndpointId = environment.apiTagEndpointId;
     this.apiTagEndpoint = environment.apiTagEndpoint;
-    this.apiTagsEndpoint = environment.apiTagsEndpoint;
   }
 
   getTag(tagId: number): Observable<Tag> {
     if (tagId < 0) {
       return of({id: null, tag: null});
     } else {
-      return this.http.get<Tag>(this.apiTagEndpoint.replace(':id', `${tagId}`));
+      return this.http.get<Tag>(this.apiTagEndpointId.replace(':id', `${tagId}`));
     }
   }
 
   saveTag(tag: Tag): void {
-    this.http.post<Tag>(this.apiTagsEndpoint, tag).subscribe();
+    this.http.post<Tag>(this.apiTagEndpoint, tag).subscribe();
   }
 }

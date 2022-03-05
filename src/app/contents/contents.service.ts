@@ -8,24 +8,24 @@ import {Content} from "../model/content";
   providedIn: 'root'
 })
 export class ContentsService {
-  apiContentEndpoint: string = '';
+  apiContentEndpointId: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiContentEndpoint = environment.apiContentEndpoint;
+    this.apiContentEndpointId = environment.apiContentEndpointId;
   }
 
   getContent(bookId: number): Observable<Content> {
     if (bookId < 0) {
       return of({id: null, text: null});
     } else {
-      return this.http.get<Content>(this.apiContentEndpoint.replace(':id',`${bookId}`));
+      return this.http.get<Content>(this.apiContentEndpointId.replace(':id',`${bookId}`));
     }
   }
 
   postContent(id: number, file: File) {
     const formData = new FormData();
     formData.append("file", file);
-    const upload = this.http.post(this.apiContentEndpoint.replace(':id',`${id}`), formData);
+    const upload = this.http.post(this.apiContentEndpointId.replace(':id',`${id}`), formData);
     upload.subscribe();
   }
 }

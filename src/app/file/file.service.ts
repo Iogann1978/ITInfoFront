@@ -8,13 +8,13 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class FileService {
-  apiFileEndpoint: string = '';
+  apiFileEndpointId: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiFileEndpoint = environment.apiFileEndpoint;
+    this.apiFileEndpointId = environment.apiFileEndpointId;
   }
 
   getFile(fileId: number): Observable<InfoFile> {
-    return this.http.get<InfoFile>(this.apiFileEndpoint.replace(':id', `${fileId}`));
+    return this.http.get<InfoFile>(this.apiFileEndpointId.replace(':id', `${fileId}`));
   }
 }

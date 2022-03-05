@@ -8,13 +8,13 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class AuthorService {
-  apiAuthorEndpoint: string = '';
+  apiAuthorEndpointId: string = '';
 
   constructor(private http: HttpClient) {
-    this.apiAuthorEndpoint = environment.apiAuthorEndpoint;
+    this.apiAuthorEndpointId = environment.apiAuthorEndpointId;
   }
 
   getAuthor(authorId: number): Observable<Author> {
-    return this.http.get<Author>(this.apiAuthorEndpoint.replace(':id', `${authorId}`));
+    return this.http.get<Author>(this.apiAuthorEndpointId.replace(':id', `${authorId}`));
   }
 }
