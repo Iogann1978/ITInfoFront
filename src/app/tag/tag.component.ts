@@ -25,6 +25,10 @@ export class TagComponent implements OnInit, OnDestroy {
     this.tagFormGroup.get('tagCtrl').valueChanges.subscribe(tag => this.tag.tag = tag);
   }
 
+  delete() {
+    this.tagService.deleteTag(this.tag.id);
+  }
+
   ngOnInit(): void {
     this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
       let id = +params.get('id');

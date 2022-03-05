@@ -22,7 +22,9 @@ export class TagsService {
   }
 
   deleteTag(tagId: number) {
-    this.http.delete(this.apiTagEndpointId.replace(':id', `${tagId}`)).subscribe();
+    if (tagId >= 0) {
+      this.http.delete(this.apiTagEndpointId.replace(':id', `${tagId}`)).subscribe();
+    }
   }
 
   getDisplayedColumns(): string[] {

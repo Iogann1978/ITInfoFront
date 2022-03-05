@@ -27,4 +27,10 @@ export class TagService {
   saveTag(tag: Tag): void {
     this.http.post<Tag>(this.apiTagEndpoint, tag).subscribe();
   }
+
+  deleteTag(tagId: number) {
+    if (tagId >= 0) {
+      this.http.delete(this.apiTagEndpointId.replace(':id', `${tagId}`)).subscribe();
+    }
+  }
 }
