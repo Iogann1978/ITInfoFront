@@ -9,7 +9,7 @@ export const environment = {
   apiCourseEndpoint: '/api/course',
   apiPublisherEndpointId: '/api/publisher/:id',
   apiPublisherEndpoint: '/api/publisher',
-  apiTagEndpointId: '/api/tag/:id',
+  apiTagEndpointId: '/api/tag/:tag',
   apiTagEndpoint: '/api/tag',
   apiFileEndpointId: '/api/file/:id',
   apiFileEndpoint: '/api/file',

@@ -21,10 +21,8 @@ export class TagsService {
     return this.http.get<Tag[]>(this.apiTagEndpoint);
   }
 
-  deleteTag(tagId: number) {
-    if (tagId >= 0) {
-      this.http.delete(this.apiTagEndpointId.replace(':id', `${tagId}`)).subscribe();
-    }
+  deleteTag(tag: string) {
+    this.http.delete(this.apiTagEndpointId.replace(':tag', `${tag}`)).subscribe();
   }
 
   getDisplayedColumns(): string[] {

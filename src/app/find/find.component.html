@@ -42,7 +42,7 @@
         <mat-form-field class="find-full-width" appearance="fill">
           <mat-label>Поиск по тэгам</mat-label>
           <mat-select formControlName="tagCtrl">
-            <mat-option *ngFor="let tag of tags" [value]="tag.id">{{tag.tag}}</mat-option>
+            <mat-option *ngFor="let tag of tags" [value]="tag.tag">{{tag.tag}}</mat-option>
           </mat-select>
           <button mat-icon-button matSuffix color="primary" aria-label="Искать">
             <mat-icon>search</mat-icon>

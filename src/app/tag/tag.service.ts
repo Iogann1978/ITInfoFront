@@ -16,21 +16,11 @@ export class TagService {
     this.apiTagEndpoint = environment.apiTagEndpoint;
   }
 
-  getTag(tagId: number): Observable<Tag> {
-    if (tagId < 0) {
-      return of({id: null, tag: null});
-    } else {
-      return this.http.get<Tag>(this.apiTagEndpointId.replace(':id', `${tagId}`));
-    }
-  }
-
   saveTag(tag: Tag): void {
     this.http.post<Tag>(this.apiTagEndpoint, tag).subscribe();
   }
 
-  deleteTag(tagId: number) {
-    if (tagId >= 0) {
-      this.http.delete(this.apiTagEndpointId.replace(':id', `${tagId}`)).subscribe();
-    }
+  deleteTag(tag: string) {
+    this.http.delete(this.apiTagEndpointId.replace(':tag', `${tag}`)).subscribe();
   }
 }

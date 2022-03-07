@@ -11,7 +11,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./tag.component.css']
 })
 export class TagComponent implements OnInit, OnDestroy {
-  tag: Tag;
+  tag: Tag = {tag: null};
   paramMap: Subscription;
   tagFormGroup: FormGroup;
 
@@ -26,16 +26,16 @@ export class TagComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    this.tagService.deleteTag(this.tag.id);
+    this.tagService.deleteTag(this.tag.tag);
   }
 
   ngOnInit(): void {
     this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
-      let id = +params.get('id');
-      this.tagService.getTag(id).subscribe(tag => {
-        this.tag = tag;
+      let tag = params.get('tag');
+      if (tag !== undefined && tag !== null && tag.trim().length > 0) {
+        this.tag.tag = tag;
         this.tagFormGroup.get('tagCtrl').setValue(this.tag.tag);
-      });
+      }
     });
   }
 

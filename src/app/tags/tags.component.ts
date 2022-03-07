@@ -21,8 +21,8 @@ export class TagsComponent implements OnInit {
     this.displayedColumns = tagsService.getDisplayedColumns();
   }
 
-  delete(tagId: number) {
-    this.tagsService.deleteTag(tagId);
+  delete(tag: string) {
+    this.tagsService.deleteTag(tag);
   }
 
   ngOnInit(): void {
