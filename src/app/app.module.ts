@@ -40,6 +40,8 @@ import { AuthorComponent } from './author/author.component';
 import { FileComponent } from './file/file.component';
 import { DescriptComponent } from './descript/descript.component';
 import { ContentsComponent } from './contents/contents.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -63,7 +65,8 @@ import { ContentsComponent } from './contents/contents.component';
     AuthorComponent,
     FileComponent,
     DescriptComponent,
-    ContentsComponent
+    ContentsComponent,
+    DeleteDialogComponent
   ],
     imports: [
         BrowserModule,
@@ -84,7 +87,8 @@ import { ContentsComponent } from './contents/contents.component';
         MatChipsModule,
         ReactiveFormsModule,
         MatAutocompleteModule,
-        MatGridListModule
+        MatGridListModule,
+        MatDialogModule
     ],
   providers: [],
   bootstrap: [AppComponent]
