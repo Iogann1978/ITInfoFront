@@ -142,7 +142,9 @@ export class BookComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log('book: ' + JSON.stringify(this.book));
+    if (this.bookFormGroup.valid) {
+      console.log('book: ' + JSON.stringify(this.book));
+    }
   }
 
   getGoogle(): void {

@@ -3,7 +3,7 @@ import {TagsService} from "./tags.service";
 import {Tag} from "../model/tag";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
 @Component({
@@ -15,7 +15,6 @@ import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 export class TagsComponent implements OnInit {
   displayedColumns: string[];
   dataSource: MatTableDataSource<Tag> = new MatTableDataSource<Tag>();
-  deleteDialogRef: MatDialogRef<DeleteDialogComponent>;
 
   pageSizeOptions: number[] = [5, 10, 25, 100];
   @ViewChild('tagsPaginator') tagsPaginator: MatPaginator;
@@ -28,12 +27,10 @@ export class TagsComponent implements OnInit {
   }
 
   delete(tag: string) {
-    this.deleteDialogRef = this.dialog.open(DeleteDialogComponent);
-    this.deleteDialogRef.afterClosed().subscribe(result => {
+    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
         this.tagsService.deleteTag(tag);
       }
-      this.deleteDialogRef = null;
     });
   }
 

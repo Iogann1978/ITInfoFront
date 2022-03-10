@@ -137,7 +137,9 @@ export class CourseComponent  implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log('course: ' + this.course);
+    if (this.courseFormGroup.valid) {
+      console.log('course: ' + this.course);
+    }
   }
 
 }

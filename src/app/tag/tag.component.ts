@@ -4,6 +4,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Tag} from "../model/tag";
 import {TagService} from "./tag.service";
 import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-tag',
@@ -17,7 +19,8 @@ export class TagComponent implements OnInit, OnDestroy {
 
   constructor(
     private tagService: TagService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.tagFormGroup = new FormGroup({
       'tagCtrl': new FormControl(null, Validators.required)
@@ -26,7 +29,11 @@ export class TagComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    this.tagService.deleteTag(this.tag.tag);
+    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+      if(result) {
+        this.tagService.deleteTag(this.tag.tag);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -43,7 +50,9 @@ export class TagComponent implements OnInit, OnDestroy {
     this.paramMap.unsubscribe();
   }
 
-  onSubmit(): void {
-    this.tagService.saveTag(this.tag);
+  save(): void {
+    if (this.tagFormGroup.valid) {
+      this.tagService.saveTag(this.tag);
+    }
   }
 }

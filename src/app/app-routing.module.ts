@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'book/:id', component: BookComponent},
   {path: 'course/:id', component: CourseComponent},
   {path: 'publisher/:id', component: PublisherComponent},
-  {path: 'tag/:id', component: TagComponent},
+  {path: 'tag/:tag', component: TagComponent},
   {path: 'author/:id', component: AuthorComponent},
   {path: 'file/:id', component: FileComponent},
   {path: 'find', component: FindComponent},

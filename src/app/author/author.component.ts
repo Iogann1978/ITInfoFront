@@ -40,6 +40,8 @@ export class AuthorComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log("author: " + this.author);
+    if (this.authorFormGroup.valid) {
+      console.log("author: " + this.author);
+    }
   }
 }

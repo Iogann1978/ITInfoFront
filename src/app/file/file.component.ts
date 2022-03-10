@@ -43,6 +43,8 @@ export class FileComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log("file: " + this.file);
+    if (this.fileFormGroup.valid) {
+      console.log("file: " + this.file);
+    }
   }
 }

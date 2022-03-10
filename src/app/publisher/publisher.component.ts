@@ -40,6 +40,8 @@ export class PublisherComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log("publisher: " + this.publisher);
+    if (this.publisherFormGroup.valid) {
+      console.log("publisher: " + this.publisher);
+    }
   }
 }
