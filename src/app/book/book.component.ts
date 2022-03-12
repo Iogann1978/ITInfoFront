@@ -13,6 +13,8 @@ import {BookItem} from "../model/book-item";
 import {ActivatedRoute} from "@angular/router";
 import {Publisher} from "../model/publisher";
 import {PublishersService} from "../publishers/publishers.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-book',
@@ -43,7 +45,8 @@ export class BookComponent implements OnInit, OnDestroy {
   constructor(
     private bookService: BookService,
     private publishersService: PublishersService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.tags = [];
     this.rateKeys = Object.keys(Rate).filter(f => !isNaN(Number(f)));
@@ -141,7 +144,14 @@ export class BookComponent implements OnInit, OnDestroy {
     this.paramMap.unsubscribe();
   }
 
-  onSubmit(): void {
+  delete() {
+    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+      if(result) {
+      }
+    });
+  }
+
+  save() {
     if (this.bookFormGroup.valid) {
       console.log('book: ' + JSON.stringify(this.book));
     }

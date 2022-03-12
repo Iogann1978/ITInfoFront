@@ -1,4 +1,4 @@
-<form class="file-form" [formGroup]="fileFormGroup" (ngSubmit)="onSubmit()">
+<form class="file-form" [formGroup]="fileFormGroup">
   <mat-card class="file-card">
     <mat-card-header>
       <mat-card-title>Файл</mat-card-title>
@@ -18,10 +18,10 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button mat-fab color="warn">
+      <button (click)="delete()" mat-fab color="warn">
         <mat-icon>delete</mat-icon>
       </button>
-      <button type="submit" mat-fab color="accent" [disabled]="!fileFormGroup.valid">
+      <button (click)="save()" mat-fab color="accent" [disabled]="!fileFormGroup.valid">
         <mat-icon>save</mat-icon>
       </button>
       <button mat-fab color="primary" [routerLink]="['/home']">

@@ -4,6 +4,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Author} from "../model/author";
 import {ActivatedRoute} from "@angular/router";
 import {AuthorService} from "./author.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-author',
@@ -17,7 +19,8 @@ export class AuthorComponent implements OnInit, OnDestroy {
 
   constructor(
     private authorService: AuthorService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.authorFormGroup = new FormGroup({
       'authorCtrl': new FormControl(null, Validators.required)
@@ -39,7 +42,14 @@ export class AuthorComponent implements OnInit, OnDestroy {
     this.paramMap.unsubscribe();
   }
 
-  onSubmit(): void {
+  delete() {
+    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+      if(result) {
+      }
+    });
+  }
+
+  save() {
     if (this.authorFormGroup.valid) {
       console.log("author: " + this.author);
     }

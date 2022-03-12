@@ -3,6 +3,8 @@ import {BooksService} from "./books.service";
 import {BookItem} from "../model/book-item";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-books',
@@ -18,7 +20,8 @@ export class BooksComponent implements OnInit {
   @ViewChild('booksPaginator') booksPaginator: MatPaginator;
 
   constructor(
-    private booksService: BooksService
+    private booksService: BooksService,
+    private dialog: MatDialog
   ) {
     this.displayedColumns = this.booksService.getDisplayedColumns();
     this.booksService.getBookItems()
@@ -26,6 +29,13 @@ export class BooksComponent implements OnInit {
         this.dataSource.data = data;
         this.dataSource.paginator = this.booksPaginator;
       });
+  }
+
+  delete(tag: string) {
+    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+      if(result) {
+      }
+    });
   }
 
   ngOnInit(): void {

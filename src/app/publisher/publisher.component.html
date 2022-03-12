@@ -1,4 +1,4 @@
-<form class="publisher-form" [formGroup]="publisherFormGroup" (ngSubmit)="onSubmit()">
+<form class="publisher-form" [formGroup]="publisherFormGroup">
   <mat-card class="publisher-card">
     <mat-card-header>
       <mat-card-title>Издатель</mat-card-title>
@@ -13,10 +13,10 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button mat-fab color="warn">
+      <button (click)="delete()" mat-fab color="warn">
         <mat-icon>delete</mat-icon>
       </button>
-      <button type="submit" mat-fab color="accent" [disabled]="!publisherFormGroup.valid">
+      <button (click)="save()" mat-fab color="accent" [disabled]="!publisherFormGroup.valid">
         <mat-icon>save</mat-icon>
       </button>
       <button mat-fab color="primary" [routerLink]="['/home']">

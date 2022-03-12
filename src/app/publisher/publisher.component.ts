@@ -4,6 +4,8 @@ import {ActivatedRoute} from "@angular/router";
 import {PublisherService} from "./publisher.service";
 import {Publisher} from "../model/publisher";
 import {Subscription} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-publisher',
@@ -17,7 +19,8 @@ export class PublisherComponent implements OnInit, OnDestroy {
 
   constructor(
     private publisherService: PublisherService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.publisherFormGroup = new FormGroup({
       'nameCtrl': new FormControl(null, Validators.required)
@@ -39,7 +42,14 @@ export class PublisherComponent implements OnInit, OnDestroy {
     this.paramMap.unsubscribe();
   }
 
-  onSubmit(): void {
+  delete() {
+    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+      if(result) {
+      }
+    });
+  }
+
+  save() {
     if (this.publisherFormGroup.valid) {
       console.log("publisher: " + this.publisher);
     }

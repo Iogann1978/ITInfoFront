@@ -35,8 +35,9 @@
       <th mat-header-cell *matHeaderCellDef>Действия</th>
       <td mat-cell *matCellDef="let element">
         <button mat-button [routerLink]="['/course', element.id]">Изменить</button>
-        <button mat-button>Содержание</button>
-        <button mat-button>Описание</button>
+        <button mat-button [routerLink]="['/content', element.id]">Содержание</button>
+        <button mat-button [routerLink]="['/descript', element.id]">Описание</button>
+        <button mat-button (click)="delete(element.id)">Удалить</button>
       </td>
     </ng-container>
 

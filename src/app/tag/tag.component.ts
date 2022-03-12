@@ -36,6 +36,12 @@ export class TagComponent implements OnInit, OnDestroy {
     });
   }
 
+  save() {
+    if (this.tagFormGroup.valid) {
+      this.tagService.saveTag(this.tag);
+    }
+  }
+
   ngOnInit(): void {
     this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
       let tag = params.get('tag');
@@ -48,11 +54,5 @@ export class TagComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.paramMap.unsubscribe();
-  }
-
-  save(): void {
-    if (this.tagFormGroup.valid) {
-      this.tagService.saveTag(this.tag);
-    }
   }
 }

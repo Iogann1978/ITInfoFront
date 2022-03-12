@@ -4,6 +4,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {InfoFile} from "../model/info-file";
 import {ActivatedRoute} from "@angular/router";
 import {FileService} from "./file.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-file',
@@ -17,7 +19,8 @@ export class FileComponent implements OnInit, OnDestroy {
 
   constructor(
     private fileService: FileService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.fileFormGroup = new FormGroup({
       'fileNameCtrl': new FormControl(null, Validators.required),
@@ -42,7 +45,14 @@ export class FileComponent implements OnInit, OnDestroy {
     this.paramMap.unsubscribe();
   }
 
-  onSubmit(): void {
+  delete() {
+    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+      if(result) {
+      }
+    });
+  }
+
+  save() {
     if (this.fileFormGroup.valid) {
       console.log("file: " + this.file);
     }

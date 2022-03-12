@@ -42,6 +42,7 @@
         <button mat-button [routerLink]="['/book', element.id]">Изменить</button>
         <button mat-button [routerLink]="['/content', element.id]">Содержание</button>
         <button mat-button [routerLink]="['/descript', element.id]">Описание</button>
+        <button mat-button (click)="delete(element.id)">Удалить</button>
       </td>
     </ng-container>
 
