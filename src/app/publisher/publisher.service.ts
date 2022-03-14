@@ -9,9 +9,11 @@ import {environment} from "../../environments/environment";
 })
 export class PublisherService {
   apiPublisherEndpointId: string = '';
+  apiPublisherEndpoint: string = '';
 
   constructor(private http: HttpClient) {
     this.apiPublisherEndpointId = environment.apiPublisherEndpointId;
+    this.apiPublisherEndpoint = environment.apiCourseEndpoint;
   }
 
   getPublisher(publisherId: number): Observable<Publisher> {
@@ -20,5 +22,13 @@ export class PublisherService {
     } else {
       return this.http.get<Publisher>(this.apiPublisherEndpointId.replace(':id', `${publisherId}`));
     }
+  }
+
+  deletePublisher(publisherId: number) {
+    this.http.delete(this.apiPublisherEndpointId.replace(':id', `${publisherId}`)).subscribe();
+  }
+
+  savePublisher(publisher: Publisher) {
+    this.http.post<Publisher>(this.apiPublisherEndpoint, publisher).subscribe();
   }
 }

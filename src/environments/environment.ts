@@ -4,21 +4,21 @@
 
 export const environment = {
   production: false,
-  apiGoogleEndpoint: './assets/book.json',
-  apiBookEndpointId: './assets/book.json',
+  apiGoogleEndpoint: './assets/book-0.json',
+  apiBookEndpointId: './assets/book-:id.json',
   apiBookEndpoint: './assets/books.json',
-  apiAuthorEndpointId: './assets/author.json',
+  apiAuthorEndpointId: './assets/author-:id.json',
   apiAuthorEndpoint: './assets/authors.json',
-  apiCourseEndpointId: './assets/course.json',
+  apiCourseEndpointId: './assets/course-:id.json',
   apiCourseEndpoint: './assets/courses.json',
-  apiPublisherEndpointId: './assets/publisher.json',
+  apiPublisherEndpointId: './assets/publisher-:id.json',
   apiPublisherEndpoint: './assets/publishers.json',
   apiTagEndpointId: './assets/tag-:tag.json',
   apiTagEndpoint: './assets/tags.json',
-  apiFileEndpointId: './assets/file.json',
+  apiFileEndpointId: './assets/file-:id.json',
   apiFileEndpoint: './assets/files.json',
-  apiDescriptEndpointId: './assets/descript.json',
-  apiContentEndpointId: './assets/content.json'
+  apiDescriptEndpointId: './assets/descript-:id.json',
+  apiContentEndpointId: './assets/content-:id.json'
 };
 
 /*

@@ -9,12 +9,22 @@ import {environment} from "../../environments/environment";
 })
 export class FileService {
   apiFileEndpointId: string = '';
+  apiFileEndpoint: string = '';
 
   constructor(private http: HttpClient) {
     this.apiFileEndpointId = environment.apiFileEndpointId;
+    this.apiFileEndpoint = environment.apiFileEndpoint;
   }
 
   getFile(fileId: number): Observable<InfoFile> {
     return this.http.get<InfoFile>(this.apiFileEndpointId.replace(':id', `${fileId}`));
+  }
+
+  deleteFile(fileId: number) {
+    this.http.delete(this.apiFileEndpointId.replace(':id', `${fileId}`)).subscribe();
+  }
+
+  saveFile(file: InfoFile) {
+    this.http.post<InfoFile>(this.apiFileEndpoint, file).subscribe();
   }
 }

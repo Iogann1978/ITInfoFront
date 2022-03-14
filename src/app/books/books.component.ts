@@ -31,9 +31,10 @@ export class BooksComponent implements OnInit {
       });
   }
 
-  delete(tag: string) {
+  delete(bookId: number) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
+        this.booksService.deleteBook(bookId);
       }
     });
   }

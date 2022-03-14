@@ -10,9 +10,11 @@ import {environment} from "../../environments/environment";
 export class PublishersService {
   private displayedColumns: string[] = ['name', 'actions'];
   apiPublisherEndpoint: string = '';
+  apiPublisherEndpointId: string = '';
 
   constructor(private http: HttpClient) {
     this.apiPublisherEndpoint = environment.apiPublisherEndpoint;
+    this.apiPublisherEndpointId = environment.apiPublisherEndpointId;
   }
 
   getPublishers(): Observable<Publisher[]> {
@@ -21,5 +23,9 @@ export class PublishersService {
 
   getDisplayedColumns(): string[] {
     return this.displayedColumns;
+  }
+
+  deletePublisher(publisherId: number) {
+    this.http.delete(this.apiPublisherEndpointId.replace(':id', `${publisherId}`)).subscribe();
   }
 }

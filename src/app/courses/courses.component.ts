@@ -30,9 +30,10 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  delete(tag: string) {
+  delete(courseId: number) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
+        this.coursesService.deleteCourse(courseId);
       }
     });
   }

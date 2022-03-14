@@ -10,9 +10,11 @@ import {environment} from "../../environments/environment";
 export class CoursesService {
   displayedColumns: string[] = ['title', 'duration', 'publisher', 'rate', 'state', 'year', 'actions'];
   apiCourseEndpoint: string = '';
+  apiCourseEndpointId: string = '';
 
   constructor(private http: HttpClient) {
     this.apiCourseEndpoint = environment.apiCourseEndpoint;
+    this.apiCourseEndpointId = environment.apiCourseEndpointId;
   }
 
   getCourseItems(): Observable<CourseItem[]> {
@@ -21,5 +23,9 @@ export class CoursesService {
 
   getDisplayedColumns(): string[] {
     return this.displayedColumns;
+  }
+
+  deleteCourse(courseId: number) {
+    this.http.delete(this.apiCourseEndpointId.replace(':id', `${courseId}`)).subscribe();
   }
 }

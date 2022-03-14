@@ -26,9 +26,10 @@ export class FilesComponent implements OnInit {
     this.displayedColumns = filesService.getDisplayedColumns();
   }
 
-  delete(tag: string) {
+  delete(fileId: number) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
+        this.filesService.deleteFile(fileId);
       }
     });
   }

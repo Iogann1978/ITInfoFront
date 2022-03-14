@@ -45,13 +45,14 @@ export class PublisherComponent implements OnInit, OnDestroy {
   delete() {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
+        this.publisherService.deletePublisher(this.publisher.id);
       }
     });
   }
 
   save() {
     if (this.publisherFormGroup.valid) {
-      console.log("publisher: " + this.publisher);
+      this.publisherService.savePublisher(this.publisher);
     }
   }
 }

@@ -12,9 +12,11 @@ import {environment} from "../../environments/environment";
 })
 export class CourseService {
   apiCourseEndpointId: string = '';
+  apiCourseEndpoint: string = '';
 
   constructor(private http: HttpClient, private tagsService: TagsService) {
     this.apiCourseEndpointId = environment.apiCourseEndpointId;
+    this.apiCourseEndpoint = environment.apiCourseEndpoint;
   }
 
   getTags(): Observable<string[]> {
@@ -42,5 +44,13 @@ export class CourseService {
     } else {
       return this.http.get<CourseItem>(this.apiCourseEndpointId.replace(':id', `${courseId}`));
     }
+  }
+
+  deleteCourse(courseId: number) {
+    this.http.delete(this.apiCourseEndpointId.replace(':id', `${courseId}`)).subscribe();
+  }
+
+  saveCourse(course: CourseItem) {
+    this.http.post<CourseItem>(this.apiCourseEndpoint, course).subscribe();
   }
 }

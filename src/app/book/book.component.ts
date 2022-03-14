@@ -147,18 +147,18 @@ export class BookComponent implements OnInit, OnDestroy {
   delete() {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
+        this.bookService.deleteBook(this.book.id);
       }
     });
   }
 
   save() {
     if (this.bookFormGroup.valid) {
-      console.log('book: ' + JSON.stringify(this.book));
+      this.bookService.saveBook(this.book);
     }
   }
 
   getGoogle(): void {
-    console.log('isbn: ' + this.bookFormGroup.get('isbnCtrl').value);
     this.bookService.getGoogle(this.bookFormGroup.get('isbnCtrl').value).subscribe(bookItem => {
       this.book = bookItem;
       this.bookFormGroup.get('isbnCtrl').setValue(this.book.isbn);

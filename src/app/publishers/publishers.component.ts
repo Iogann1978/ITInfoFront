@@ -26,9 +26,10 @@ export class PublishersComponent implements OnInit {
     this.displayedColumns = publishersService.getDisplayedColumns();
   }
 
-  delete(tag: string) {
+  delete(publisherId: number) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
+        this.publishersService.deletePublisher(publisherId);
       }
     });
   }

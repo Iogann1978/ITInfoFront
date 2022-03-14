@@ -9,11 +9,13 @@ import {environment} from "../../environments/environment";
 })
 export class BooksService {
   apiBookEndpoint: string = '';
+  apiBookEndpointId: string = '';
 
   private displayedColumns: string[] = ['title', 'isbn', 'publisher', 'pages', 'rate', 'state', 'year', 'actions'];
 
   constructor(private http: HttpClient) {
     this.apiBookEndpoint = environment.apiBookEndpoint;
+    this.apiBookEndpointId = environment.apiBookEndpointId;
   }
 
   getBookItems(): Observable<BookItem[]> {
@@ -22,5 +24,9 @@ export class BooksService {
 
   getDisplayedColumns(): string[] {
     return this.displayedColumns;
+  }
+
+  deleteBook(bookId: number) {
+    this.http.delete(this.apiBookEndpointId.replace(':id', `${bookId}`)).subscribe();
   }
 }

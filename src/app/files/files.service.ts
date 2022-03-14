@@ -10,9 +10,11 @@ import {environment} from "../../environments/environment";
 export class FilesService {
   displayedColumns: string[] = ['filename', 'size', 'actions'];
   apiFileEndpoint: string = '';
+  apiFileEndpointId: string = '';
 
   constructor(private http: HttpClient) {
     this.apiFileEndpoint = environment.apiFileEndpoint;
+    this.apiFileEndpointId = environment.apiCourseEndpointId;
   }
 
   getFiles(): Observable<InfoFile[]> {
@@ -21,5 +23,9 @@ export class FilesService {
 
   getDisplayedColumns(): string[] {
     return this.displayedColumns;
+  }
+
+  deleteFile(fileId: number) {
+    this.http.delete(this.apiFileEndpointId.replace(':id', `${fileId}`)).subscribe();
   }
 }

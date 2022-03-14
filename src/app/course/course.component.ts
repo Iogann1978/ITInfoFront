@@ -142,13 +142,14 @@ export class CourseComponent  implements OnInit, OnDestroy {
   delete() {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
+        this.courseService.deleteCourse(this.course.id);
       }
     });
   }
 
   save() {
     if (this.courseFormGroup.valid) {
-      console.log('course: ' + this.course);
+      this.courseService.saveCourse(this.course);
     }
   }
 

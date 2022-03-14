@@ -48,13 +48,14 @@ export class FileComponent implements OnInit, OnDestroy {
   delete() {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
+        this.fileService.deleteFile(this.file.id);
       }
     });
   }
 
   save() {
     if (this.fileFormGroup.valid) {
-      console.log("file: " + this.file);
+      this.fileService.saveFile(this.file);
     }
   }
 }

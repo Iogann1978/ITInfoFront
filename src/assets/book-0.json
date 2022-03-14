@@ -1,31 +1,31 @@
 {
   "id": 0,
   "title": "ASDF",
-  "isbn": "12546765",
+  "isbn": "435678",
   "publisher": {
     "id": 0,
-    "name": "Manning"
+    "name": "O`Reily"
   },
-  "pages": 235,
-  "rate": "GOOD",
-  "state": "STUDIED",
+  "pages": 10,
+  "rate": "BAD",
+  "state": "LEFT",
   "year": 2020,
   "descript": {
     "id": 0
   },
   "file": {
     "id": 0,
-    "filename": "asrft.txt",
+    "filename": "asdf.txt",
     "size": 0
   },
   "authors": [
     {
       "id": 0,
-      "name": "Joshua Tan"
+      "name": "Joshua"
     },
     {
       "id": 1,
-      "name": "Jeremy Iron"
+      "name": "Felix"
     }
   ],
   "tags": [

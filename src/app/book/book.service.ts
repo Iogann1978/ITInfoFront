@@ -13,10 +13,12 @@ import {environment} from "../../environments/environment";
 export class BookService {
   apiGoogleEndpoint: string = '';
   apiBookEndpointId: string = '';
+  apiBookEndpoint: string = '';
 
   constructor(private http: HttpClient, private tagsService: TagsService) {
     this.apiGoogleEndpoint = environment.apiGoogleEndpoint;
     this.apiBookEndpointId = environment.apiBookEndpointId;
+    this.apiBookEndpoint = environment.apiBookEndpoint;
   }
 
   getTags(): Observable<string[]> {
@@ -48,5 +50,13 @@ export class BookService {
 
   getGoogle(isbn: string): Observable<BookItem> {
     return this.http.get<BookItem>(this.apiGoogleEndpoint.replace(':isbn', `${isbn}`));
+  }
+
+  deleteBook(bookId: number) {
+    this.http.delete(this.apiBookEndpointId.replace(':id', `${bookId}`)).subscribe();
+  }
+
+  saveBook(book: BookItem) {
+    this.http.post<BookItem>(this.apiBookEndpoint, book).subscribe();
   }
  }
