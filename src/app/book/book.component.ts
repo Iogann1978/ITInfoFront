@@ -8,7 +8,6 @@ import {map, startWith} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {BookService} from "./book.service";
-import {InfoFile} from "../model/info-file";
 import {BookItem} from "../model/book-item";
 import {ActivatedRoute} from "@angular/router";
 import {Publisher} from "../model/publisher";
@@ -34,8 +33,18 @@ export class BookComponent implements OnInit, OnDestroy {
   filteredTags: Observable<string[]>;
   tags: string[];
   allTags: string[];
-  bookFile: InfoFile;
-  book: BookItem;
+  book: BookItem = {
+    authors: [],
+    file: {id: 0, filename: '', size: 0},
+    isbn: "",
+    pages: 0,
+    publisher: undefined,
+    rate: Rate.GOOD,
+    state: State.PLANNED,
+    tags: [],
+    title: "",
+    year: 0,
+    id: null};
 
   paramMap: Subscription;
 
@@ -61,7 +70,6 @@ export class BookComponent implements OnInit, OnDestroy {
         map((tag: string | null) => (tag ? this.filterTag(tag) : this.allTags.slice()))
       );
     });
-    this.bookFile = {id: 0, filename: '', size: 0};
     this.bookFormGroup = new FormGroup({
       'tagCtrl': new FormControl(null),
       'isbnCtrl': new FormControl(null),
@@ -166,7 +174,6 @@ export class BookComponent implements OnInit, OnDestroy {
       this.bookFormGroup.get('publisherCtrl').setValue(this.book.publisher.id);
       this.bookFormGroup.get('yearCtrl').setValue(this.book.year);
       this.bookFormGroup.get('pagesCtrl').setValue(this.book.pages);
-      this.bookFormGroup.get('bookFileCtrl').setValue(this.book.file.filename);
       this.bookFormGroup.get('rateCtrl').setValue(Rate[this.book.rate].toString());
       this.bookFormGroup.get('stateCtrl').setValue(State[this.book.state].toString());
       this.bookFormGroup.get('authorsCtrl').setValue(this.book.authors.map(a => a.name).join(', '));
