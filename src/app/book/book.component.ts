@@ -169,14 +169,17 @@ export class BookComponent implements OnInit, OnDestroy {
   getGoogle(): void {
     this.bookService.getGoogle(this.bookFormGroup.get('isbnCtrl').value).subscribe(bookItem => {
       this.book = bookItem;
-      this.bookFormGroup.get('isbnCtrl').setValue(this.book.isbn);
-      this.bookFormGroup.get('titleCtrl').setValue(this.book.title);
-      this.bookFormGroup.get('publisherCtrl').setValue(this.book.publisher.id);
-      this.bookFormGroup.get('yearCtrl').setValue(this.book.year);
-      this.bookFormGroup.get('pagesCtrl').setValue(this.book.pages);
-      this.bookFormGroup.get('rateCtrl').setValue(Rate[this.book.rate].toString());
-      this.bookFormGroup.get('stateCtrl').setValue(State[this.book.state].toString());
-      this.bookFormGroup.get('authorsCtrl').setValue(this.book.authors.map(a => a.name).join(', '));
+      this.publishersService.getPublishers().subscribe(data => {
+        this.publishers = data;
+        this.bookFormGroup.get('isbnCtrl').setValue(this.book.isbn);
+        this.bookFormGroup.get('titleCtrl').setValue(this.book.title);
+        this.bookFormGroup.get('publisherCtrl').setValue(this.book.publisher.id);
+        this.bookFormGroup.get('yearCtrl').setValue(this.book.year);
+        this.bookFormGroup.get('pagesCtrl').setValue(this.book.pages);
+        this.bookFormGroup.get('rateCtrl').setValue(Rate[this.book.rate].toString());
+        this.bookFormGroup.get('stateCtrl').setValue(State[this.book.state].toString());
+        this.bookFormGroup.get('authorsCtrl').setValue(this.book.authors.map(a => a.name).join(', '));
+      });
     });
   }
 
