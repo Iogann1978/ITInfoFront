@@ -11,7 +11,7 @@ export class BooksService {
   apiBookEndpoint: string = '';
   apiBookEndpointId: string = '';
 
-  private displayedColumns: string[] = ['title', 'isbn', 'publisher', 'pages', 'rate', 'state', 'year', 'actions'];
+  private displayedColumns: string[] = ['title', 'publisher', 'pages', 'rate', 'state', 'year', 'actions'];
 
   constructor(private http: HttpClient) {
     this.apiBookEndpoint = environment.apiBookEndpoint;

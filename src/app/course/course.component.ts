@@ -9,7 +9,7 @@ import {CourseItem} from "../model/course-item";
 import {Rate} from "../model/rate";
 import {State} from "../model/state";
 import {map, startWith} from "rxjs/operators";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "./course.service";
 import {Publisher} from "../model/publisher";
 import {PublishersService} from "../publishers/publishers.service";
@@ -48,6 +48,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
     private courseService: CourseService,
     private publishersService: PublishersService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private dialog: MatDialog
   ) {
     this.tags = [];
@@ -150,6 +151,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
   save() {
     if (this.courseFormGroup.valid) {
       this.courseService.saveCourse(this.course);
+      this.router.navigate(['/home']);
     }
   }
 

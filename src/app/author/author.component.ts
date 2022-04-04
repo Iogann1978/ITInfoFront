@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Author} from "../model/author";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AuthorService} from "./author.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
@@ -20,6 +20,7 @@ export class AuthorComponent implements OnInit, OnDestroy {
   constructor(
     private authorService: AuthorService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private dialog: MatDialog
   ) {
     this.authorFormGroup = new FormGroup({
@@ -51,7 +52,8 @@ export class AuthorComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.authorFormGroup.valid) {
-      console.log("author: " + this.author);
+      this.authorService.saveAuthor(this.author);
+      this.router.navigate(['/home']);
     }
   }
 }

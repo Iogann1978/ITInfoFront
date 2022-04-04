@@ -9,7 +9,7 @@ import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {BookService} from "./book.service";
 import {BookItem} from "../model/book-item";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Publisher} from "../model/publisher";
 import {PublishersService} from "../publishers/publishers.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -55,6 +55,7 @@ export class BookComponent implements OnInit, OnDestroy {
     private bookService: BookService,
     private publishersService: PublishersService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private dialog: MatDialog
   ) {
     this.tags = [];
@@ -163,6 +164,7 @@ export class BookComponent implements OnInit, OnDestroy {
   save() {
     if (this.bookFormGroup.valid) {
       this.bookService.saveBook(this.book);
+      this.router.navigate(['/home']);
     }
   }
 

@@ -3,7 +3,7 @@ import {Subscription} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Tag} from "../model/tag";
 import {TagService} from "./tag.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
@@ -20,6 +20,7 @@ export class TagComponent implements OnInit, OnDestroy {
   constructor(
     private tagService: TagService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private dialog: MatDialog
   ) {
     this.tagFormGroup = new FormGroup({
@@ -39,6 +40,7 @@ export class TagComponent implements OnInit, OnDestroy {
   save() {
     if (this.tagFormGroup.valid) {
       this.tagService.saveTag(this.tag);
+      this.router.navigate(['/home']);
     }
   }
 

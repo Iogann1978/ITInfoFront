@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {PublisherService} from "./publisher.service";
 import {Publisher} from "../model/publisher";
 import {Subscription} from "rxjs";
@@ -20,6 +20,7 @@ export class PublisherComponent implements OnInit, OnDestroy {
   constructor(
     private publisherService: PublisherService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private dialog: MatDialog
   ) {
     this.publisherFormGroup = new FormGroup({
@@ -53,6 +54,7 @@ export class PublisherComponent implements OnInit, OnDestroy {
   save() {
     if (this.publisherFormGroup.valid) {
       this.publisherService.savePublisher(this.publisher);
+      this.router.navigate(['/home']);
     }
   }
 }
