@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, of} from "rxjs";
 import {map} from "rxjs/operators";
 import {Tag} from "../model/tag";
@@ -6,6 +6,8 @@ import {HttpClient} from "@angular/common/http";
 import {TagsService} from "../tags/tags.service";
 import {CourseItem} from "../model/course-item";
 import {environment} from "../../environments/environment";
+import {Rate} from "../model/rate";
+import {State} from "../model/state";
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +30,7 @@ export class CourseService {
 
   getCourseTags(courseId: number): Observable<string[]> {
     if (courseId < 0) {
-      return null;
+      return of();
     } else {
       return this.http.get<CourseItem>(this.apiCourseEndpointId.replace(':id', `${courseId}`))
         .pipe(
@@ -40,7 +42,7 @@ export class CourseService {
 
   getCourse(courseId: number): Observable<CourseItem> {
     if (courseId < 0) {
-      return of({id: null, title: null, rate: null, file: null, year: null, tags: null, publisher: null, state: null, duration: null});
+      return of({id: null, title: null, file: null, year: null, tags: null, publisher: null, rate: Rate.UNKNOWN, state: State.PLANNED, duration: null});
     } else {
       return this.http.get<CourseItem>(this.apiCourseEndpointId.replace(':id', `${courseId}`));
     }

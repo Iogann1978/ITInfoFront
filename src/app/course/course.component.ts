@@ -37,7 +37,17 @@ export class CourseComponent  implements OnInit, OnDestroy {
   coursePath: InfoFile;
   contentFile: InfoFile;
   descriptFile: InfoFile;
-  course: CourseItem;
+  course: CourseItem = {
+    duration: 0,
+    file: undefined,
+    id: 0,
+    publisher: undefined,
+    rate: Rate.UNKNOWN,
+    state: State.PLANNED,
+    tags: [],
+    title: "",
+    year: 0
+  };
 
   paramMap: Subscription;
 
@@ -77,6 +87,10 @@ export class CourseComponent  implements OnInit, OnDestroy {
       'rateCtrl': new FormControl(null, Validators.required),
       'stateCtrl': new FormControl(null, Validators.required)
     });
+    this.courseFormGroup.get('titleCtrl').valueChanges.subscribe(title => this.course.title = title);
+    this.courseFormGroup.get('publisherCtrl').valueChanges.subscribe(publisher => this.course.publisher.id = publisher);
+    this.courseFormGroup.get('yearCtrl').valueChanges.subscribe(year => this.course.year = year);
+    this.courseFormGroup.get('durationCtrl').valueChanges.subscribe(duration => this.course.duration = duration);
     this.publishersService.getPublishers().subscribe(data => this.publishers = data);
   }
 

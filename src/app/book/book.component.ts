@@ -39,12 +39,13 @@ export class BookComponent implements OnInit, OnDestroy {
     isbn: "",
     pages: 0,
     publisher: undefined,
-    rate: Rate.GOOD,
+    rate: Rate.UNKNOWN,
     state: State.PLANNED,
     tags: [],
     title: "",
     year: 0,
-    id: null};
+    id: null
+  };
 
   paramMap: Subscription;
 
