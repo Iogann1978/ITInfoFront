@@ -23,6 +23,7 @@ export class PublisherComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialog: MatDialog
   ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.publisherFormGroup = new FormGroup({
       'nameCtrl': new FormControl(null, Validators.required)
     });

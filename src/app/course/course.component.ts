@@ -61,6 +61,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
     private router: Router,
     private dialog: MatDialog
   ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.tags = [];
     this.rateKeys = Object.keys(Rate).filter(f => !isNaN(Number(f)));
     this.rateValues = Object.keys(Rate).filter(f => !isNaN(Number(f))).map(f => Rate[f]);

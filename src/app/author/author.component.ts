@@ -23,6 +23,7 @@ export class AuthorComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialog: MatDialog
   ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.authorFormGroup = new FormGroup({
       'authorCtrl': new FormControl(null, Validators.required)
     });

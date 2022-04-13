@@ -23,6 +23,7 @@ export class TagComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialog: MatDialog
   ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.tagFormGroup = new FormGroup({
       'tagCtrl': new FormControl(null, Validators.required)
     });

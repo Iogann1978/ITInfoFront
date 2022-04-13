@@ -13,7 +13,7 @@ export class PublisherService {
 
   constructor(private http: HttpClient) {
     this.apiPublisherEndpointId = environment.apiPublisherEndpointId;
-    this.apiPublisherEndpoint = environment.apiCourseEndpoint;
+    this.apiPublisherEndpoint = environment.apiPublisherEndpoint;
   }
 
   getPublisher(publisherId: number): Observable<Publisher> {
