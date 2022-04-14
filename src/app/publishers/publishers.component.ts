@@ -24,6 +24,10 @@ export class PublishersComponent implements OnInit {
     private dialog: MatDialog
     ) {
     this.displayedColumns = publishersService.getDisplayedColumns();
+    this.publishersService.getPublishers().subscribe(data => {
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.publishersPaginator;
+    });
   }
 
   delete(publisherId: number) {
@@ -35,9 +39,5 @@ export class PublishersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.publishersService.getPublishers().subscribe(data => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.publishersPaginator;
-    });
   }
 }

@@ -8,7 +8,7 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class CoursesService {
-  displayedColumns: string[] = ['title', 'duration', 'publisher', 'rate', 'state', 'year', 'actions'];
+  displayedColumns: string[] = ['title', 'publisher', 'rate', 'state', 'year', 'actions'];
   apiCourseEndpoint: string = '';
   apiCourseEndpointId: string = '';
 

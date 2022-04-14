@@ -24,6 +24,10 @@ export class TagsComponent implements OnInit {
     private dialog: MatDialog
     ) {
     this.displayedColumns = tagsService.getDisplayedColumns();
+    this.tagsService.getTags().subscribe(data => {
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.tagsPaginator;
+    });
   }
 
   delete(tag: string) {
@@ -35,9 +39,5 @@ export class TagsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tagsService.getTags().subscribe(data => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.tagsPaginator;
-    });
   }
 }
