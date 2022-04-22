@@ -125,7 +125,10 @@ export class CourseComponent  implements OnInit, OnDestroy {
   }
 
   selectCoursePath(event) {
-    this.course.file.filename = event.target.files[0].name;
+    for (let i =0; i < event.target.files.length; i++) {
+      console.log('file: ' + event.target.files[i].webkitRelativePath);
+    }
+    this.course.file.filename = event.target.files[0].webkitRelativePath;
     this.course.file.size = event.target.files[0].size;
     this.courseFormGroup.get('coursePathCtrl').setValue(this.course.file.filename);
   }

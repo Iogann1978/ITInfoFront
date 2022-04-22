@@ -60,7 +60,7 @@
               <button mat-icon-button matSuffix (click)="coursePathInput.click()">
                 <mat-icon>file_upload</mat-icon>
               </button>
-              <input hidden (change)="selectCoursePath($event)" #coursePathInput type="file" id="coursePath">
+              <input hidden (change)="selectCoursePath($event)" #coursePathInput type="file" id="coursePath" webkitdirectory directory multiple>
             </mat-form-field>
           </mat-grid-tile>
 

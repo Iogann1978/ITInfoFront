@@ -42,7 +42,7 @@ export class CourseService {
 
   getCourse(courseId: number): Observable<CourseItem> {
     if (courseId < 0) {
-      return of({id: null, title: null, file: null, year: null, tags: null, publisher: null, rate: Rate.UNKNOWN, state: State.PLANNED, duration: null});
+      return of({id: null, title: null, file: {id: null, filename: null, size: null}, year: null, tags: null, publisher: {id: null, name: null}, rate: Rate.UNKNOWN, state: State.PLANNED, duration: null});
     } else {
       return this.http.get<CourseItem>(this.apiCourseEndpointId.replace(':id', `${courseId}`));
     }
