@@ -1,4 +1,5 @@
 export interface Descript {
   id: number;
-  text: ArrayBuffer;
+  name: string;
+  text: string;
 }

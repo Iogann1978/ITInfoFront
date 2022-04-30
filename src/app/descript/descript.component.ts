@@ -17,7 +17,7 @@ export class DescriptComponent implements OnInit, OnDestroy {
     private descriptService: DescriptService,
     private activatedRoute: ActivatedRoute
     ) {
-    this.descript = {id: null, text: null};
+    this.descript = {id: null, name: null, text: null};
   }
 
   selectDescriptFile(event) {

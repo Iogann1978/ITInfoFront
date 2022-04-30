@@ -16,7 +16,7 @@ export class DescriptService {
 
   getDescript(bookId: number): Observable<Descript> {
     if (bookId < 0) {
-      return of({id: null, text: null});
+      return of({id: null, name: null, text: null});
     } else {
       return this.http.get<Descript>(this.apiDescriptEndpointId.replace(':id',`${bookId}`));
     }

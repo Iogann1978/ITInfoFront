@@ -39,7 +39,6 @@ import { TagComponent } from './tag/tag.component';
 import { AuthorComponent } from './author/author.component';
 import { FileComponent } from './file/file.component';
 import { DescriptComponent } from './descript/descript.component';
-import { ContentsComponent } from './contents/contents.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 
@@ -65,7 +64,6 @@ import {MatDialogModule} from "@angular/material/dialog";
     AuthorComponent,
     FileComponent,
     DescriptComponent,
-    ContentsComponent,
     DeleteDialogComponent
   ],
     imports: [

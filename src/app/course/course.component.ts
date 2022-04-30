@@ -15,6 +15,7 @@ import {Publisher} from "../model/publisher";
 import {PublishersService} from "../publishers/publishers.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
+import {Descript} from "../model/descript";
 
 @Component({
   selector: 'app-course',
@@ -125,11 +126,17 @@ export class CourseComponent  implements OnInit, OnDestroy {
   }
 
   selectCoursePath(event) {
-    for (let i =0; i < event.target.files.length; i++) {
-      console.log('file: ' + event.target.files[i].webkitRelativePath);
+    let size = 0;
+    let files = event.target.files;
+    let descript: Descript = {id: null, name: 'Files', text: '<html><body><table><caption>Files</caption>'};
+    for (let i = 0; i < files.length; i++) {
+      size += files[i].size;
+      descript.text += '<tr><td></td>`${files[i].webkitRelativePath}`</tr>';
     }
-    this.course.file.filename = event.target.files[0].webkitRelativePath;
-    this.course.file.size = event.target.files[0].size;
+    descript.text += '</table></body></html>';
+    this.course.file.filename = files[0].webkitRelativePath.split('/')[0];
+    this.course.file.size = size;
+    console.log('size: ' + size);
     this.courseFormGroup.get('coursePathCtrl').setValue(this.course.file.filename);
   }
 
