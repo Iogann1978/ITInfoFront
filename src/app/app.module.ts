@@ -41,6 +41,7 @@ import { FileComponent } from './file/file.component';
 import { DescriptComponent } from './descript/descript.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { DescriptsComponent } from './descripts/descripts.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     AuthorComponent,
     FileComponent,
     DescriptComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    DescriptsComponent
   ],
     imports: [
         BrowserModule,

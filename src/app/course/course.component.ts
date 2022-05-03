@@ -16,6 +16,7 @@ import {PublishersService} from "../publishers/publishers.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 import {Descript} from "../model/descript";
+import * as Buffer from "buffer";
 
 @Component({
   selector: 'app-course',

@@ -9,6 +9,7 @@ import {FindComponent} from "./find/find.component";
 import {AuthorComponent} from "./author/author.component";
 import {FileComponent} from "./file/file.component";
 import {DescriptComponent} from "./descript/descript.component";
+import {DescriptsComponent} from "./descripts/descripts.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: 'author/:id', component: AuthorComponent},
   {path: 'file/:id', component: FileComponent},
   {path: 'find', component: FindComponent},
-  {path: 'descript/:id', component: DescriptComponent}
+  {path: 'descript/:id', component: DescriptComponent},
+  {path: 'descripts/:id', component: DescriptsComponent}
 ];
 
 @NgModule({

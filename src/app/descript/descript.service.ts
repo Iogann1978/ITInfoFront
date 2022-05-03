@@ -14,11 +14,11 @@ export class DescriptService {
     this.apiDescriptEndpointId = environment.apiDescriptEndpointId;
   }
 
-  getDescript(bookId: number): Observable<Descript> {
-    if (bookId < 0) {
-      return of({id: null, name: null, text: null});
+  getDescript(id: number): Observable<Descript> {
+    if (id < 0) {
+      return of();
     } else {
-      return this.http.get<Descript>(this.apiDescriptEndpointId.replace(':id',`${bookId}`));
+      return this.http.get<Descript>(this.apiDescriptEndpointId.replace(':id',`${id}`));
     }
   }
 
