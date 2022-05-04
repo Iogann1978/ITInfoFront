@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DescriptsService} from "./descripts.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {Info} from "../model/info";
 
 @Component({
   selector: 'app-descripts',
@@ -16,7 +17,16 @@ export class DescriptsComponent implements OnInit {
   displayedColumns: string[];
   dataSource: MatTableDataSource<Descript> = new MatTableDataSource<Descript>();
   paramMap: Subscription;
-  title: string = '';
+  info: Info = {
+    file: undefined,
+    id: 0,
+    publisher: undefined,
+    rate: undefined,
+    state: undefined,
+    tags: [],
+    title: "",
+    year: 0
+  };
 
   constructor(
     private descriptsService: DescriptsService,
@@ -29,8 +39,10 @@ export class DescriptsComponent implements OnInit {
   ngOnInit(): void {
     this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
       let id = +params.get('id');
-      this.descriptsService.getDescripts(id).subscribe((data:Descript[]) => this.dataSource.data = data);
-      this.descriptsService.getTitle(id).subscribe((title:string) => this.title = title);
+      this.descriptsService.getInfo(id).subscribe((info:Info) => {
+        this.info = info;
+        this.dataSource.data = info.descripts;
+      });
     });
   }
 

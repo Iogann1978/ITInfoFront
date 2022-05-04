@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "file": {
+    "id": 0,
+    "filename": "vfgtyh.txt",
+    "size": 0
+  },
+  "publisher": {
+    "id": 1,
+    "name": "Apress"
+  },
+  "rate": "GOOD",
+  "state": "LEFT",
+  "tags": [{"tag": "JavaScript"}],
+  "title": "Info 2",
+  "year": 2021
+}

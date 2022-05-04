@@ -19,7 +19,7 @@ export const environment = {
   apiFileEndpoint: './assets/files.json',
   apiDescriptEndpointId: './assets/descript-:id.json',
   apiDescriptsEndpointId: './assets/descripts-:id.json',
-  apiTitleEndpointId: './assets/title-:id.txt'
+  apiInfoEndpointId: './assets/info-:id.txt'
 };
 
 /*
