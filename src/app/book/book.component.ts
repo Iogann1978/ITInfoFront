@@ -173,6 +173,7 @@ export class BookComponent implements OnInit, OnDestroy {
   getGoogle(): void {
     this.bookService.getGoogle(this.bookFormGroup.get('isbnCtrl').value).subscribe(bookItem => {
       this.book = bookItem;
+      this.book.file = {filename: null, id: null, size: 0};
       this.publishersService.getPublishers().subscribe(pubs => {
         this.bookService.getTags().subscribe(tags => {
           this.publishers = pubs;

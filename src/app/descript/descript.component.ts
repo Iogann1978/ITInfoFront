@@ -30,7 +30,10 @@ export class DescriptComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
       let id = +params.get('id');
-      this.descriptService.getDescript(id).subscribe(descript => this.descript = descript);
+      this.descriptService.getDescript(id).subscribe(descript => {
+        this.descript = descript;
+        this.descript.text = atob(descript.text);
+      });
     });
   }
 
