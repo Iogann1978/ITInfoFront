@@ -15,5 +15,6 @@ export const environment = {
   apiFileEndpoint: '/api/file',
   apiDescriptEndpointId: '/api/descript/:id',
   apiDescriptsEndpointId: '/api/descript/:id',
-  apiInfoEndpointId: '/api/info/:id'
+  apiInfoEndpointId: '/api/info/:id',
+  apiInfoEndpoint: '/api/info'
 };

@@ -42,6 +42,7 @@ import { DescriptComponent } from './descript/descript.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { DescriptsComponent } from './descripts/descripts.component';
+import { DescriptDialogComponent } from './descript-dialog/descript-dialog.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { DescriptsComponent } from './descripts/descripts.component';
     FileComponent,
     DescriptComponent,
     DeleteDialogComponent,
-    DescriptsComponent
+    DescriptsComponent,
+    DescriptDialogComponent
   ],
     imports: [
         BrowserModule,

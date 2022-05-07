@@ -11,12 +11,14 @@ export class DescriptsService {
   apiDescriptsEndpointId: string = '';
   apiDescriptEndpointId: string = '';
   apiInfoEndpointId: string = '';
+  apiInfoEndpoint: string = '';
   displayedColumns: string[] = ['name', 'actions'];
 
   constructor(private http: HttpClient) {
     this.apiDescriptEndpointId = environment.apiDescriptEndpointId;
     this.apiDescriptsEndpointId = environment.apiDescriptsEndpointId;
     this.apiInfoEndpointId = environment.apiInfoEndpointId;
+    this.apiInfoEndpoint = environment.apiInfoEndpoint;
   }
 
   getDisplayedColumns(): string[] {
@@ -29,5 +31,9 @@ export class DescriptsService {
 
   deleteDescript(id: number) {
     this.http.delete(this.apiDescriptEndpointId.replace(':id', `${id}`)).subscribe();
+  }
+
+  saveInfo(info: Info) {
+    this.http.post<Info>(this.apiInfoEndpoint, info).subscribe();
   }
 }

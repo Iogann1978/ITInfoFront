@@ -1,4 +1,13 @@
 <mat-toolbar color="primary">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Описания">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="addDescript()">
+      <mat-icon>description</mat-icon>
+      <span>Добавить описание</span>
+    </button>
+  </mat-menu>
   <mat-label>Описания: {{info.title}}</mat-label>
 </mat-toolbar>
 

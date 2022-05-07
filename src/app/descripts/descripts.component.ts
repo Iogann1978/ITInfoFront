@@ -7,6 +7,7 @@ import {DescriptsService} from "./descripts.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {Info} from "../model/info";
+import {DescriptDialogComponent} from "../descript-dialog/descript-dialog.component";
 
 @Component({
   selector: 'app-descripts',
@@ -50,6 +51,17 @@ export class DescriptsComponent implements OnInit {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
         this.descriptsService.deleteDescript(id);
+      }
+    });
+  }
+
+  addDescript() {
+    this.dialog.open(DescriptDialogComponent).afterClosed().subscribe((descript: Descript) => {
+      if(descript != null) {
+        this.descriptsService.getInfo(this.info.id).subscribe(info => {
+          info.descripts.push(descript);
+          this.descriptsService.saveInfo(info);
+        });
       }
     });
   }
