@@ -1,11 +1,7 @@
 <mat-toolbar color="primary">
-  <mat-label>Файл описания</mat-label>
-  <input hidden (change)="selectDescriptFile($event)" #descriptFileInput type="file" id="descriptFile">
-  <button mat-icon-button matSuffix (click)="descriptFileInput.click()">
-    <mat-icon>attach_file</mat-icon>
-  </button>
+  <mat-label>Описание</mat-label>
   <span class="descript-spacer"></span>
-  <button mat-fab color="primary" [routerLink]="['/home']">
+  <button mat-icon-button aria-label="На главную страницу" [routerLink]="['/home']">
     <mat-icon>home</mat-icon>
   </button>
 </mat-toolbar>

@@ -21,11 +21,4 @@ export class DescriptService {
       return this.http.get<Descript>(this.apiDescriptEndpointId.replace(':id',`${id}`));
     }
   }
-
-  postDescript(id: number, file: File) {
-    const formData = new FormData();
-    formData.append("file", file);
-    const upload = this.http.post(this.apiDescriptEndpointId.replace(':id',`${id}`), formData);
-    upload.subscribe();
-  }
 }

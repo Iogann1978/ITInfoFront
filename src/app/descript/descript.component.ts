@@ -20,13 +20,6 @@ export class DescriptComponent implements OnInit, OnDestroy {
     this.descript = {id: null, name: null, text: null};
   }
 
-  selectDescriptFile(event) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.descriptService.postDescript(this.descript.id, file);
-    }
-  }
-
   ngOnInit(): void {
     this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
       let id = +params.get('id');
