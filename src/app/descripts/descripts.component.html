@@ -7,6 +7,10 @@
       <mat-icon>description</mat-icon>
       <span>Добавить описание</span>
     </button>
+    <button mat-menu-item (click)="export()">
+      <mat-icon>font_download</mat-icon>
+      <span>Экспорт в html</span>
+    </button>
   </mat-menu>
   <mat-label>Описания: {{info.title}}</mat-label>
   <span class="horizontal-spacer"></span>

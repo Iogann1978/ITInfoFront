@@ -44,7 +44,8 @@ export class BookComponent implements OnInit, OnDestroy {
     tags: [],
     title: "",
     year: 0,
-    id: null
+    id: null,
+    descripts: []
   };
 
   paramMap: Subscription;

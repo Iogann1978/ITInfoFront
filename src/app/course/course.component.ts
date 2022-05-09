@@ -48,7 +48,8 @@ export class CourseComponent  implements OnInit, OnDestroy {
     state: State.PLANNED,
     tags: [],
     title: "",
-    year: 0
+    year: 0,
+    descripts: []
   };
 
   paramMap: Subscription;
@@ -132,12 +133,15 @@ export class CourseComponent  implements OnInit, OnDestroy {
     let descript: Descript = {id: null, name: 'Files', text: '<html><body><table><caption>Files</caption>'};
     for (let i = 0; i < files.length; i++) {
       size += files[i].size;
-      descript.text += '<tr><td></td>`${files[i].webkitRelativePath}`</tr>';
+      descript.text += '<tr><td></td>';
+      descript.text += files[i].webkitRelativePath.split('/')[-1];
+      descript.text += '</tr>';
     }
     descript.text += '</table></body></html>';
+    descript.text = btoa(descript.text);
+    this.course.descripts.push(descript);
     this.course.file.filename = files[0].webkitRelativePath.split('/')[0];
     this.course.file.size = size;
-    console.log('size: ' + size);
     this.courseFormGroup.get('coursePathCtrl').setValue(this.course.file.filename);
   }
 

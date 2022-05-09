@@ -8,6 +8,8 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {Info} from "../model/info";
 import {DescriptDialogComponent} from "../descript-dialog/descript-dialog.component";
+import {BookService} from "../book/book.service";
+import {CourseService} from "../course/course.service";
 
 @Component({
   selector: 'app-descripts',
@@ -31,6 +33,8 @@ export class DescriptsComponent implements OnInit {
 
   constructor(
     private descriptsService: DescriptsService,
+    private bookService: BookService,
+    private courseService: CourseService,
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute
   ) {
@@ -40,7 +44,7 @@ export class DescriptsComponent implements OnInit {
   ngOnInit(): void {
     this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
       let id = +params.get('id');
-      this.descriptsService.getInfo(id).subscribe((info:Info) => {
+      this.descriptsService.getInfo(id).subscribe(info => {
         this.info = info;
         this.dataSource.data = info.descripts;
       });
@@ -58,11 +62,27 @@ export class DescriptsComponent implements OnInit {
   addDescript() {
     this.dialog.open(DescriptDialogComponent).afterClosed().subscribe((descript: Descript) => {
       if(descript != null) {
-        this.descriptsService.getInfo(this.info.id).subscribe(info => {
-          info.descripts.push(descript);
-          this.descriptsService.saveInfo(info);
+        this.bookService.getBook(this.info.id).subscribe(book => {
+          if (book != null) {
+            book.descripts.push(descript);
+            this.bookService.saveBook(book);
+          }
+        });
+        this.courseService.getCourse(this.info.id).subscribe(course => {
+          if (course != null) {
+            course.descripts.push(descript);
+            this.courseService.saveCourse(course);
+          }
         });
       }
+      this.descriptsService.getInfo(this.info.id).subscribe(info => {
+        this.info = info;
+        this.dataSource.data = info.descripts;
+      });
     });
+  }
+
+  export() {
+
   }
 }

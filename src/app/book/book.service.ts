@@ -44,7 +44,7 @@ export class BookService {
 
   getBook(bookId: number): Observable<BookItem> {
     if (bookId < 0) {
-      return of({id: null, isbn: null, pages: null, authors: [], title: null, year: null, rate: Rate.UNKNOWN, state: State.PLANNED, publisher: {id: null, name: null}, file: {id: null, filename: null, size: null}, tags: [], content: {id: null, text: null}, descript: {id: null, text: null}});
+      return of({id: null, isbn: null, pages: null, authors: [], title: null, year: null, rate: Rate.UNKNOWN, state: State.PLANNED, publisher: {id: null, name: null}, file: {id: null, filename: null, size: null}, tags: [], content: {id: null, text: null}, descripts: []});
     } else {
       return this.http.get<BookItem>(this.apiBookEndpointId.replace(':id', `${bookId}`));
     }

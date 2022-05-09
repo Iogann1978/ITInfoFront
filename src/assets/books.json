@@ -11,9 +11,6 @@
     "rate": "BAD",
     "state": "LEFT",
     "year": 2020,
-    "descript": {
-      "id": 0
-    },
     "file": {
       "id": 0,
       "filename": "asdf.txt",
@@ -47,9 +44,6 @@
     "rate": "GOOD",
     "state": "STUDIED",
     "year": 2021,
-    "descript": {
-      "id": 1
-    },
     "file": {
       "id": 1,
       "filename": "hgfrd.pdf",
