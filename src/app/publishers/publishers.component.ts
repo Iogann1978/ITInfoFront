@@ -24,17 +24,21 @@ export class PublishersComponent implements OnInit {
     private dialog: MatDialog
     ) {
     this.displayedColumns = publishersService.getDisplayedColumns();
-    this.publishersService.getPublishers().subscribe(data => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.publishersPaginator;
-    });
+    this.refreshData();
   }
 
   delete(publisherId: number) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
-        this.publishersService.deletePublisher(publisherId);
+        this.publishersService.deletePublisher(publisherId).subscribe(response => this.refreshData());
       }
+    });
+  }
+
+  refreshData() {
+    this.publishersService.getPublishers().subscribe(data => {
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.publishersPaginator;
     });
   }
 

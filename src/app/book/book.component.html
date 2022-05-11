@@ -2,7 +2,7 @@
   <mat-card class="book-card">
     <mat-card-header>
       <mat-card-title>Книга</mat-card-title>
-      <mat-card-subtitle>Редактирование</mat-card-subtitle>
+      <mat-card-subtitle>{{book.id == null ? 'Добавление' : 'Редактирование'}}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>

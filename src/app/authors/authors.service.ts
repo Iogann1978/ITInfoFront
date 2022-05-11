@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Author} from "../model/author";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 
@@ -10,9 +10,11 @@ import {environment} from "../../environments/environment";
 export class AuthorsService {
   displayedColumns: string[] = ['name', 'actions'];
   apiAuthorEndpoint: string = '';
+  apiAuthorEndpointId: string = '';
 
   constructor(private http: HttpClient) {
     this.apiAuthorEndpoint = environment.apiAuthorEndpoint;
+    this.apiAuthorEndpointId = environment.apiAuthorEndpointId;
   }
 
   getAuthors(): Observable<Author[]> {
@@ -21,5 +23,9 @@ export class AuthorsService {
 
   getDisplayedColumns(): string[] {
     return this.displayedColumns;
+  }
+
+  deleteAuthor(authorId: number): Observable<HttpResponse<Object>> {
+    return this.http.delete(this.apiAuthorEndpointId.replace(':id', `${authorId}`), {observe: 'response'});
   }
 }

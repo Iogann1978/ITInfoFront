@@ -26,14 +26,19 @@ export class AuthorsComponent implements OnInit {
     this.displayedColumns = authorsService.getDisplayedColumns();
   }
 
-  delete(tag: string) {
+  delete(authorId: number) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
+        this.authorsService.deleteAuthor(authorId).subscribe(response => this.refreshData());
       }
     });
   }
 
   ngOnInit(): void {
+    this.refreshData();
+  }
+
+  refreshData() {
     this.authorsService.getAuthors().subscribe(data => {
       this.dataSource.data = data;
       this.dataSource.paginator = this.authorsPaginator;

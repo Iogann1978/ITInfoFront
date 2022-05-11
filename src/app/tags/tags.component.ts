@@ -24,20 +24,24 @@ export class TagsComponent implements OnInit {
     private dialog: MatDialog
     ) {
     this.displayedColumns = tagsService.getDisplayedColumns();
-    this.tagsService.getTags().subscribe(data => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.tagsPaginator;
-    });
+    this.refreshData();
   }
 
   delete(tag: string) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
-        this.tagsService.deleteTag(tag);
+        this.tagsService.deleteTag(tag).subscribe(response => this.refreshData());
       }
     });
   }
 
   ngOnInit(): void {
+  }
+
+  refreshData() {
+    this.tagsService.getTags().subscribe(data => {
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.tagsPaginator;
+    });
   }
 }

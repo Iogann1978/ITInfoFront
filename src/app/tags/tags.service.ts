@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Tag} from "../model/tag";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 
@@ -21,8 +21,8 @@ export class TagsService {
     return this.http.get<Tag[]>(this.apiTagEndpoint);
   }
 
-  deleteTag(tag: string) {
-    this.http.delete(this.apiTagEndpointId.replace(':tag', `${tag}`)).subscribe();
+  deleteTag(tag: string): Observable<HttpResponse<Object>> {
+    return this.http.delete(this.apiTagEndpointId.replace(':tag', `${tag}`), {observe: 'response'});
   }
 
   getDisplayedColumns(): string[] {

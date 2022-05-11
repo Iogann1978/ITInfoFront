@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Publisher} from "../model/publisher";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 
@@ -25,7 +25,7 @@ export class PublishersService {
     return this.displayedColumns;
   }
 
-  deletePublisher(publisherId: number) {
-    this.http.delete(this.apiPublisherEndpointId.replace(':id', `${publisherId}`)).subscribe();
+  deletePublisher(publisherId: number): Observable<HttpResponse<Object>> {
+    return this.http.delete(this.apiPublisherEndpointId.replace(':id', `${publisherId}`), {observe: 'response'});
   }
 }

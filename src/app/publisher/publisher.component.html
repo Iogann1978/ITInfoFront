@@ -2,7 +2,7 @@
   <mat-card class="publisher-card">
     <mat-card-header>
       <mat-card-title>Издатель</mat-card-title>
-      <mat-card-subtitle>Редактирование</mat-card-subtitle>
+      <mat-card-subtitle>{{publisher.id == null ? 'Добавление' : 'Редактирование'}}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>

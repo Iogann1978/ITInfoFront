@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {Info} from "../model/info";
@@ -29,8 +29,8 @@ export class DescriptsService {
     return this.http.get<Info>(this.apiInfoEndpointId.replace(':id', `${id}`));
   }
 
-  deleteDescript(id: number) {
-    this.http.delete(this.apiDescriptEndpointId.replace(':id', `${id}`)).subscribe();
+  deleteDescript(id: number): Observable<HttpResponse<Object>> {
+    return this.http.delete(this.apiDescriptEndpointId.replace(':id', `${id}`), {observe: 'response'});
   }
 
   saveInfo(info: Info) {

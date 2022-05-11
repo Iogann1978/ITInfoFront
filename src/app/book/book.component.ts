@@ -91,6 +91,8 @@ export class BookComponent implements OnInit, OnDestroy {
     this.bookFormGroup.get('publisherCtrl').valueChanges.subscribe(publisher => this.book.publisher.id = publisher);
     this.bookFormGroup.get('yearCtrl').valueChanges.subscribe(year => this.book.year = year);
     this.bookFormGroup.get('pagesCtrl').valueChanges.subscribe(pages => this.book.pages = pages);
+    this.bookFormGroup.get('rateCtrl').valueChanges.subscribe(rate => this.book.rate = rate);
+    this.bookFormGroup.get('stateCtrl').valueChanges.subscribe(state => this.book.state = state);
     this.publishersService.getPublishers().subscribe(data => this.publishers = data);
   }
 

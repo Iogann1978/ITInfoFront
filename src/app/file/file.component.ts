@@ -58,4 +58,8 @@ export class FileComponent implements OnInit, OnDestroy {
       this.fileService.saveFile(this.file);
     }
   }
+
+  refreshData(id: number) {
+
+  }
 }

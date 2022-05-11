@@ -2,7 +2,7 @@
   <mat-card class="course-card">
     <mat-card-header>
       <mat-card-title>Курс</mat-card-title>
-      <mat-card-subtitle>Редактирование</mat-card-subtitle>
+      <mat-card-subtitle>{{course.id == null ? 'Добавление' : 'Редактирование'}}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>

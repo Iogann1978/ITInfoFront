@@ -44,17 +44,14 @@ export class DescriptsComponent implements OnInit {
   ngOnInit(): void {
     this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
       let id = +params.get('id');
-      this.descriptsService.getInfo(id).subscribe(info => {
-        this.info = info;
-        this.dataSource.data = info.descripts;
-      });
+      this.refreshData(id);
     });
   }
 
   delete(id: number) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
-        this.descriptsService.deleteDescript(id);
+        this.descriptsService.deleteDescript(id).subscribe(response => this.refreshData(this.info.id));
       }
     });
   }
@@ -75,10 +72,14 @@ export class DescriptsComponent implements OnInit {
           }
         });
       }
-      this.descriptsService.getInfo(this.info.id).subscribe(info => {
-        this.info = info;
-        this.dataSource.data = info.descripts;
-      });
+      this.refreshData(this.info.id);
+    });
+  }
+
+  refreshData(id: number) {
+    this.descriptsService.getInfo(this.info.id).subscribe(info => {
+      this.info = info;
+      this.dataSource.data = info.descripts;
     });
   }
 

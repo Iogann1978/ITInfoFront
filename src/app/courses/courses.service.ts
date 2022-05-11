@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CourseItem} from "../model/course-item";
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -25,7 +25,7 @@ export class CoursesService {
     return this.displayedColumns;
   }
 
-  deleteCourse(courseId: number) {
-    this.http.delete(this.apiCourseEndpointId.replace(':id', `${courseId}`)).subscribe();
+  deleteCourse(courseId: number): Observable<HttpResponse<Object>> {
+    return this.http.delete(this.apiCourseEndpointId.replace(':id', `${courseId}`),{observe: 'response'});
   }
 }

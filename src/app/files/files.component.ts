@@ -29,12 +29,16 @@ export class FilesComponent implements OnInit {
   delete(fileId: number) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
-        this.filesService.deleteFile(fileId);
+        this.filesService.deleteFile(fileId).subscribe(response => this.refreshData());
       }
     });
   }
 
   ngOnInit(): void {
+    this.refreshData();
+  }
+
+  refreshData() {
     this.filesService.getFiles().subscribe(data => {
       this.dataSource.data = data;
       this.dataSource.paginator = this.filesPaginator;

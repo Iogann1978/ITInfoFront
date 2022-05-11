@@ -94,6 +94,8 @@ export class CourseComponent  implements OnInit, OnDestroy {
     this.courseFormGroup.get('publisherCtrl').valueChanges.subscribe(publisher => this.course.publisher.id = publisher);
     this.courseFormGroup.get('yearCtrl').valueChanges.subscribe(year => this.course.year = year);
     this.courseFormGroup.get('durationCtrl').valueChanges.subscribe(duration => this.course.duration = duration);
+    this.courseFormGroup.get('rateCtrl').valueChanges.subscribe(rate => this.course.rate = rate);
+    this.courseFormGroup.get('stateCtrl').valueChanges.subscribe(state => this.course.state = state);
     this.publishersService.getPublishers().subscribe(data => this.publishers = data);
   }
 

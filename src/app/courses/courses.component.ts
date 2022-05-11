@@ -24,20 +24,24 @@ export class CoursesComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.displayedColumns = this.coursesService.getDisplayedColumns();
-    this.coursesService.getCourseItems().subscribe(data => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.coursesPaginator;
-    });
+    this.refreshData();
   }
 
   delete(courseId: number) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
-        this.coursesService.deleteCourse(courseId);
+        this.coursesService.deleteCourse(courseId).subscribe(response => this.refreshData());
       }
     });
   }
 
   ngOnInit(): void {
+  }
+
+  refreshData() {
+    this.coursesService.getCourseItems().subscribe(data => {
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.coursesPaginator;
+    });
   }
 }

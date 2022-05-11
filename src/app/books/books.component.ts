@@ -24,21 +24,24 @@ export class BooksComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.displayedColumns = this.booksService.getDisplayedColumns();
-    this.booksService.getBookItems()
-      .subscribe((data:BookItem[]) => {
-        this.dataSource.data = data;
-        this.dataSource.paginator = this.booksPaginator;
-      });
+    this.refreshData();
   }
 
   delete(bookId: number) {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
-        this.booksService.deleteBook(bookId);
+        this.booksService.deleteBook(bookId).subscribe(response => this.refreshData());
       }
     });
   }
 
   ngOnInit(): void {
+  }
+
+  refreshData() {
+    this.booksService.getBookItems().subscribe((data:BookItem[]) => {
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.booksPaginator;
+    });
   }
 }

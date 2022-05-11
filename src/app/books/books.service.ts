@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BookItem} from "../model/book-item";
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -26,7 +26,7 @@ export class BooksService {
     return this.displayedColumns;
   }
 
-  deleteBook(bookId: number) {
-    this.http.delete(this.apiBookEndpointId.replace(':id', `${bookId}`)).subscribe();
+  deleteBook(bookId: number): Observable<HttpResponse<Object>> {
+    return this.http.delete(this.apiBookEndpointId.replace(':id', `${bookId}`), {observe: 'response'});
   }
 }

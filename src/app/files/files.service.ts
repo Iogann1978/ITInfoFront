@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {InfoFile} from "../model/info-file";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 
@@ -25,7 +25,7 @@ export class FilesService {
     return this.displayedColumns;
   }
 
-  deleteFile(fileId: number) {
-    this.http.delete(this.apiFileEndpointId.replace(':id', `${fileId}`)).subscribe();
+  deleteFile(fileId: number): Observable<HttpResponse<Object>> {
+    return this.http.delete(this.apiFileEndpointId.replace(':id', `${fileId}`), {observe: 'response'});
   }
 }

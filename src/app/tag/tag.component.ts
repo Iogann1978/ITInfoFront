@@ -1,9 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Tag} from "../model/tag";
 import {TagService} from "./tag.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
@@ -12,14 +11,12 @@ import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.css']
 })
-export class TagComponent implements OnInit, OnDestroy {
-  tag: Tag = {tag: null};
-  paramMap: Subscription;
+export class TagComponent implements OnInit {
+  tag: Tag = {tag: ''};
   tagFormGroup: FormGroup;
 
   constructor(
     private tagService: TagService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog
   ) {
@@ -46,16 +43,5 @@ export class TagComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
-      let tag = params.get('tag');
-      if (tag !== undefined && tag !== null && tag.trim().length > 0) {
-        this.tag.tag = tag;
-        this.tagFormGroup.get('tagCtrl').setValue(this.tag.tag);
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.paramMap.unsubscribe();
   }
 }
