@@ -54,8 +54,7 @@ export class PublisherComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.publisherFormGroup.valid) {
-      this.publisherService.savePublisher(this.publisher);
-      this.router.navigate(['/home']);
+      this.publisherService.savePublisher(this.publisher).subscribe(response => this.router.navigate(['/home/2']));
     }
   }
 }

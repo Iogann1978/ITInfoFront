@@ -12,8 +12,8 @@ import {DescriptComponent} from "./descript/descript.component";
 import {DescriptsComponent} from "./descripts/descripts.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
+  {path: '', redirectTo: '/home/0', pathMatch: 'full'},
+  {path: 'home/:index', component: HomeComponent},
   {path: 'book/:id', component: BookComponent},
   {path: 'course/:id', component: CourseComponent},
   {path: 'publisher/:id', component: PublisherComponent},

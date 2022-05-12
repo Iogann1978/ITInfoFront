@@ -58,7 +58,7 @@ export class BookService {
     this.http.delete(this.apiBookEndpointId.replace(':id', `${bookId}`)).subscribe();
   }
 
-  saveBook(book: BookItem) {
-    this.http.post<BookItem>(this.apiBookEndpoint, book).subscribe();
+  saveBook(book: BookItem): Observable<BookItem> {
+    return this.http.post<BookItem>(this.apiBookEndpoint, book);
   }
  }

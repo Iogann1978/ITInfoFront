@@ -181,8 +181,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
 
   save() {
     if (this.courseFormGroup.valid) {
-      this.courseService.saveCourse(this.course);
-      this.router.navigate(['/home']);
+      this.courseService.saveCourse(this.course).subscribe(response => this.router.navigate(['/home/1']));
     }
   }
 

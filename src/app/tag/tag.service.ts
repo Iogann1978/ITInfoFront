@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Tag} from "../model/tag";
 import {environment} from "../../environments/environment";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class TagService {
     this.apiTagEndpoint = environment.apiTagEndpoint;
   }
 
-  saveTag(tag: Tag): void {
-    this.http.post<Tag>(this.apiTagEndpoint, tag).subscribe();
+  saveTag(tag: Tag): Observable<Tag> {
+    return this.http.post<Tag>(this.apiTagEndpoint, tag);
   }
 
   deleteTag(tag: string) {

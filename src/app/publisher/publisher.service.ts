@@ -28,7 +28,7 @@ export class PublisherService {
     this.http.delete(this.apiPublisherEndpointId.replace(':id', `${publisherId}`)).subscribe();
   }
 
-  savePublisher(publisher: Publisher) {
-    this.http.post<Publisher>(this.apiPublisherEndpoint, publisher).subscribe();
+  savePublisher(publisher: Publisher): Observable<Publisher> {
+    return this.http.post<Publisher>(this.apiPublisherEndpoint, publisher);
   }
 }

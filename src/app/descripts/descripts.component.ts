@@ -62,13 +62,13 @@ export class DescriptsComponent implements OnInit {
         this.bookService.getBook(this.info.id).subscribe(book => {
           if (book != null) {
             book.descripts.push(descript);
-            this.bookService.saveBook(book);
+            this.bookService.saveBook(book).subscribe(response => this.refreshData(this.info.id));
           }
         });
         this.courseService.getCourse(this.info.id).subscribe(course => {
           if (course != null) {
             course.descripts.push(descript);
-            this.courseService.saveCourse(course);
+            this.courseService.saveCourse(course).subscribe(response => this.refreshData(this.info.id));
           }
         });
       }
@@ -77,7 +77,7 @@ export class DescriptsComponent implements OnInit {
   }
 
   refreshData(id: number) {
-    this.descriptsService.getInfo(this.info.id).subscribe(info => {
+    this.descriptsService.getInfo(id).subscribe(info => {
       this.info = info;
       this.dataSource.data = info.descripts;
     });

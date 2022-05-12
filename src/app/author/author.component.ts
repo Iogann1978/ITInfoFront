@@ -53,8 +53,7 @@ export class AuthorComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.authorFormGroup.valid) {
-      this.authorService.saveAuthor(this.author);
-      this.router.navigate(['/home']);
+      this.authorService.saveAuthor(this.author).subscribe(response => this.router.navigate(['/home/3']));
     }
   }
 }

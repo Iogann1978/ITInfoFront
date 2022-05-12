@@ -37,8 +37,7 @@ export class TagComponent implements OnInit {
 
   save() {
     if (this.tagFormGroup.valid) {
-      this.tagService.saveTag(this.tag);
-      this.router.navigate(['/home']);
+      this.tagService.saveTag(this.tag).subscribe(response => this.router.navigate(['/home/4']));
     }
   }
 

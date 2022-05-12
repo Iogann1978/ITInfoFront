@@ -52,7 +52,7 @@ export class CourseService {
     this.http.delete(this.apiCourseEndpointId.replace(':id', `${courseId}`)).subscribe();
   }
 
-  saveCourse(course: CourseItem) {
-    this.http.post<CourseItem>(this.apiCourseEndpoint, course).subscribe();
+  saveCourse(course: CourseItem): Observable<CourseItem> {
+    return this.http.post<CourseItem>(this.apiCourseEndpoint, course);
   }
 }
