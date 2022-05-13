@@ -168,6 +168,8 @@ export class BookComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.bookFormGroup.valid) {
+      this.book.tags = [];
+      this.tags.forEach(tag => this.book.tags.push({tag:tag}));
       this.bookService.saveBook(this.book).subscribe(response => this.router.navigate(['/home/0']));
     }
   }

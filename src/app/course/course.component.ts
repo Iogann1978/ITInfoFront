@@ -181,6 +181,8 @@ export class CourseComponent  implements OnInit, OnDestroy {
 
   save() {
     if (this.courseFormGroup.valid) {
+      this.course.tags = [];
+      this.tags.forEach(tag => this.course.tags.push({tag:tag}));
       this.courseService.saveCourse(this.course).subscribe(response => this.router.navigate(['/home/1']));
     }
   }
