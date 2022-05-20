@@ -14,6 +14,7 @@ import {Publisher} from "../model/publisher";
 import {PublishersService} from "../publishers/publishers.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
+import {Tag} from "../model/tag";
 
 @Component({
   selector: 'app-book',
@@ -35,7 +36,7 @@ export class BookComponent implements OnInit, OnDestroy {
   allTags: string[];
   book: BookItem = {
     authors: [],
-    file: {id: 0, filename: '', size: 0},
+    file: null,
     isbn: "",
     pages: 0,
     publisher: undefined,
@@ -177,20 +178,18 @@ export class BookComponent implements OnInit, OnDestroy {
   getGoogle(): void {
     this.bookService.getGoogle(this.bookFormGroup.get('isbnCtrl').value).subscribe(bookItem => {
       this.book = bookItem;
-      this.book.file = {filename: null, id: null, size: 0};
+      this.book.file = null;
       this.publishersService.getPublishers().subscribe(pubs => {
-        this.bookService.getTags().subscribe(tags => {
-          this.publishers = pubs;
-          this.bookFormGroup.get('isbnCtrl').setValue(this.book.isbn);
-          this.bookFormGroup.get('titleCtrl').setValue(this.book.title);
-          this.bookFormGroup.get('publisherCtrl').setValue(this.book.publisher.id);
-          this.bookFormGroup.get('yearCtrl').setValue(this.book.year);
-          this.bookFormGroup.get('pagesCtrl').setValue(this.book.pages);
-          this.bookFormGroup.get('rateCtrl').setValue(Rate[this.book.rate].toString());
-          this.bookFormGroup.get('stateCtrl').setValue(State[this.book.state].toString());
-          this.bookFormGroup.get('authorsCtrl').setValue(this.book.authors.map(a => a.name).join(', '));
-          this.tags = tags;
-        });
+        this.publishers = pubs;
+        this.bookFormGroup.get('isbnCtrl').setValue(this.book.isbn);
+        this.bookFormGroup.get('titleCtrl').setValue(this.book.title);
+        this.bookFormGroup.get('publisherCtrl').setValue(this.book.publisher.id);
+        this.bookFormGroup.get('yearCtrl').setValue(this.book.year);
+        this.bookFormGroup.get('pagesCtrl').setValue(this.book.pages);
+        this.bookFormGroup.get('rateCtrl').setValue(Rate[this.book.rate].toString());
+        this.bookFormGroup.get('stateCtrl').setValue(State[this.book.state].toString());
+        this.bookFormGroup.get('authorsCtrl').setValue(this.book.authors.map(a => a.name).join(', '));
+        this.tags = bookItem.tags.map((tag: Tag) => tag.tag);
       });
     });
   }

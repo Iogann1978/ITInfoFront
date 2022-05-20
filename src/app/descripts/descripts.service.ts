@@ -3,12 +3,13 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {Info} from "../model/info";
+import {Descript} from "../model/descript";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DescriptsService {
-  apiDescriptsEndpointId: string = '';
+  apiDescriptEndpoint: string = '';
   apiDescriptEndpointId: string = '';
   apiInfoEndpointId: string = '';
   apiInfoEndpoint: string = '';
@@ -16,7 +17,7 @@ export class DescriptsService {
 
   constructor(private http: HttpClient) {
     this.apiDescriptEndpointId = environment.apiDescriptEndpointId;
-    this.apiDescriptsEndpointId = environment.apiDescriptsEndpointId;
+    this.apiDescriptEndpoint = environment.apiDescriptEndpoint;
     this.apiInfoEndpointId = environment.apiInfoEndpointId;
     this.apiInfoEndpoint = environment.apiInfoEndpoint;
   }
@@ -35,5 +36,9 @@ export class DescriptsService {
 
   saveInfo(info: Info) {
     this.http.post<Info>(this.apiInfoEndpoint, info).subscribe();
+  }
+
+  saveDescript(descript: Descript): Observable<Descript> {
+    return this.http.post<Descript>(this.apiDescriptEndpoint, descript);
   }
 }

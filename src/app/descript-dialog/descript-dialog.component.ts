@@ -10,7 +10,7 @@ import {Descript} from "../model/descript";
 })
 export class DescriptDialogComponent implements OnInit {
   descriptFormGroup: FormGroup;
-  descript: Descript = {id: null, name: null, text: null};
+  descript: Descript = {id: null, name: null, text: null, infoId: null};
 
   constructor(
     private dialogRef: MatDialogRef<DescriptDialogComponent>

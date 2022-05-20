@@ -131,18 +131,20 @@ export class CourseComponent  implements OnInit, OnDestroy {
   selectCoursePath(event) {
     let size = 0;
     let files = event.target.files;
-    let descript: Descript = {id: null, name: 'Files', text: '<html><body><table><caption>Files</caption>'};
+    let descript: Descript = {id: null, name: 'Files', infoId: this.course.id, text: '<html><body><table><caption>Files</caption>'};
     for (let i = 0; i < files.length; i++) {
       size += files[i].size;
       descript.text += '<tr><td>';
       descript.text += files[i].webkitRelativePath.split('/').pop();
+      descript.text += '<td>';
+      descript.text += files[i].size;
+      descript.text += '</td>';
       descript.text += '</td></tr>';
     }
     descript.text += '</table></body></html>';
     descript.text = btoa(unescape(encodeURIComponent(descript.text)));
     this.course.descripts.push(descript);
-    this.course.file.filename = files[0]?.webkitRelativePath.split('/')[0];
-    this.course.file.size = size;
+    this.course.file = {filename: files[0]?.webkitRelativePath.split('/')[0], id: null, size: size};
     this.courseFormGroup.get('coursePathCtrl').setValue(this.course.file.filename);
   }
 

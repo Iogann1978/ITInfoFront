@@ -12,7 +12,7 @@ export interface Info {
   rate: Rate;
   state: State;
   publisher: Publisher;
-  file: InfoFile;
+  file?: InfoFile;
   descripts?: Descript[];
   tags: Tag[];
 }
