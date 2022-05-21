@@ -8,7 +8,7 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class FilesService {
-  displayedColumns: string[] = ['filename', 'size', 'actions'];
+  displayedColumns: string[] = ['filename', 'size', 'title', 'actions'];
   apiFileEndpoint: string = '';
   apiFileEndpointId: string = '';
 

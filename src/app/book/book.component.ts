@@ -127,8 +127,7 @@ export class BookComponent implements OnInit, OnDestroy {
   }
 
   selectBookFile(event) {
-    this.book.file.filename = event.target.files[0].name;
-    this.book.file.size = event.target.files[0].size;
+    this.book.file = {filename: event.target.files[0].name, id: null, size: event.target.files[0].size};
     this.bookFormGroup.get('bookFileCtrl').setValue(this.book.file.filename);
   }
 

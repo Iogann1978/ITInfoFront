@@ -8,7 +8,7 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class TagsService {
-  displayedColumns: string[] = ['tag', 'actions'];
+  displayedColumns: string[] = ['tag', 'count', 'actions'];
   apiTagEndpoint: string = '';
   apiTagEndpointId: string = '';
 

@@ -8,7 +8,7 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class PublishersService {
-  private displayedColumns: string[] = ['name', 'actions'];
+  private displayedColumns: string[] = ['name', 'count', 'actions'];
   apiPublisherEndpoint: string = '';
   apiPublisherEndpointId: string = '';
 

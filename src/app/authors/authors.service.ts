@@ -8,7 +8,7 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class AuthorsService {
-  displayedColumns: string[] = ['name', 'actions'];
+  displayedColumns: string[] = ['name', 'count', 'actions'];
   apiAuthorEndpoint: string = '';
   apiAuthorEndpointId: string = '';
 
