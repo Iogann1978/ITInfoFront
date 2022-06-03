@@ -57,10 +57,9 @@ export class DescriptsComponent implements OnInit {
   }
 
   addDescript() {
-    this.dialog.open(DescriptDialogComponent).afterClosed().subscribe((descript: Descript) => {
-      if(descript != null) {
-        descript.infoId = this.info.id;
-        this.descriptsService.saveDescript(descript).subscribe(response => this.refreshData(this.info.id));
+    this.dialog.open(DescriptDialogComponent).afterClosed().subscribe((formData: FormData) => {
+      if(formData != null) {
+        this.descriptsService.saveDescriptFile(formData, this.info.id).subscribe(response => this.refreshData(this.info.id));
       }
     });
   }

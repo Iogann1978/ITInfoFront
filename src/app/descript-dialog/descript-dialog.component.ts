@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Descript} from "../model/descript";
 
 @Component({
   selector: 'app-descript-dialog',
@@ -10,7 +9,8 @@ import {Descript} from "../model/descript";
 })
 export class DescriptDialogComponent implements OnInit {
   descriptFormGroup: FormGroup;
-  descript: Descript = {id: null, name: null, text: null, infoId: null};
+  name: string;
+  formData: FormData;
 
   constructor(
     private dialogRef: MatDialogRef<DescriptDialogComponent>
@@ -19,7 +19,8 @@ export class DescriptDialogComponent implements OnInit {
       'titleCtrl': new FormControl(null, Validators.required),
       'fileCtrl': new FormControl(null)
     });
-    this.descriptFormGroup.get('titleCtrl').valueChanges.subscribe(name => this.descript.name = name);
+    this.descriptFormGroup.get('titleCtrl').valueChanges.subscribe(name => this.name = name);
+    this.formData = new FormData();
   }
 
   ngOnInit(): void {
@@ -27,20 +28,16 @@ export class DescriptDialogComponent implements OnInit {
 
   close(flag: boolean) {
     if (!flag) {
-      this.descript = null;
+      this.formData = null;
     }
-    this.dialogRef.close(this.descript);
+    this.dialogRef.close(this.formData);
   }
 
   selectDescriptFile(event) {
     const file: File = event.target.files[0];
     if (file) {
+      this.formData.append('file', file, this.name);
       this.descriptFormGroup.get('fileCtrl').setValue(file.name);
-      const reader = new FileReader();
-      reader.readAsBinaryString(file);
-      reader.onload = (event) => {
-        this.descript.text = btoa(event.target.result.toString());
-      };
     }
   }
 }

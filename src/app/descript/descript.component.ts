@@ -25,7 +25,7 @@ export class DescriptComponent implements OnInit, OnDestroy {
       let id = +params.get('id');
       this.descriptService.getDescript(id).subscribe(descript => {
         this.descript = descript;
-        this.descript.text = atob(descript.text);
+        this.descript.text = this.descriptService.decodeBase64(descript.text);
       });
     });
   }

@@ -3,7 +3,6 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {Info} from "../model/info";
-import {Descript} from "../model/descript";
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +37,7 @@ export class DescriptsService {
     this.http.post<Info>(this.apiInfoEndpoint, info).subscribe();
   }
 
-  saveDescript(descript: Descript): Observable<Descript> {
-    return this.http.post<Descript>(this.apiDescriptEndpoint, descript);
+  saveDescriptFile(formData: FormData, id: number): Observable<FormData> {
+    return this.http.post<FormData>(this.apiDescriptEndpointId.replace(':id', `${id}`), formData);
   }
 }
