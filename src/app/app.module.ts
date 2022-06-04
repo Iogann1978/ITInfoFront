@@ -43,6 +43,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { DescriptsComponent } from './descripts/descripts.component';
 import { DescriptDialogComponent } from './descript-dialog/descript-dialog.component';
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { DescriptDialogComponent } from './descript-dialog/descript-dialog.compo
         ReactiveFormsModule,
         MatAutocompleteModule,
         MatGridListModule,
-        MatDialogModule
+        MatDialogModule,
+        MatBadgeModule
     ],
   providers: [],
   bootstrap: [AppComponent]
