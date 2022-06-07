@@ -2,7 +2,7 @@
   <mat-card class="course-card">
     <mat-card-header>
       <mat-card-title>Курс</mat-card-title>
-      <mat-card-subtitle>{{course.id == null ? 'Добавление' : 'Редактирование'}}</mat-card-subtitle>
+      <mat-card-subtitle>{{course.id ? 'Редактирование' : 'Добавление'}}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -99,7 +99,7 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button (click)="delete()" mat-fab color="warn">
+      <button (click)="delete()" mat-fab color="warn" [disabled]="!course.id">
         <mat-icon>delete</mat-icon>
       </button>
       <button (click)="save()" mat-fab color="accent" [disabled]="!courseFormGroup.valid">

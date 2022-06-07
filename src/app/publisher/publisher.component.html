@@ -2,7 +2,7 @@
   <mat-card class="publisher-card">
     <mat-card-header>
       <mat-card-title>Издатель</mat-card-title>
-      <mat-card-subtitle>{{publisher.id == null ? 'Добавление' : 'Редактирование'}}</mat-card-subtitle>
+      <mat-card-subtitle>{{publisher.id ? 'Редактирование' : 'Добавление'}}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -13,7 +13,7 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button (click)="delete()" mat-fab color="warn">
+      <button (click)="delete()" mat-fab color="warn" [disabled]="!publisher.id">
         <mat-icon>delete</mat-icon>
       </button>
       <button (click)="save()" mat-fab color="accent" [disabled]="!publisherFormGroup.valid">
