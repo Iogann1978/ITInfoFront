@@ -20,7 +20,6 @@ export class TagComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.tagFormGroup = new FormGroup({
       'tagCtrl': new FormControl(null, Validators.required)
     });
@@ -37,7 +36,7 @@ export class TagComponent implements OnInit {
 
   save() {
     if (this.tagFormGroup.valid) {
-      this.tagService.saveTag(this.tag).subscribe(response => this.router.navigate(['/home/4']));
+      this.tagService.saveTag(this.tag).subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 4}}));
     }
   }
 

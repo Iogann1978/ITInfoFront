@@ -63,7 +63,6 @@ export class CourseComponent  implements OnInit, OnDestroy {
     private router: Router,
     private dialog: MatDialog
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.tags = [];
     this.rateKeys = Object.keys(Rate).filter(f => !isNaN(Number(f)));
     this.rateValues = Object.keys(Rate).filter(f => !isNaN(Number(f))).map(f => Rate[f]);
@@ -185,7 +184,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
     if (this.courseFormGroup.valid) {
       this.course.tags = [];
       this.tags.forEach(tag => this.course.tags.push({tag:tag}));
-      this.courseService.saveCourse(this.course).subscribe(response => this.router.navigate(['/home/1']));
+      this.courseService.saveCourse(this.course).subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 1}}));
     }
   }
 

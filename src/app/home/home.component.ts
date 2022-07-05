@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.paramMap = this.activatedRoute.paramMap.subscribe(params => this.index = +params.get('index'));
+    this.paramMap = this.activatedRoute.queryParamMap.subscribe(params => this.index = +params.get('index'));
   }
 
   ngOnDestroy(): void {

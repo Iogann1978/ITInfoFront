@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <mat-label>{{descript.name}}</mat-label>
   <span class="descript-spacer"></span>
-  <button mat-icon-button aria-label="На главную страницу" [routerLink]="['/home/0']">
+  <button mat-icon-button aria-label="На главную страницу" [routerLink]="['/home']" [queryParams]="{index: 0}">
     <mat-icon>home</mat-icon>
   </button>
 </mat-toolbar>

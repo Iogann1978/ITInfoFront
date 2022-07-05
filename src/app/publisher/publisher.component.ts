@@ -23,7 +23,6 @@ export class PublisherComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialog: MatDialog
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.publisherFormGroup = new FormGroup({
       'nameCtrl': new FormControl(null, Validators.required)
     });
@@ -54,7 +53,7 @@ export class PublisherComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.publisherFormGroup.valid) {
-      this.publisherService.savePublisher(this.publisher).subscribe(response => this.router.navigate(['/home/2']));
+      this.publisherService.savePublisher(this.publisher).subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 2}}));
     }
   }
 }
