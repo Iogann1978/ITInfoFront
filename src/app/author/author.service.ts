@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Author} from "../model/author";
 import {environment} from "../../environments/environment";
@@ -22,5 +22,9 @@ export class AuthorService {
 
   saveAuthor(author: Author): Observable<Author> {
     return this.http.post<Author>(this.apiAuthorEndpoint, author);
+  }
+
+  deleteAuthor(authorId: number): Observable<HttpResponse<Object>> {
+    return this.http.delete(this.apiAuthorEndpointId.replace(':id', `${authorId}`), {observe: 'response'});
   }
 }

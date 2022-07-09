@@ -23,7 +23,6 @@ export class AuthorComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialog: MatDialog
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.authorFormGroup = new FormGroup({
       'authorCtrl': new FormControl(null, Validators.required)
     });
@@ -47,13 +46,14 @@ export class AuthorComponent implements OnInit, OnDestroy {
   delete() {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
+        this.authorService.deleteAuthor(this.author.id).subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 3}}));
       }
     });
   }
 
   save() {
     if (this.authorFormGroup.valid) {
-      this.authorService.saveAuthor(this.author).subscribe(response => this.router.navigate(['/home/3']));
+      this.authorService.saveAuthor(this.author).subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 3}}));
     }
   }
 }

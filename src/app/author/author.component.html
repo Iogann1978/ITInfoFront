@@ -13,13 +13,13 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button (click)="delete()" mat-fab color="warn">
+      <button (click)="delete()" mat-fab color="warn" [disabled]="!author.id">
         <mat-icon>delete</mat-icon>
       </button>
       <button (click)="save()" mat-fab color="accent" [disabled]="!authorFormGroup.valid">
         <mat-icon>save</mat-icon>
       </button>
-      <button mat-fab color="primary" [routerLink]="['/home/3']">
+      <button mat-fab color="primary" [routerLink]="['/home']" [queryParams]="{index: 3}">
         <mat-icon>home</mat-icon>
       </button>
     </mat-card-actions>

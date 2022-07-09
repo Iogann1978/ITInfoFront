@@ -105,7 +105,7 @@
       <button (click)="save()" mat-fab color="accent" [disabled]="!courseFormGroup.valid">
         <mat-icon>save</mat-icon>
       </button>
-      <button mat-fab color="primary" [routerLink]="['/home/1']">
+      <button mat-fab color="primary" [routerLink]="['/home']" [queryParams]="{index: 1}">
         <mat-icon>home</mat-icon>
       </button>
     </mat-card-actions>

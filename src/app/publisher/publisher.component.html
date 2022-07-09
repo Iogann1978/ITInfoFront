@@ -19,7 +19,7 @@
       <button (click)="save()" mat-fab color="accent" [disabled]="!publisherFormGroup.valid">
         <mat-icon>save</mat-icon>
       </button>
-      <button mat-fab color="primary" [routerLink]="['/home/2']">
+      <button mat-fab color="primary" [routerLink]="['/home']" [queryParams]="{index: 2}">
         <mat-icon>home</mat-icon>
       </button>
     </mat-card-actions>
