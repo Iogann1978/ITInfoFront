@@ -1,10 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {TagsService} from "./tags.service";
 import {Tag} from "../model/tag";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-tags',
@@ -12,7 +14,8 @@ import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
   styleUrls: ['./tags.component.css'],
   providers: [TagsService]
 })
-export class TagsComponent implements OnInit {
+export class TagsComponent implements OnInit, OnDestroy {
+  ngUnsubscribe = new Subject<void>();
   displayedColumns: string[];
   dataSource: MatTableDataSource<Tag> = new MatTableDataSource<Tag>();
 
@@ -27,21 +30,28 @@ export class TagsComponent implements OnInit {
     this.refreshData();
   }
 
-  delete(tag: string) {
-    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+  delete(tag: string): void {
+    this.dialog.open(DeleteDialogComponent).afterClosed().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(result => {
       if(result) {
-        this.tagsService.deleteTag(tag).subscribe(response => this.refreshData());
+        this.tagsService.deleteTag(tag).pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe(response => this.refreshData());
       }
+    });
+  }
+
+  refreshData(): void {
+    this.tagsService.getTags().pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => {
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.tagsPaginator;
     });
   }
 
   ngOnInit(): void {
   }
 
-  refreshData() {
-    this.tagsService.getTags().subscribe(data => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.tagsPaginator;
-    });
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

@@ -1,10 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AuthorsService} from "./authors.service";
 import {Author} from "../model/author";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-authors',
@@ -12,7 +14,8 @@ import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
   styleUrls: ['./authors.component.css'],
   providers: [AuthorsService]
 })
-export class AuthorsComponent implements OnInit {
+export class AuthorsComponent implements OnInit, OnDestroy {
+  ngUnsubscribe = new Subject<void>();
   displayedColumns: string[];
   dataSource: MatTableDataSource<Author> = new MatTableDataSource<Author>();
 
@@ -26,10 +29,12 @@ export class AuthorsComponent implements OnInit {
     this.displayedColumns = authorsService.getDisplayedColumns();
   }
 
-  delete(authorId: number) {
-    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+  delete(authorId: number): void {
+    this.dialog.open(DeleteDialogComponent).afterClosed().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(result => {
       if(result) {
-        this.authorsService.deleteAuthor(authorId).subscribe(response => this.refreshData());
+        this.authorsService.deleteAuthor(authorId).pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe(response => this.refreshData());
       }
     });
   }
@@ -38,10 +43,15 @@ export class AuthorsComponent implements OnInit {
     this.refreshData();
   }
 
-  refreshData() {
-    this.authorsService.getAuthors().subscribe(data => {
+  refreshData(): void {
+    this.authorsService.getAuthors().pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => {
       this.dataSource.data = data;
       this.dataSource.paginator = this.authorsPaginator;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

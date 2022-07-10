@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DescriptService} from "./descript.service";
-import {Subscription} from "rxjs";
+import {Subject} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {Descript} from "../model/descript";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-descript',
@@ -10,8 +11,8 @@ import {Descript} from "../model/descript";
   styleUrls: ['./descript.component.css']
 })
 export class DescriptComponent implements OnInit, OnDestroy {
+  ngUnsubscribe = new Subject<void>();
   descript: Descript;
-  paramMap: Subscription;
 
   constructor(
     private descriptService: DescriptService,
@@ -21,9 +22,9 @@ export class DescriptComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(params => {
       let id = +params.get('id');
-      this.descriptService.getDescript(id).subscribe(descript => {
+      this.descriptService.getDescript(id).pipe(takeUntil(this.ngUnsubscribe)).subscribe(descript => {
         this.descript = descript;
         this.descript.text = this.descriptService.decodeBase64(descript.text);
       });
@@ -31,6 +32,7 @@ export class DescriptComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.paramMap.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

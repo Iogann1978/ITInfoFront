@@ -24,8 +24,8 @@ export class PublisherService {
     }
   }
 
-  deletePublisher(publisherId: number) {
-    this.http.delete(this.apiPublisherEndpointId.replace(':id', `${publisherId}`)).subscribe();
+  deletePublisher(publisherId: number): Observable<any> {
+    return this.http.delete(this.apiPublisherEndpointId.replace(':id', `${publisherId}`));
   }
 
   savePublisher(publisher: Publisher): Observable<Publisher> {

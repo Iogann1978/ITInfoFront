@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Subject, Subscription} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Author} from "../model/author";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthorService} from "./author.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-author',
@@ -13,8 +14,8 @@ import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
   styleUrls: ['./author.component.css']
 })
 export class AuthorComponent implements OnInit, OnDestroy {
+  ngUnsubscribe = new Subject<void>();
   author: Author;
-  paramMap: Subscription;
   authorFormGroup: FormGroup;
 
   constructor(
@@ -26,34 +27,38 @@ export class AuthorComponent implements OnInit, OnDestroy {
     this.authorFormGroup = new FormGroup({
       'authorCtrl': new FormControl(null, Validators.required)
     });
-    this.authorFormGroup.get('authorCtrl').valueChanges.subscribe(author => this.author.name = author);
+    this.authorFormGroup.get('authorCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(author => this.author.name = author);
   }
 
   ngOnInit(): void {
-    this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(params => {
       let id = +params.get('id');
-      this.authorService.getAuthor(id).subscribe(author => {
+      this.authorService.getAuthor(id).pipe(takeUntil(this.ngUnsubscribe)).subscribe(author => {
         this.author = author;
         this.authorFormGroup.get('authorCtrl').setValue(this.author.name);
       });
     });
   }
 
-  ngOnDestroy(): void {
-    this.paramMap.unsubscribe();
-  }
-
-  delete() {
+  delete(): void {
     this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       if(result) {
-        this.authorService.deleteAuthor(this.author.id).subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 3}}));
+        this.authorService.deleteAuthor(this.author.id).pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 3}}));
       }
     });
   }
 
-  save() {
+  save(): void {
     if (this.authorFormGroup.valid) {
-      this.authorService.saveAuthor(this.author).subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 3}}));
+      this.authorService.saveAuthor(this.author).pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 3}}));
     }
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

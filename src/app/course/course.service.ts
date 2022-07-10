@@ -48,8 +48,8 @@ export class CourseService {
     }
   }
 
-  deleteCourse(courseId: number) {
-    this.http.delete(this.apiCourseEndpointId.replace(':id', `${courseId}`)).subscribe();
+  deleteCourse(courseId: number): Observable<any> {
+    return this.http.delete(this.apiCourseEndpointId.replace(':id', `${courseId}`));
   }
 
   saveCourse(course: CourseItem): Observable<CourseItem> {

@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-home',
@@ -8,16 +9,18 @@ import {Subscription} from "rxjs";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  paramMap: Subscription;
+  ngUnsubscribe = new Subject<void>();
   index: number;
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.paramMap = this.activatedRoute.queryParamMap.subscribe(params => this.index = +params.get('index'));
+    this.activatedRoute.queryParamMap.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(params => this.index = +params.get('index'));
   }
 
   ngOnDestroy(): void {
-    this.paramMap.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, of} from "rxjs";
+import {Observable, of, Subscription} from "rxjs";
 import {Tag} from "../model/tag";
 import {map} from "rxjs/operators";
 import {BookItem} from "../model/book-item";
@@ -54,8 +54,8 @@ export class BookService {
     return this.http.get<BookItem>(this.apiGoogleEndpoint.replace(':isbn', `${isbn}`));
   }
 
-  deleteBook(bookId: number) {
-    this.http.delete(this.apiBookEndpointId.replace(':id', `${bookId}`)).subscribe();
+  deleteBook(bookId: number): Observable<any> {
+    return this.http.delete(this.apiBookEndpointId.replace(':id', `${bookId}`));
   }
 
   saveBook(book: BookItem): Observable<BookItem> {
