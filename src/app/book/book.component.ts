@@ -3,7 +3,7 @@ import {Rate} from "../model/rate";
 import {State} from "../model/state";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Observable, Subject, Subscription} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {map, startWith, takeUntil} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MatChipInputEvent} from "@angular/material/chips";
