@@ -3,8 +3,8 @@ import {Rate} from "../model/rate";
 import {State} from "../model/state";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Observable, Subscription} from "rxjs";
-import {map, startWith} from "rxjs/operators";
+import {Observable, Subject} from "rxjs";
+import {map, startWith, takeUntil} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {BookService} from "./book.service";
@@ -22,6 +22,7 @@ import {Tag} from "../model/tag";
   styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit, OnDestroy {
+  ngUnsubscribe = new Subject<void>();
   rateKeys;
   rateValues: string[];
   stateKeys;
@@ -49,8 +50,6 @@ export class BookComponent implements OnInit, OnDestroy {
     descripts: []
   };
 
-  paramMap: Subscription;
-
   bookFormGroup: FormGroup;
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
@@ -67,7 +66,7 @@ export class BookComponent implements OnInit, OnDestroy {
     this.stateKeys = Object.keys(State).filter(f => !isNaN(Number(f)));
     this.stateValues = Object.keys(State).filter(f => !isNaN(Number(f))).map(f => State[f]);
 
-    bookService.getTags().subscribe(data => {
+    bookService.getTags().pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => {
       this.allTags = data;
       this.filteredTags = this.bookFormGroup.get('tagCtrl').valueChanges.pipe(
         startWith(null),
@@ -86,15 +85,24 @@ export class BookComponent implements OnInit, OnDestroy {
       'stateCtrl': new FormControl(null, Validators.required),
       'authorsCtrl': new FormControl(null)
     });
-    this.bookFormGroup.get('isbnCtrl').valueChanges.subscribe(isbn => this.book.isbn = isbn);
-    this.bookFormGroup.get('titleCtrl').valueChanges.subscribe(title => this.book.title = title);
-    this.bookFormGroup.get('publisherCtrl').valueChanges.subscribe(publisher => this.book.publisher.id = publisher);
-    this.bookFormGroup.get('yearCtrl').valueChanges.subscribe(year => this.book.year = year);
-    this.bookFormGroup.get('pagesCtrl').valueChanges.subscribe(pages => this.book.pages = pages);
-    this.bookFormGroup.get('rateCtrl').valueChanges.subscribe(rate => this.book.rate = rate);
-    this.bookFormGroup.get('stateCtrl').valueChanges.subscribe(state => this.book.state = state);
-    this.publishersService.getPublishers().subscribe(data => this.publishers = data);
-    this.bookFormGroup.get('authorsCtrl').valueChanges.subscribe((authors:string) => {
+    this.bookFormGroup.get('isbnCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(isbn => this.book.isbn = isbn);
+    this.bookFormGroup.get('titleCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(title => this.book.title = title);
+    this.bookFormGroup.get('publisherCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(publisher => this.book.publisher.id = publisher);
+    this.bookFormGroup.get('yearCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(year => this.book.year = year);
+    this.bookFormGroup.get('pagesCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(pages => this.book.pages = pages);
+    this.bookFormGroup.get('rateCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(rate => this.book.rate = rate);
+    this.bookFormGroup.get('stateCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(state => this.book.state = state);
+    this.publishersService.getPublishers().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(data => this.publishers = data);
+    this.bookFormGroup.get('authorsCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((authors:string) => {
       this.book.authors = [];
       authors.split(',').map(a => this.book.authors.push({id:null, name: a}));
     });
@@ -129,7 +137,7 @@ export class BookComponent implements OnInit, OnDestroy {
     return this.allTags.filter(tag => tag.toLowerCase().includes(filterValue));
   }
 
-  selectBookFile(event) {
+  selectBookFile(event): void {
     this.book.file = {filename: event.target.files[0].name, id: null, size: event.target.files[0].size};
     this.bookFormGroup.get('bookFileCtrl').setValue(this.book.file.filename);
   }
@@ -139,9 +147,9 @@ export class BookComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(params => {
       let id = +params.get('id');
-      this.bookService.getBook(id).subscribe(bookItem => {
+      this.bookService.getBook(id).pipe(takeUntil(this.ngUnsubscribe)).subscribe(bookItem => {
         this.book = bookItem;
         this.bookFormGroup.get('isbnCtrl').setValue(this.book.isbn);
         this.bookFormGroup.get('titleCtrl').setValue(this.book.title);
@@ -153,35 +161,34 @@ export class BookComponent implements OnInit, OnDestroy {
         this.bookFormGroup.get('stateCtrl').setValue(State[this.book.state].toString());
         this.bookFormGroup.get('authorsCtrl').setValue(this.book.authors.map(a => a.name).join(', '));
       });
-      this.bookService.getBookTags(id).subscribe(data => this.tags = data);
+      this.bookService.getBookTags(id).pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => this.tags = data);
     });
   }
 
-  ngOnDestroy(): void {
-    this.paramMap.unsubscribe();
-  }
-
-  delete() {
-    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+  delete(): void {
+    this.dialog.open(DeleteDialogComponent).afterClosed().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(result => {
       if(result) {
-        this.bookService.deleteBook(this.book.id);
+        this.bookService.deleteBook(this.book.id).pipe(takeUntil(this.ngUnsubscribe)).subscribe();
       }
     });
   }
 
-  save() {
+  save(): void {
     if (this.bookFormGroup.valid) {
       this.book.tags = [];
       this.tags.forEach(tag => this.book.tags.push({tag:tag}));
-      this.bookService.saveBook(this.book).subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 0}}));
+      this.bookService.saveBook(this.book).pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 0}}));
     }
   }
 
   getGoogle(): void {
-    this.bookService.getGoogle(this.bookFormGroup.get('isbnCtrl').value).subscribe(bookItem => {
+    this.bookService.getGoogle(this.bookFormGroup.get('isbnCtrl').value).pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(bookItem => {
       this.book = bookItem;
       this.book.file = null;
-      this.publishersService.getPublishers().subscribe(pubs => {
+      this.publishersService.getPublishers().pipe(takeUntil(this.ngUnsubscribe)).subscribe(pubs => {
         this.publishers = pubs;
         this.bookFormGroup.get('isbnCtrl').setValue(this.book.isbn);
         this.bookFormGroup.get('titleCtrl').setValue(this.book.title);
@@ -196,4 +203,8 @@ export class BookComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 }

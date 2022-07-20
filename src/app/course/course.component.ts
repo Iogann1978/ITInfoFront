@@ -3,12 +3,12 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import {Observable, Subscription} from "rxjs";
+import {Observable, Subject, Subscription} from "rxjs";
 import {InfoFile} from "../model/info-file";
 import {CourseItem} from "../model/course-item";
 import {Rate} from "../model/rate";
 import {State} from "../model/state";
-import {map, startWith} from "rxjs/operators";
+import {map, startWith, takeUntil} from "rxjs/operators";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "./course.service";
 import {Publisher} from "../model/publisher";
@@ -23,6 +23,7 @@ import {Descript} from "../model/descript";
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent  implements OnInit, OnDestroy {
+  ngUnsubscribe = new Subject<void>();
   rateKeys;
   rateValues: string[];
   stateKeys;
@@ -51,8 +52,6 @@ export class CourseComponent  implements OnInit, OnDestroy {
     descripts: []
   };
 
-  paramMap: Subscription;
-
   courseFormGroup: FormGroup;
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
@@ -69,7 +68,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
     this.stateKeys = Object.keys(State).filter(f => !isNaN(Number(f)));
     this.stateValues = Object.keys(State).filter(f => !isNaN(Number(f))).map(f => State[f]);
 
-    courseService.getTags().subscribe(data => {
+    courseService.getTags().pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => {
       this.allTags = data;
       this.filteredTags = this.courseFormGroup.get('tagCtrl').valueChanges.pipe(
         startWith(null),
@@ -89,13 +88,20 @@ export class CourseComponent  implements OnInit, OnDestroy {
       'rateCtrl': new FormControl(null, Validators.required),
       'stateCtrl': new FormControl(null, Validators.required)
     });
-    this.courseFormGroup.get('titleCtrl').valueChanges.subscribe(title => this.course.title = title);
-    this.courseFormGroup.get('publisherCtrl').valueChanges.subscribe(publisher => this.course.publisher.id = publisher);
-    this.courseFormGroup.get('yearCtrl').valueChanges.subscribe(year => this.course.year = year);
-    this.courseFormGroup.get('durationCtrl').valueChanges.subscribe(duration => this.course.duration = duration);
-    this.courseFormGroup.get('rateCtrl').valueChanges.subscribe(rate => this.course.rate = rate);
-    this.courseFormGroup.get('stateCtrl').valueChanges.subscribe(state => this.course.state = state);
-    this.publishersService.getPublishers().subscribe(data => this.publishers = data);
+    this.courseFormGroup.get('titleCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(title => this.course.title = title);
+    this.courseFormGroup.get('publisherCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(publisher => this.course.publisher.id = publisher);
+    this.courseFormGroup.get('yearCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(year => this.course.year = year);
+    this.courseFormGroup.get('durationCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(duration => this.course.duration = duration);
+    this.courseFormGroup.get('rateCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(rate => this.course.rate = rate);
+    this.courseFormGroup.get('stateCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(state => this.course.state = state);
+    this.publishersService.getPublishers().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(data => this.publishers = data);
   }
 
   add(event: MatChipInputEvent): void {
@@ -127,7 +133,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
     return this.allTags.filter(tag => tag.toLowerCase().includes(filterValue));
   }
 
-  selectCoursePath(event) {
+  selectCoursePath(event): void {
     let size = 0;
     let files = event.target.files;
     let descript: Descript = {id: null, name: 'Files', infoId: this.course.id, text: '<html><body><table><caption>Files</caption>'};
@@ -152,7 +158,7 @@ export class CourseComponent  implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(params => {
       let id = +params.get('id');
       this.courseService.getCourse(id).subscribe(courseItem => {
         this.course = courseItem;
@@ -164,18 +170,16 @@ export class CourseComponent  implements OnInit, OnDestroy {
         this.courseFormGroup.get('rateCtrl').setValue(Rate[this.course.rate].toString());
         this.courseFormGroup.get('stateCtrl').setValue(State[this.course.state].toString());
       });
-      this.courseService.getCourseTags(id).subscribe(data => this.tags = data);
+      this.courseService.getCourseTags(id).pipe(takeUntil(this.ngUnsubscribe)).subscribe(data => this.tags = data);
     });
   }
 
-  ngOnDestroy(): void {
-    this.paramMap.unsubscribe();
-  }
 
   delete() {
-    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+    this.dialog.open(DeleteDialogComponent).afterClosed().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(result => {
       if(result) {
-        this.courseService.deleteCourse(this.course.id);
+        this.courseService.deleteCourse(this.course.id).pipe(takeUntil(this.ngUnsubscribe)).subscribe();
       }
     });
   }
@@ -184,8 +188,14 @@ export class CourseComponent  implements OnInit, OnDestroy {
     if (this.courseFormGroup.valid) {
       this.course.tags = [];
       this.tags.forEach(tag => this.course.tags.push({tag:tag}));
-      this.courseService.saveCourse(this.course).subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 1}}));
+      this.courseService.saveCourse(this.course).pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(response => this.router.navigate(['/home'], {queryParams: {index: 1}}));
     }
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 }

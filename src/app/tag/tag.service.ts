@@ -20,7 +20,7 @@ export class TagService {
     return this.http.post<Tag>(this.apiTagEndpoint, tag);
   }
 
-  deleteTag(tag: string) {
-    this.http.delete(this.apiTagEndpointId.replace(':tag', `${tag}`)).subscribe();
+  deleteTag(tag: string): Observable<any> {
+    return this.http.delete(this.apiTagEndpointId.replace(':tag', `${tag}`));
   }
 }

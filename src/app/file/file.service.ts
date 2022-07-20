@@ -20,11 +20,11 @@ export class FileService {
     return this.http.get<InfoFile>(this.apiFileEndpointId.replace(':id', `${fileId}`));
   }
 
-  deleteFile(fileId: number) {
-    this.http.delete(this.apiFileEndpointId.replace(':id', `${fileId}`)).subscribe();
+  deleteFile(fileId: number): Observable<any> {
+    return this.http.delete(this.apiFileEndpointId.replace(':id', `${fileId}`));
   }
 
-  saveFile(file: InfoFile) {
-    this.http.post<InfoFile>(this.apiFileEndpoint, file).subscribe();
+  saveFile(file: InfoFile): Observable<any> {
+    return this.http.post<InfoFile>(this.apiFileEndpoint, file);
   }
 }

@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Subject} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {InfoFile} from "../model/info-file";
 import {ActivatedRoute} from "@angular/router";
 import {FileService} from "./file.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-file',
@@ -13,8 +14,8 @@ import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
   styleUrls: ['./file.component.css']
 })
 export class FileComponent implements OnInit, OnDestroy {
+  ngUnsubscribe = new Subject<void>();
   file: InfoFile;
-  paramMap: Subscription;
   fileFormGroup: FormGroup;
 
   constructor(
@@ -26,14 +27,16 @@ export class FileComponent implements OnInit, OnDestroy {
       'fileNameCtrl': new FormControl(null, Validators.required),
       'fileSizeCtrl': new FormControl(null, Validators.required)
     });
-    this.fileFormGroup.get('fileNameCtrl').valueChanges.subscribe(fileName => this.file.filename = fileName);
-    this.fileFormGroup.get('fileSizeCtrl').valueChanges.subscribe(fileSize => this.file.size = fileSize);
+    this.fileFormGroup.get('fileNameCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(fileName => this.file.filename = fileName);
+    this.fileFormGroup.get('fileSizeCtrl').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(fileSize => this.file.size = fileSize);
   }
 
   ngOnInit(): void {
-    this.paramMap = this.activatedRoute.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(params => {
       let id = +params.get('id');
-      this.fileService.getFile(id).subscribe(file => {
+      this.fileService.getFile(id).pipe(takeUntil(this.ngUnsubscribe)).subscribe(file => {
         this.file = file;
         this.fileFormGroup.get('fileNameCtrl').setValue(this.file.filename);
         this.fileFormGroup.get('fileSizeCtrl').setValue(this.file.size);
@@ -41,25 +44,27 @@ export class FileComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.paramMap.unsubscribe();
-  }
-
-  delete() {
-    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
+  delete(): void {
+    this.dialog.open(DeleteDialogComponent).afterClosed().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(result => {
       if(result) {
-        this.fileService.deleteFile(this.file.id);
+        this.fileService.deleteFile(this.file.id).pipe(takeUntil(this.ngUnsubscribe)).subscribe();
       }
     });
   }
 
-  save() {
+  save(): void {
     if (this.fileFormGroup.valid) {
-      this.fileService.saveFile(this.file);
+      this.fileService.saveFile(this.file).pipe(takeUntil(this.ngUnsubscribe)).subscribe();
     }
   }
 
   refreshData(id: number) {
 
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
